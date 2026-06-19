@@ -1,0 +1,70 @@
+# ===========================
+# Operating System Files
+# ===========================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ===========================
+# Logs
+# ===========================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ===========================
+# Environment Variables
+# ===========================
+.env
+.env.*
+!.env.example
+
+# ===========================
+# Dependencies
+# ===========================
+node_modules/
+
+# ===========================
+# Build Output
+# ===========================
+dist/
+build/
+coverage/
+
+# ===========================
+# Package Manager
+# ===========================
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# ===========================
+# IDE and Editor Settings
+# ===========================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ===========================
+# Temporary Files
+# ===========================
+tmp/
+temp/
+.cache/
+
+# ===========================
+# Archive Files
+# ===========================
+*.zip
+*.tar
+*.gz
+
+# ===========================
+# Miscellaneous
+# ===========================
+*.bak
+*.tmp
