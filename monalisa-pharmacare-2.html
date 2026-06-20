@@ -1,0 +1,2392 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="Monalisa PharmaCare — pharmacy operations platform for Monalisa Tech Solutions">
+<meta name="theme-color" content="#0c4a6e">
+<title>Monalisa PharmaCare</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230c4a6e'/%3E%3Cpath d='M11 16h10M16 11v10' stroke='%2338bdf8' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================================
+   MONALISA PHARMACARE — DESIGN FOUNDATION
+   A pharmacy operations platform, not a dashboard template.
+   Typography pairs a quiet serif for moments of weight with a workhorse
+   grotesque for everything operational. Color is restrained on purpose —
+   the data should look calm even when the underlying day is not.
+   ============================================================================ */
+
+:root{
+  /* ---- core palette: deep teal-blue family, desaturated enough to sit
+     behind dense data all day without fatiguing the eye ---- */
+  --ink-950:#071a2c; --ink-900:#0c2436; --ink-800:#12324a; --ink-700:#1c4660;
+  --ink-600:#2c5d7d; --ink-500:#3f7798; --ink-400:#6b9bb8; --ink-300:#a3c5d9;
+  --ink-200:#cfe0ea; --ink-100:#e7f0f5; --ink-50:#f4f8fa;
+
+  --paper-0:#ffffff; --paper-50:#fafbfb; --paper-100:#f3f5f6; --paper-150:#ebeff1;
+  --paper-200:#e1e7ea; --paper-300:#cdd6da; --paper-400:#9aabb3;
+  --paper-500:#6e828c; --paper-600:#4f636d; --paper-700:#374750; --paper-800:#222e35; --paper-900:#13191d;
+
+  --accent:#0d8a9e; --accent-deep:#076b7c; --accent-soft:#e3f4f6; --accent-soft-d:#0d3d44;
+  --gold:#b8893f; --gold-soft:#faf2e3; --gold-soft-d:#3d2f17;
+
+  --good:#2f8f5b; --good-soft:#e6f5ec; --good-soft-d:#163d28; --good-deep:#1f6940;
+  --caution:#b9762a; --caution-soft:#fbf1e2; --caution-soft-d:#3d2c12;
+  --critical:#b6403a; --critical-soft:#fbeae9; --critical-soft-d:#3d1715;
+  --info:#3868b0; --info-soft:#eaf0fa;
+
+  --bg:var(--paper-50); --surface:var(--paper-0); --surface-raised:var(--paper-0);
+  --surface-sunken:var(--paper-100); --border:var(--paper-200); --border-soft:var(--paper-150);
+  --text:var(--paper-800); --text-dim:var(--paper-600); --text-faint:var(--paper-400);
+  --nav-bg:var(--ink-950); --nav-text:rgba(231,240,245,.5); --nav-active:var(--ink-200);
+
+  --e1:0 1px 2px rgba(7,26,44,.05);
+  --e2:0 2px 6px rgba(7,26,44,.06),0 0 0 1px rgba(7,26,44,.03);
+  --e3:0 8px 24px rgba(7,26,44,.09),0 0 0 1px rgba(7,26,44,.03);
+  --e4:0 20px 56px rgba(7,26,44,.14),0 0 0 1px rgba(7,26,44,.04);
+  --e-gold:0 8px 28px rgba(184,137,63,.22);
+
+  --serif:'Source Serif 4',Georgia,serif;
+  --sans:'Inter',-apple-system,system-ui,sans-serif;
+  --display:'Outfit','Inter',sans-serif;
+  --mono:ui-monospace,'SF Mono',Consolas,monospace;
+
+  --r-sm:7px; --r-md:11px; --r-lg:16px; --r-xl:22px; --r-pill:999px;
+  --nav-w:248px; --nav-w-coll:68px; --bar-h:64px; --tab-bar-h:64px;
+
+  --ease:cubic-bezier(.22,1,.36,1); --ease-snap:cubic-bezier(.34,1.56,.64,1);
+  --sp-fast:140ms; --sp-base:220ms; --sp-slow:380ms;
+}
+
+[data-theme="dark"]{
+  --bg:#0a1419; --surface:#0f1d24; --surface-raised:#142933; --surface-sunken:#081116;
+  --border:#1f3640; --border-soft:#17282f;
+  --text:#dde8eb; --text-dim:#8fa7af; --text-faint:#4e6770;
+  --nav-bg:#06100a14; --nav-bg:#081016;
+  --accent-soft:var(--accent-soft-d); --good-soft:var(--good-soft-d);
+  --caution-soft:var(--caution-soft-d); --critical-soft:var(--critical-soft-d); --gold-soft:var(--gold-soft-d);
+  --e1:0 1px 2px rgba(0,0,0,.3); --e2:0 2px 8px rgba(0,0,0,.4),0 0 0 1px rgba(255,255,255,.04);
+  --e3:0 8px 28px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.05); --e4:0 24px 64px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.06);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:15px;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);height:100dvh;overflow:hidden;-webkit-tap-highlight-color:transparent}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;border:none;background:none;font:inherit;color:inherit}
+input,textarea,select{font:inherit;color:inherit}
+svg{display:block;flex-shrink:0}
+::selection{background:var(--ink-200);color:var(--ink-900)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+
+/* scrollbars — thin and quiet everywhere */
+*{scrollbar-width:thin;scrollbar-color:var(--paper-300) transparent}
+*::-webkit-scrollbar{width:7px;height:7px}
+*::-webkit-scrollbar-thumb{background:var(--paper-300);border-radius:4px}
+*::-webkit-scrollbar-thumb:hover{background:var(--paper-400)}
+
+/* ---- icon strokes: every icon in this product shares one weight and
+   one corner radius so the set reads as drawn by one hand ---- */
+.icn{stroke:currentColor;stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.icn-fill{fill:currentColor;stroke:none}
+
+/* ============================================================================
+   LOGIN / GATE
+   ============================================================================ */
+#gate{
+  position:fixed;inset:0;z-index:1000;display:flex;
+  background:var(--ink-950);overflow:hidden;
+}
+.gate-art{
+  flex:1.15;position:relative;display:flex;flex-direction:column;justify-content:space-between;
+  padding:48px;background:
+    radial-gradient(ellipse 900px 600px at 15% 8%, rgba(13,138,158,.35), transparent 60%),
+    radial-gradient(ellipse 700px 500px at 85% 95%, rgba(184,137,63,.18), transparent 55%),
+    linear-gradient(165deg, var(--ink-950) 0%, var(--ink-900) 55%, #0a2030 100%);
+  color:#fff;
+}
+.gate-art::before{
+  content:'';position:absolute;inset:0;opacity:.5;
+  background-image:radial-gradient(circle, rgba(255,255,255,.06) 1px, transparent 1px);
+  background-size:28px 28px;mask-image:linear-gradient(165deg, black, transparent 70%);
+}
+.gate-brand{display:flex;align-items:center;gap:13px;position:relative;z-index:1}
+.gate-mark{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--ink-600));display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(13,138,158,.4)}
+.gate-brand-text{font-family:var(--display);font-weight:700;font-size:17px;letter-spacing:-.2px}
+.gate-brand-sub{font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:1px}
+.gate-quote{position:relative;z-index:1;max-width:480px}
+.gate-quote-mark{font-family:var(--serif);font-size:64px;line-height:.5;color:var(--accent);opacity:.5;margin-bottom:8px}
+.gate-quote-text{font-family:var(--serif);font-size:24px;line-height:1.45;font-weight:500;color:rgba(255,255,255,.92)}
+.gate-quote-attr{margin-top:18px;font-size:12.5px;color:rgba(255,255,255,.45)}
+.gate-stats{position:relative;z-index:1;display:flex;gap:36px;padding-top:28px;border-top:1px solid rgba(255,255,255,.1)}
+.gate-stat-num{font-family:var(--display);font-size:22px;font-weight:700;color:#fff}
+.gate-stat-lbl{font-size:11px;color:rgba(255,255,255,.4);margin-top:2px}
+
+.gate-form-wrap{flex:1;display:flex;align-items:center;justify-content:center;background:var(--paper-0);padding:32px}
+.gate-form{width:100%;max-width:360px}
+.gate-form-head{margin-bottom:32px}
+.gate-form-title{font-family:var(--display);font-size:25px;font-weight:700;letter-spacing:-.5px;color:var(--ink-950)}
+.gate-form-sub{font-size:13.5px;color:var(--text-dim);margin-top:6px;line-height:1.5}
+.gate-field{margin-bottom:16px}
+.gate-label{display:block;font-size:12px;font-weight:600;color:var(--text-dim);margin-bottom:7px}
+.gate-input{
+  width:100%;height:46px;padding:0 14px;border:1.5px solid var(--border);border-radius:var(--r-md);
+  background:var(--paper-50);font-size:14px;outline:none;transition:border-color var(--sp-fast) var(--ease),background var(--sp-fast);
+}
+.gate-input:focus{border-color:var(--accent);background:#fff;box-shadow:0 0 0 4px var(--accent-soft)}
+.gate-submit{
+  width:100%;height:48px;border-radius:var(--r-md);background:var(--ink-950);color:#fff;
+  font-weight:600;font-size:14px;margin-top:6px;display:flex;align-items:center;justify-content:center;gap:8px;
+  transition:background var(--sp-fast),transform var(--sp-fast);
+}
+.gate-submit:hover{background:var(--ink-800)}
+.gate-submit:active{transform:scale(.98)}
+.gate-foot{margin-top:22px;text-align:center;font-size:12px;color:var(--text-faint)}
+.gate-demo-note{
+  margin-top:24px;padding:13px 14px;border-radius:var(--r-md);background:var(--accent-soft);
+  font-size:12px;color:var(--accent-deep);line-height:1.55;display:flex;gap:9px;
+}
+#gate.leaving{animation:gateOut .5s var(--ease) forwards}
+@keyframes gateOut{to{opacity:0;transform:scale(1.02);pointer-events:none}}
+@media(max-width:880px){.gate-art{display:none}.gate-form-wrap{padding:20px}}
+
+/* ============================================================================
+   APP SHELL
+   ============================================================================ */
+#app{display:flex;height:100dvh;overflow:hidden;opacity:0;transition:opacity var(--sp-slow) var(--ease)}
+#app.ready{opacity:1}
+
+.nav{
+  width:var(--nav-w);min-width:var(--nav-w);background:var(--nav-bg);
+  display:flex;flex-direction:column;height:100dvh;flex-shrink:0;
+  transition:width var(--sp-slow) var(--ease),min-width var(--sp-slow) var(--ease),transform var(--sp-slow) var(--ease);
+  border-right:1px solid rgba(255,255,255,.05);position:relative;z-index:60;
+}
+.nav.coll{width:var(--nav-w-coll);min-width:var(--nav-w-coll)}
+.nav.coll .nh-text,.nav.coll .nlabel,.nav.coll .ntxt,.nav.coll .nbadge,
+.nav.coll .nb-label,.nav.coll .nb-chev,.nav.coll .nf-info,.nav.coll .nf-btn,
+.nav.coll .nsect-label{display:none!important}
+.nav.coll .nb-btn{justify-content:center;padding:9px}
+.nav.coll .nitem{justify-content:center;padding:11px 0}
+.nav.coll .nitem::before{display:none}
+
+.nh{display:flex;align-items:center;justify-content:space-between;padding:0 16px;height:var(--bar-h);border-bottom:1px solid rgba(255,255,255,.06);flex-shrink:0}
+.nh-brand{display:flex;align-items:center;gap:11px;overflow:hidden}
+.nh-mark{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--accent),var(--ink-600));display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.nh-text{overflow:hidden;white-space:nowrap}
+.nh-name{display:block;font-family:var(--display);font-size:14.5px;font-weight:700;color:#fff;letter-spacing:-.2px;line-height:1.2}
+.nh-sub{display:block;font-size:9.5px;letter-spacing:1.4px;text-transform:uppercase;color:var(--accent);font-weight:600;opacity:.85}
+.nh-collapse{color:rgba(255,255,255,.32);padding:7px;border-radius:var(--r-sm);transition:color var(--sp-fast),background var(--sp-fast);flex-shrink:0}
+.nh-collapse:hover{color:#fff;background:rgba(255,255,255,.08)}
+
+.nb-wrap{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.06)}
+.nb-btn{
+  display:flex;align-items:center;gap:9px;width:100%;padding:8px 11px;border-radius:var(--r-sm);
+  background:rgba(255,255,255,.05);color:rgba(255,255,255,.72);font-size:12.5px;font-weight:500;
+  transition:background var(--sp-fast);min-height:36px;
+}
+.nb-btn:hover{background:rgba(255,255,255,.09)}
+.nb-dot{width:6px;height:6px;border-radius:50%;background:var(--good);flex-shrink:0;box-shadow:0 0 0 3px rgba(47,143,91,.2)}
+.nb-label{flex:1;text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nb-chev{color:rgba(255,255,255,.25);flex-shrink:0;transition:transform var(--sp-fast)}
+
+.nmenu{flex:1;overflow-y:auto;padding:10px 0}
+.nmenu::-webkit-scrollbar{width:0}
+.nsect{padding:5px 0}
+.nsect+.nsect{border-top:1px solid rgba(255,255,255,.05);margin-top:3px;padding-top:9px}
+.nsect-label{display:block;font-size:9.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.22);padding:0 18px 5px}
+.nitem{
+  display:flex;align-items:center;gap:11px;padding:9px 18px;color:var(--nav-text);
+  font-size:13px;font-weight:500;cursor:pointer;border-radius:8px;margin:1px 10px;
+  transition:color var(--sp-fast),background var(--sp-fast);position:relative;white-space:nowrap;min-height:40px;
+}
+.nitem:hover{color:rgba(231,240,245,.85);background:rgba(255,255,255,.05)}
+.nitem.active{color:var(--nav-active);background:rgba(13,138,158,.18)}
+.nitem.active::before{content:'';position:absolute;left:-10px;top:22%;bottom:22%;width:3px;background:var(--accent);border-radius:0 3px 3px 0}
+.nicon{width:17px;height:17px;flex-shrink:0;opacity:.92}
+.nbadge{font-size:9.5px;font-weight:700;padding:1px 6px;border-radius:var(--r-pill);min-width:17px;text-align:center;line-height:1.5}
+.nbadge.b-accent{background:var(--accent);color:#fff}
+.nbadge.b-gold{background:var(--gold);color:#1c1304}
+
+.nf{border-top:1px solid rgba(255,255,255,.06);padding:11px}
+.nf-row{display:flex;align-items:center;gap:9px;overflow:hidden}
+.nf-avatar{width:33px;height:33px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,var(--gold),#8a6328);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:11px;font-weight:700;color:#1c1304}
+.nf-info{flex:1;overflow:hidden}
+.nf-name{display:block;font-size:12.5px;font-weight:600;color:rgba(255,255,255,.88);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nf-role{display:block;font-size:10.5px;color:rgba(255,255,255,.4);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nf-btn{color:rgba(255,255,255,.32);padding:5px;border-radius:5px;flex-shrink:0;transition:color var(--sp-fast)}
+.nf-btn:hover{color:rgba(255,255,255,.8)}
+
+.nav-backdrop{display:none;position:fixed;inset:0;background:rgba(7,26,44,.5);z-index:55;backdrop-filter:blur(1px)}
+.nav-backdrop.on{display:block}
+
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
+
+/* ============================================================================
+   TOPBAR
+   ============================================================================ */
+.bar{
+  height:var(--bar-h);background:var(--surface);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:14px;padding:0 22px;flex-shrink:0;position:sticky;top:0;z-index:40;
+}
+.bar-l{display:flex;align-items:center;gap:12px;min-width:0;flex:1}
+.bar-c{flex:0 1 520px}
+.bar-r{display:flex;align-items:center;gap:5px;flex-shrink:0}
+.hamburger{display:none;color:var(--text-dim);padding:8px;border-radius:var(--r-sm);min-width:40px;min-height:40px;align-items:center;justify-content:center;transition:background var(--sp-fast)}
+.hamburger:hover{background:var(--surface-sunken)}
+.crumb{display:flex;flex-direction:column;gap:1px;min-width:0}
+.crumb-main{font-family:var(--display);font-size:16px;font-weight:700;letter-spacing:-.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.crumb-sub{font-size:11px;color:var(--text-faint);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+.gsearch{position:relative;display:flex;align-items:center;gap:9px;background:var(--surface-sunken);border:1.5px solid transparent;border-radius:var(--r-pill);padding:0 15px;height:40px;transition:border-color var(--sp-fast),background var(--sp-fast)}
+.gsearch:focus-within{border-color:var(--accent);background:var(--surface);box-shadow:0 0 0 4px var(--accent-soft)}
+.gsearch input{background:none;border:none;outline:none;font-size:13px;color:var(--text);flex:1;min-width:0}
+.gsearch input::placeholder{color:var(--text-faint)}
+.gkbd{font-size:10px;font-family:var(--mono);background:var(--surface);border:1px solid var(--border);padding:2px 6px;border-radius:5px;color:var(--text-faint);white-space:nowrap;flex-shrink:0}
+.sdrop{position:absolute;top:calc(100% + 10px);left:0;right:0;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);box-shadow:var(--e4);max-height:380px;overflow-y:auto;display:none;z-index:80;padding:6px}
+.sdrop.on{display:block;animation:popIn var(--sp-fast) var(--ease)}
+.sr{display:flex;align-items:center;gap:11px;padding:10px 12px;cursor:pointer;border-radius:var(--r-sm);transition:background var(--sp-fast)}
+.sr:hover{background:var(--surface-sunken)}
+.sr-tag{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:3px 8px;border-radius:var(--r-pill);background:var(--accent-soft);color:var(--accent-deep);white-space:nowrap;flex-shrink:0}
+.sr-name{font-size:12.5px;font-weight:600}
+.sr-sub{font-size:11px;color:var(--text-dim)}
+
+.ibtn{color:var(--text-dim);padding:9px;border-radius:var(--r-sm);transition:color var(--sp-fast),background var(--sp-fast);position:relative;min-width:40px;min-height:40px;display:flex;align-items:center;justify-content:center}
+.ibtn:hover{color:var(--text);background:var(--surface-sunken)}
+.ibtn svg{width:18px;height:18px}
+.idot{position:absolute;top:8px;right:8px;width:7px;height:7px;border-radius:50%;background:var(--critical);border:2px solid var(--surface)}
+.role-pill{display:flex;align-items:center;gap:7px;height:38px;padding:0 7px 0 4px;border-radius:var(--r-pill);background:var(--surface-sunken);border:1px solid var(--border);cursor:pointer;transition:border-color var(--sp-fast)}
+.role-pill:hover{border-color:var(--accent)}
+.role-pill .nf-avatar{width:28px;height:28px;font-size:9.5px}
+.role-pill-name{font-size:11.5px;font-weight:600;line-height:1.2}
+.role-pill-role{font-size:9.5px;color:var(--text-faint);line-height:1.2}
+
+/* ============================================================================
+   MODULE CONTAINER & TYPOGRAPHY
+   ============================================================================ */
+.view{flex:1;overflow-y:auto;overflow-x:hidden;padding:26px 28px 40px}
+.vhead{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:24px;gap:16px;flex-wrap:wrap}
+.vhead-title{font-family:var(--display);font-size:24px;font-weight:700;letter-spacing:-.5px;line-height:1.2}
+.vhead-sub{font-size:13px;color:var(--text-dim);margin-top:4px;max-width:560px;line-height:1.5}
+.vhead-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap;flex-shrink:0}
+
+/* ============================================================================
+   BUTTONS
+   ============================================================================ */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:0 16px;height:38px;border-radius:var(--r-md);font-size:13px;font-weight:600;transition:all var(--sp-fast) var(--ease);white-space:nowrap;cursor:pointer;border:none;flex-shrink:0}
+.btn svg{width:15px;height:15px}
+.btn-primary{background:var(--ink-950);color:#fff}
+.btn-primary:hover{background:var(--ink-800);transform:translateY(-1px);box-shadow:var(--e2)}
+.btn-primary:active{transform:translateY(0)}
+.btn-accent{background:var(--accent);color:#fff}
+.btn-accent:hover{background:var(--accent-deep);transform:translateY(-1px);box-shadow:0 6px 16px rgba(13,138,158,.3)}
+.btn-line{background:var(--surface);color:var(--text);border:1.5px solid var(--border)}
+.btn-line:hover{border-color:var(--text-faint);background:var(--surface-sunken)}
+.btn-ghost{background:transparent;color:var(--text-dim)}
+.btn-ghost:hover{background:var(--surface-sunken);color:var(--text)}
+.btn-danger{background:var(--critical);color:#fff}
+.btn-danger:hover{background:#9c352f}
+.btn-good{background:var(--good);color:#fff}
+.btn-good:hover{background:var(--good-deep)}
+.btn-sm{height:32px;padding:0 13px;font-size:12px}
+.btn-xs{height:27px;padding:0 10px;font-size:11.5px;border-radius:var(--r-sm)}
+.btn-lg{height:48px;padding:0 22px;font-size:14.5px;border-radius:var(--r-md)}
+.btn:disabled{opacity:.4;pointer-events:none}
+
+/* ============================================================================
+   CARDS
+   ============================================================================ */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);box-shadow:var(--e1)}
+.card-h{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border-soft);gap:10px}
+.card-title{font-size:13.5px;font-weight:700;letter-spacing:-.1px}
+.card-eyebrow{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--text-faint);margin-bottom:2px}
+.card-b{padding:18px 20px}
+.card-f{padding:13px 20px;border-top:1px solid var(--border-soft);display:flex;align-items:center;justify-content:flex-end;gap:9px}
+
+/* ============================================================================
+   KPI TILES
+   ============================================================================ */
+.kgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(208px,1fr));gap:14px;margin-bottom:22px}
+.ktile{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:18px;display:flex;flex-direction:column;gap:13px;box-shadow:var(--e1);transition:box-shadow var(--sp-base) var(--ease),transform var(--sp-base) var(--ease),border-color var(--sp-base);position:relative;overflow:hidden}
+.ktile:hover{box-shadow:var(--e3);transform:translateY(-2px);border-color:var(--paper-300)}
+.ktile::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--tile-accent,var(--accent));opacity:0;transition:opacity var(--sp-base)}
+.ktile:hover::after{opacity:1}
+.kt-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.kt-label{font-size:11px;font-weight:600;color:var(--text-dim);letter-spacing:.1px;line-height:1.35}
+.kt-icon{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.kt-icon svg{width:17px;height:17px}
+.tone-accent{background:var(--accent-soft);color:var(--accent-deep)}
+.tone-good{background:var(--good-soft);color:var(--good-deep)}
+.tone-caution{background:var(--caution-soft);color:var(--caution)}
+.tone-critical{background:var(--critical-soft);color:var(--critical)}
+.tone-gold{background:var(--gold-soft);color:var(--gold)}
+.kt-val{font-family:var(--display);font-size:25px;font-weight:700;letter-spacing:-.7px;line-height:1}
+.kt-foot{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.kt-delta{display:inline-flex;align-items:center;gap:3px;font-size:11px;font-weight:700;padding:2px 8px;border-radius:var(--r-pill)}
+.kt-delta svg{width:10px;height:10px}
+.d-up{background:var(--good-soft);color:var(--good-deep)}
+.d-down{background:var(--critical-soft);color:var(--critical)}
+.d-flat{background:var(--surface-sunken);color:var(--text-dim)}
+.kt-context{font-size:11px;color:var(--text-faint)}
+
+/* ============================================================================
+   BADGES / STATUS
+   ============================================================================ */
+.tag{display:inline-flex;align-items:center;gap:5px;padding:3.5px 10px;border-radius:var(--r-pill);font-size:11px;font-weight:600;white-space:nowrap;line-height:1.3}
+.tag-good{background:var(--good-soft);color:var(--good-deep)}
+.tag-caution{background:var(--caution-soft);color:var(--caution)}
+.tag-critical{background:var(--critical-soft);color:var(--critical)}
+.tag-accent{background:var(--accent-soft);color:var(--accent-deep)}
+.tag-neutral{background:var(--surface-sunken);color:var(--text-dim)}
+.tag-gold{background:var(--gold-soft);color:var(--gold)}
+.tag-dot::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor;flex-shrink:0}
+
+.pulse{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:500}
+.pulse::before{content:'';width:7px;height:7px;border-radius:50%;background:currentColor;flex-shrink:0;animation:pulseDot 2.2s ease-in-out infinite}
+@keyframes pulseDot{0%,100%{opacity:1}50%{opacity:.35}}
+.pulse.p-good{color:var(--good)}.pulse.p-caution{color:var(--caution)}.pulse.p-critical{color:var(--critical)}.pulse.p-neutral{color:var(--text-faint)}
+
+/* ============================================================================
+   TABLES
+   ============================================================================ */
+.twrap{overflow-x:auto;border-radius:var(--r-lg);border:1px solid var(--border);background:var(--surface);box-shadow:var(--e1)}
+table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:540px}
+thead th{padding:11px 16px;text-align:left;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text-faint);background:var(--surface-sunken);border-bottom:1px solid var(--border);white-space:nowrap}
+tbody tr{border-bottom:1px solid var(--border-soft);transition:background var(--sp-fast)}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:var(--surface-sunken)}
+td{padding:12px 16px;vertical-align:middle}
+td.num{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+/* ============================================================================
+   FORMS
+   ============================================================================ */
+.fgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:15px}
+.fgrp{display:flex;flex-direction:column;gap:6px}
+.fgrp.full{grid-column:1/-1}
+.flbl{font-size:12px;font-weight:600;color:var(--text-dim)}
+.finp,.fsel,.ftxt{height:40px;padding:0 12px;border:1.5px solid var(--border);border-radius:var(--r-md);background:var(--surface);color:var(--text);font-size:13px;outline:none;width:100%;transition:border-color var(--sp-fast),box-shadow var(--sp-fast);-webkit-appearance:none}
+.ftxt{height:auto;padding:11px 12px;resize:vertical;min-height:84px;line-height:1.5}
+.finp:focus,.fsel:focus,.ftxt:focus{border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+.finp::placeholder,.ftxt::placeholder{color:var(--text-faint)}
+.fsel{cursor:pointer;padding-right:32px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' stroke='%239aabb3' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
+.fhint{font-size:11px;color:var(--text-faint);line-height:1.4}
+
+.fbar{display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+.fsearch{position:relative;display:flex;align-items:center;flex:1;min-width:200px}
+.fsearch svg{position:absolute;left:12px;color:var(--text-faint);width:15px;height:15px}
+.fsearch input{width:100%;height:38px;padding:0 12px 0 36px;border:1.5px solid var(--border);border-radius:var(--r-md);background:var(--surface);color:var(--text);font-size:12.5px;outline:none;transition:border-color var(--sp-fast)}
+.fsearch input:focus{border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+.fsearch input::placeholder{color:var(--text-faint)}
+.fsel-sm{height:38px;padding:0 30px 0 12px;border:1.5px solid var(--border);border-radius:var(--r-md);background:var(--surface);color:var(--text);font-size:12.5px;cursor:pointer;outline:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' stroke='%239aabb3' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center}
+
+/* ============================================================================
+   TABS
+   ============================================================================ */
+.tabrow{display:flex;border-bottom:1px solid var(--border);margin-bottom:18px;overflow-x:auto;gap:2px}
+.tabrow::-webkit-scrollbar{display:none}
+.tabitem{padding:11px 17px;font-size:13px;font-weight:500;color:var(--text-dim);cursor:pointer;border-bottom:2px solid transparent;transition:all var(--sp-fast);white-space:nowrap;min-height:42px;display:flex;align-items:center}
+.tabitem:hover{color:var(--text)}
+.tabitem.on{color:var(--accent-deep);border-bottom-color:var(--accent);font-weight:700}
+.tabpane{display:none;animation:fadeUp var(--sp-base) var(--ease)}
+.tabpane.on{display:block}
+
+/* ============================================================================
+   CHARTS — real SVG, not CSS boxes
+   ============================================================================ */
+.chartwrap{position:relative}
+.chart-svg{width:100%;display:block;overflow:visible}
+.chart-grid line{stroke:var(--border-soft);stroke-width:1}
+.chart-axis text{font-size:9.5px;fill:var(--text-faint);font-family:var(--sans)}
+.line-path{fill:none;stroke-width:2.25;stroke-linecap:round;stroke-linejoin:round}
+.area-path{opacity:.12}
+.chart-dot{transition:r var(--sp-fast)}
+.chart-tooltip{position:absolute;pointer-events:none;background:var(--ink-950);color:#fff;font-size:11px;padding:8px 11px;border-radius:8px;box-shadow:var(--e3);opacity:0;transition:opacity var(--sp-fast);white-space:nowrap;z-index:10;transform:translate(-50%,-100%)}
+.chart-tooltip.on{opacity:1}
+.chart-tt-val{font-weight:700;font-family:var(--mono)}
+.donut-center{font-family:var(--display)}
+.legend-row{display:flex;align-items:center;gap:8px;font-size:11.5px}
+.legend-sw{width:9px;height:9px;border-radius:3px;flex-shrink:0}
+
+/* ============================================================================
+   ALERTS / BANNERS
+   ============================================================================ */
+.banner{display:flex;align-items:flex-start;gap:12px;padding:13px 15px;border-radius:var(--r-lg);margin-bottom:12px;border:1px solid}
+.banner-caution{background:var(--caution-soft);border-color:rgba(185,118,42,.25);color:var(--caution)}
+.banner-critical{background:var(--critical-soft);border-color:rgba(182,64,58,.25);color:var(--critical)}
+.banner-accent{background:var(--accent-soft);border-color:rgba(13,138,158,.2);color:var(--accent-deep)}
+.banner-icon{width:19px;height:19px;flex-shrink:0;margin-top:1px}
+.banner-body{flex:1;min-width:0}
+.banner-title{font-size:13px;font-weight:700}
+.banner-desc{font-size:12px;opacity:.85;margin-top:2px;line-height:1.45}
+
+/* ============================================================================
+   SLIDE PANELS
+   ============================================================================ */
+.scrim{position:fixed;inset:0;background:rgba(7,26,44,.45);display:none;z-index:500;backdrop-filter:blur(2px)}
+.scrim.on{display:block;animation:scrimIn var(--sp-base) var(--ease)}
+@keyframes scrimIn{from{opacity:0}to{opacity:1}}
+.panel{position:fixed;top:0;right:0;bottom:0;width:min(410px,100vw);background:var(--surface);border-left:1px solid var(--border);box-shadow:var(--e4);display:flex;flex-direction:column;transform:translateX(100%);transition:transform var(--sp-slow) var(--ease);z-index:501}
+.panel.on{transform:translateX(0)}
+.panel-h{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid var(--border);flex-shrink:0}
+.panel-h-title{font-family:var(--display);font-size:15.5px;font-weight:700}
+.panel-x{font-size:20px;color:var(--text-dim);padding:4px 9px;border-radius:var(--r-sm);line-height:1;transition:all var(--sp-fast)}
+.panel-x:hover{background:var(--surface-sunken);color:var(--text)}
+.panel-b{flex:1;overflow-y:auto;padding:15px}
+
+/* AI panel */
+.ai-panel{width:min(430px,100vw)}
+.ai-h{background:linear-gradient(135deg,var(--accent-soft),var(--surface));border-bottom:1px solid var(--border)}
+.ai-hrow{display:flex;align-items:center;gap:11px}
+.ai-av{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--ink-600));display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ai-name{font-family:var(--display);font-size:14.5px;font-weight:700}
+.ai-status{font-size:11px;color:var(--good);font-weight:500;display:flex;align-items:center;gap:5px}
+.ai-msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:11px}
+.ai-msg{max-width:90%;padding:11px 14px;border-radius:15px;font-size:13px;line-height:1.55;animation:popIn var(--sp-fast) var(--ease)}
+.ai-msg.u{align-self:flex-end;background:var(--ink-950);color:#fff;border-radius:15px 15px 4px 15px}
+.ai-msg.b{align-self:flex-start;background:var(--surface-sunken);border:1px solid var(--border-soft);border-radius:15px 15px 15px 4px}
+.ai-msg-lbl{font-size:10px;font-weight:700;color:var(--accent-deep);text-transform:uppercase;letter-spacing:.6px;margin-bottom:4px}
+.ai-typing{display:inline-flex;gap:4px;align-items:center;padding:4px 0}
+.ai-typing span{width:5px;height:5px;border-radius:50%;background:var(--text-faint);animation:typingDot 1.3s ease-in-out infinite}
+.ai-typing span:nth-child(2){animation-delay:.16s}.ai-typing span:nth-child(3){animation-delay:.32s}
+@keyframes typingDot{0%,60%,100%{opacity:.25;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
+.ai-chips{display:flex;flex-wrap:wrap;gap:7px;padding:12px 16px 0}
+.ai-chip{font-size:11.5px;padding:6px 13px;border:1px solid var(--border);border-radius:var(--r-pill);background:var(--surface);color:var(--text-dim);cursor:pointer;transition:all var(--sp-fast);white-space:nowrap}
+.ai-chip:hover{border-color:var(--accent);color:var(--accent-deep);background:var(--accent-soft)}
+.ai-inarea{border-top:1px solid var(--border);padding:14px 16px;flex-shrink:0}
+.ai-inrow{display:flex;gap:9px;margin-top:10px}
+.ai-inrow input{flex:1;height:42px;padding:0 16px;border:1.5px solid var(--border);border-radius:var(--r-pill);background:var(--surface-sunken);color:var(--text);font-size:13px;outline:none;transition:border-color var(--sp-fast)}
+.ai-inrow input:focus{border-color:var(--accent);background:var(--surface)}
+.ai-send{width:42px;height:42px;border-radius:50%;background:var(--ink-950);color:#fff;display:flex;align-items:center;justify-content:center;transition:all var(--sp-fast);flex-shrink:0}
+.ai-send:hover{background:var(--accent-deep);transform:scale(1.06)}
+
+/* ============================================================================
+   DIALOG
+   ============================================================================ */
+.dlg-scrim{position:fixed;inset:0;background:rgba(7,26,44,.5);display:none;z-index:600;backdrop-filter:blur(3px);align-items:center;justify-content:center;padding:18px}
+.dlg-scrim.on{display:flex;animation:scrimIn var(--sp-fast) var(--ease)}
+.dlg{background:var(--surface);border-radius:var(--r-xl);box-shadow:var(--e4);width:100%;max-width:560px;max-height:88dvh;overflow-y:auto;animation:dlgIn var(--sp-base) var(--ease-snap)}
+@keyframes dlgIn{from{opacity:0;transform:scale(.94) translateY(10px)}to{opacity:1;transform:none}}
+.dlg-h{display:flex;align-items:center;justify-content:space-between;padding:19px 22px;border-bottom:1px solid var(--border)}
+.dlg-title{font-family:var(--display);font-size:16.5px;font-weight:700}
+.dlg-b{padding:20px 22px}
+.dlg-f{padding:13px 22px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:flex-end;gap:9px;flex-wrap:wrap}
+
+
+/* ============================================================================
+   NOTIFICATIONS LIST
+   ============================================================================ */
+.nrow{display:flex;align-items:flex-start;gap:11px;padding:12px 13px;cursor:pointer;transition:background var(--sp-fast);border-radius:var(--r-md);margin-bottom:2px}
+.nrow:hover{background:var(--surface-sunken)}
+.nrow.unread{background:var(--accent-soft)}
+.nrow-ico{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.nrow-ico svg{width:15px;height:15px}
+.nrow-title{font-size:12.5px;font-weight:700}
+.nrow-desc{font-size:11.5px;color:var(--text-dim);line-height:1.45;margin-top:1px}
+.nrow-time{font-size:10.5px;color:var(--text-faint);margin-top:5px}
+
+.ddmenu{position:fixed;z-index:600;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);box-shadow:var(--e4);min-width:230px;overflow:hidden;display:none}
+.ddmenu.on{display:block;animation:popIn var(--sp-fast) var(--ease)}
+.ddhead{padding:9px 15px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--text-faint);border-bottom:1px solid var(--border-soft)}
+.dditem{display:flex;align-items:center;gap:10px;padding:10px 15px;font-size:13px;cursor:pointer;transition:background var(--sp-fast)}
+.dditem:hover{background:var(--surface-sunken)}
+.dditem.on{color:var(--accent-deep);background:var(--accent-soft)}
+.dddot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+
+.toasts{position:fixed;bottom:24px;right:24px;display:flex;flex-direction:column;gap:9px;z-index:900;pointer-events:none;max-width:calc(100vw - 32px)}
+.toast{display:flex;align-items:center;gap:11px;padding:13px 18px;background:var(--ink-950);color:#fff;border-radius:var(--r-md);box-shadow:var(--e4);font-size:13px;font-weight:500;pointer-events:all;animation:toastIn var(--sp-base) var(--ease-snap);border-left:3px solid var(--accent);max-width:380px}
+.toast-icon{flex-shrink:0;width:18px;height:18px}
+.toast.t-good{border-left-color:var(--good)}.toast.t-caution{border-left-color:var(--caution)}.toast.t-critical{border-left-color:var(--critical)}
+@keyframes toastIn{from{opacity:0;transform:translateX(24px) scale(.97)}to{opacity:1;transform:none}}
+@keyframes toastOut{to{opacity:0;transform:translateX(24px)}}
+.toast.out{animation:toastOut var(--sp-fast) var(--ease) forwards}
+
+.empty{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:56px 22px;text-align:center;gap:13px}
+.empty-ico{width:68px;height:68px;border-radius:var(--r-xl);background:var(--surface-sunken);border:1px solid var(--border);display:flex;align-items:center;justify-content:center}
+.empty-ico svg{width:30px;height:30px;color:var(--text-faint)}
+.empty-t{font-family:var(--display);font-size:16px;font-weight:700}
+.empty-d{font-size:12.5px;color:var(--text-dim);max-width:300px;line-height:1.55}
+
+.skel{background:linear-gradient(90deg,var(--border) 25%,var(--border-soft) 50%,var(--border) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:var(--r-sm)}
+@keyframes shimmer{to{background-position:-200% 0}}
+.skel-line{height:13px;border-radius:4px;margin-bottom:8px}
+.skel-card{height:108px;border-radius:var(--r-lg)}
+.loadwrap{display:flex;flex-direction:column;gap:14px}
+.spin{width:30px;height:30px;border:2.5px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.toggle{display:flex;align-items:center;gap:11px;cursor:pointer}
+.tgl-track{width:40px;height:22px;border-radius:var(--r-pill);background:var(--paper-300);position:relative;transition:background var(--sp-fast);flex-shrink:0}
+.toggle input{display:none}
+.toggle input:checked+.tgl-track{background:var(--accent)}
+.tgl-thumb{position:absolute;top:2.5px;left:2.5px;width:17px;height:17px;border-radius:50%;background:#fff;box-shadow:var(--e1);transition:transform var(--sp-fast) var(--ease-snap)}
+.toggle input:checked+.tgl-track .tgl-thumb{transform:translateX(18px)}
+.prog{height:6px;background:var(--surface-sunken);border-radius:var(--r-pill);overflow:hidden}
+.prog-fill{height:100%;border-radius:var(--r-pill);transition:width var(--sp-slow) var(--ease)}
+
+.pos-grid{display:grid;grid-template-columns:1fr 380px;gap:18px;height:calc(100dvh - var(--bar-h) - 56px)}
+.pos-products{overflow-y:auto;display:flex;flex-direction:column;gap:14px;padding-bottom:8px}
+.prod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:11px}
+.ptile{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:14px;cursor:pointer;transition:all var(--sp-fast) var(--ease);display:flex;flex-direction:column;gap:7px;position:relative}
+.ptile:hover{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft);transform:translateY(-1px)}
+.ptile:active{transform:scale(.98)}
+.ptile-ico{width:42px;height:42px;border-radius:10px;background:var(--accent-soft);color:var(--accent-deep);display:flex;align-items:center;justify-content:center}
+.ptile-ico svg{width:21px;height:21px}
+.ptile-name{font-size:12.5px;font-weight:700;line-height:1.3}
+.ptile-meta{font-size:10.5px;color:var(--text-dim)}
+.ptile-price{font-size:14px;font-weight:700;color:var(--accent-deep);font-family:var(--mono)}
+.ptile-stock{font-size:10.5px;color:var(--text-faint)}
+.ptile.low .ptile-stock{color:var(--caution);font-weight:600}
+.ptile-flag{position:absolute;top:9px;right:9px;width:18px;height:18px;color:var(--gold)}
+
+.cartpane{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);box-shadow:var(--e2);display:flex;flex-direction:column;overflow:hidden}
+.cart-h{padding:14px 16px;border-bottom:1px solid var(--border);flex-shrink:0}
+.cart-items{flex:1;overflow-y:auto;padding:9px}
+.cart-line{display:flex;align-items:center;gap:9px;padding:9px;border-radius:var(--r-md);transition:background var(--sp-fast);border:1px solid transparent;animation:fadeUp var(--sp-base) var(--ease)}
+.cart-line:hover{background:var(--surface-sunken);border-color:var(--border)}
+.cl-info{flex:1;min-width:0}
+.cl-name{font-size:12px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cl-price{font-size:11px;color:var(--text-dim);font-family:var(--mono)}
+.cl-qty{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.qbtn{width:25px;height:25px;border-radius:7px;background:var(--surface-sunken);border:1px solid var(--border);font-size:15px;font-weight:600;color:var(--text);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background var(--sp-fast);flex-shrink:0;line-height:1}
+.qbtn:hover{background:var(--border)}
+.qval{font-size:12.5px;font-weight:700;min-width:20px;text-align:center;font-family:var(--mono)}
+.cl-total{font-size:12.5px;font-weight:700;font-family:var(--mono);min-width:68px;text-align:right;flex-shrink:0}
+.cart-sum{border-top:1px solid var(--border);padding:14px 16px;flex-shrink:0}
+.sumrow{display:flex;justify-content:space-between;margin-bottom:7px;font-size:12.5px}
+.sumtotal{font-weight:700;font-size:16px;margin-top:9px;padding-top:9px;border-top:1px solid var(--border);font-family:var(--mono)}
+.paymethods{display:flex;gap:6px;margin:11px 0;flex-wrap:wrap}
+.paybtn{flex:1;min-width:62px;padding:7px 9px;border-radius:var(--r-md);border:1.5px solid var(--border);font-size:11px;font-weight:600;text-align:center;cursor:pointer;transition:all var(--sp-fast);color:var(--text-dim)}
+.paybtn.on{border-color:var(--accent);color:var(--accent-deep);background:var(--accent-soft)}
+
+.bnav{display:none;position:fixed;bottom:0;left:0;right:0;height:62px;background:var(--surface);border-top:1px solid var(--border);box-shadow:0 -6px 24px rgba(7,26,44,.08);z-index:250;padding-bottom:env(safe-area-inset-bottom)}
+.bnav-row{display:flex;height:100%}
+.bnav-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;color:var(--text-faint);font-size:9.5px;font-weight:600;position:relative;min-height:44px;transition:color var(--sp-fast)}
+.bnav-btn.on{color:var(--accent-deep)}
+.bnav-btn svg{width:20px;height:20px}
+.bnav-flag{position:absolute;top:7px;right:calc(50% - 17px);width:8px;height:8px;border-radius:50%;background:var(--critical);border:2px solid var(--surface)}
+
+.dgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.dgrid .s2{grid-column:span 2}.dgrid .s3{grid-column:span 3}
+.bgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(266px,1fr));gap:16px}
+.financards{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:18px}
+.financard{padding:15px;border-radius:var(--r-lg);border:1px solid var(--border);background:var(--surface)}
+.fc-lbl{font-size:11px;color:var(--text-dim);font-weight:500;margin-bottom:5px}
+.fc-val{font-size:19px;font-weight:700;font-family:var(--mono);letter-spacing:-.3px}
+
+.row{display:flex;align-items:center}
+.g2{gap:8px}.g3{gap:11px}.g4{gap:15px}
+.jb{justify-content:space-between}
+.fw6{font-weight:600}.fw7{font-weight:700}
+.fmono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.fdisplay{font-family:var(--display)}
+.dim{color:var(--text-dim)}.faint{color:var(--text-faint)}
+.cgood{color:var(--good)}.ccaution{color:var(--caution)}.ccritical{color:var(--critical)}
+.mt2{margin-top:8px}.mt3{margin-top:13px}.mt4{margin-top:17px}.mt5{margin-top:22px}
+.mb2{margin-bottom:8px}.mb3{margin-bottom:13px}.mb4{margin-bottom:17px}
+.trunc{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
+.enter{animation:fadeUp var(--sp-base) var(--ease) both}
+.enter-d1{animation-delay:.03s}.enter-d2{animation-delay:.06s}.enter-d3{animation-delay:.09s}.enter-d4{animation-delay:.12s}.enter-d5{animation-delay:.15s}.enter-d6{animation-delay:.18s}.enter-d7{animation-delay:.21s}.enter-d8{animation-delay:.24s}
+@keyframes popIn{from{opacity:0;transform:scale(.93)}to{opacity:1;transform:none}}
+.confirm-burst{animation:burstPop .42s var(--ease-snap)}
+@keyframes burstPop{0%{transform:scale(1)}35%{transform:scale(1.05)}100%{transform:scale(1)}}
+
+@media(max-width:1200px){
+  .dgrid{grid-template-columns:1fr 1fr}
+  .dgrid .s2{grid-column:span 2}.dgrid .s3{grid-column:1/-1}
+  .pos-grid{grid-template-columns:1fr 330px}
+  .kgrid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}
+}
+@media(max-width:900px){
+  :root{--bar-h:58px}
+  .nav{position:fixed;left:0;top:0;bottom:0;width:min(280px,82vw);min-width:0;transform:translateX(-100%);z-index:300;box-shadow:none}
+  .nav.mob-open{transform:translateX(0);box-shadow:var(--e4)}
+  .nav.coll{width:min(280px,82vw);min-width:0}
+  .nav.coll .nh-text,.nav.coll .nsect-label,.nav.coll .nitem span:not(.nicon),
+  .nav.coll .nbadge,.nav.coll .nb-label,.nav.coll .nb-chev,.nav.coll .nf-info,.nav.coll .nf-btn{display:revert!important}
+  .nav.coll .nb-btn{justify-content:flex-start}
+  .nav.coll .nitem{justify-content:flex-start;padding:9px 18px}
+  .nh-collapse{display:none}
+  .hamburger{display:flex}
+  .bar{padding:0 14px}
+  .view{padding:16px 16px calc(62px + 16px)}
+  .dgrid{grid-template-columns:1fr}
+  .dgrid .s2,.dgrid .s3{grid-column:1/-1}
+  .pos-grid{grid-template-columns:1fr;height:auto}
+  .cartpane{max-height:460px}
+  .kgrid{grid-template-columns:1fr 1fr;gap:11px}
+  .panel{width:min(390px,92vw)}
+  .ai-panel{width:min(410px,92vw)}
+  .bnav{display:block}
+  table{min-width:480px}
+}
+@media(max-width:600px){
+  :root{--bar-h:54px}
+  .bar{padding:0 12px}
+  .bar-c{display:none}
+  .crumb-main{font-size:15px}
+  .view{padding:13px 13px calc(62px + 13px)}
+  .vhead-title{font-size:19px}
+  .vhead{flex-direction:column;align-items:stretch;gap:11px}
+  .vhead-actions{justify-content:flex-end}
+  .kgrid{grid-template-columns:1fr 1fr;gap:9px}
+  .ktile{padding:13px}
+  .kt-val{font-size:21px}
+  .fgrid{grid-template-columns:1fr}
+  .panel{width:100vw}.ai-panel{width:100vw}
+  .fbar{flex-direction:column;align-items:stretch}
+  .prod-grid{grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:9px}
+  .dlg-scrim{padding:10px}
+  .dlg{border-radius:var(--r-lg);max-height:90dvh}
+  .dlg-h,.dlg-b,.dlg-f{padding:15px}
+  .dlg-f{flex-wrap:wrap}.dlg-f .btn{flex:1;min-width:108px;justify-content:center}
+  table{min-width:400px;font-size:12px}
+  thead th{padding:9px 11px}td{padding:9px 11px}
+  .tabitem{padding:9px 13px;font-size:12px}
+  .toasts{right:13px;left:13px;bottom:74px;align-items:stretch}
+  .toast{max-width:none}
+  .gate-form-wrap{padding:18px}
+}
+@media(max-width:420px){
+  .kgrid{grid-template-columns:1fr}
+  .view{padding:11px 11px calc(62px + 11px)}
+  .vhead-title{font-size:18px}
+  .btn{height:36px;padding:0 13px;font-size:12.5px}
+  .btn-sm{height:30px;font-size:11.5px}
+  .card-b,.card-h,.card-f{padding:14px}
+}
+@media(hover:none) and (pointer:coarse){
+  .btn,.ibtn,.nitem,.qbtn,.paybtn,.tabitem,.bnav-btn,.hamburger,.nh-collapse{min-height:40px}
+  .qbtn{min-width:32px;min-height:32px}
+  input,select,textarea{font-size:16px}
+}
+@media print{.nav,.bar,.bnav,.toasts{display:none!important}}
+</style>
+</head>
+<body>
+<script>
+/* ============================================================================
+   ICON LIBRARY
+   One stroke weight, one corner language, drawn as a set rather than
+   assembled from mismatched sources. Referenced by key everywhere in
+   the product instead of emoji.
+   ============================================================================ */
+const Icon = (function(){
+  const wrap = (paths, vb='0 0 20 20') => `<svg class="icn" viewBox="${vb}" width="100%" height="100%">${paths}</svg>`;
+  const lib = {
+    grid:        wrap(`<rect x="2.5" y="2.5" width="6.5" height="6.5" rx="1.6"/><rect x="11" y="2.5" width="6.5" height="6.5" rx="1.6"/><rect x="2.5" y="11" width="6.5" height="6.5" rx="1.6"/><rect x="11" y="11" width="6.5" height="6.5" rx="1.6"/>`),
+    pulse:       wrap(`<path d="M2 11h3.5l2-6 3 11 2-9 1.5 4H18"/>`),
+    receipt:     wrap(`<path d="M5 2.5h10a1 1 0 011 1v13.2l-2-1.2-2 1.2-2-1.2-2 1.2-2-1.2-2 1.2V3.5a1 1 0 011-1z"/><path d="M7.5 7h5M7.5 10h5M7.5 13h3"/>`),
+    capsule:     wrap(`<rect x="2.5" y="7" width="15" height="6" rx="3" transform="rotate(-22 10 10)"/><path d="M9 6.3l2 7.4" transform="rotate(-22 10 10)"/>`),
+    boxes:       wrap(`<rect x="2.5" y="2.5" width="6.4" height="6.4" rx="1.2"/><rect x="11.1" y="2.5" width="6.4" height="6.4" rx="1.2"/><rect x="2.5" y="11.1" width="6.4" height="6.4" rx="1.2"/><rect x="11.1" y="11.1" width="6.4" height="6.4" rx="1.2"/>`),
+    cart:        wrap(`<path d="M4 6h12.5l-1.7 7.8H6.3L4 6z"/><circle cx="7.8" cy="17" r="1.4"/><circle cx="13.7" cy="17" r="1.4"/><path d="M4 6L3 3H1.3"/>`),
+    truck:       wrap(`<path d="M2.5 5.5h9v8h-9z"/><path d="M11.5 9.5h3.3l2.7 2.7v1.3h-6z"/><circle cx="6" cy="16" r="1.6"/><circle cx="14" cy="16" r="1.6"/>`),
+    users:       wrap(`<circle cx="7.3" cy="6.5" r="3"/><path d="M2.2 17c0-3.3 2.3-5.6 5.1-5.6s5.1 2.3 5.1 5.6"/><circle cx="14.5" cy="6.8" r="2.3"/><path d="M13.2 11.5c2.1.4 3.6 2.3 3.6 4.8"/>`),
+    supplier:    wrap(`<rect x="2.2" y="7.5" width="9" height="8.5" rx="1.4"/><path d="M11.2 10.5h3.3l2.5 2.5v3h-5.8"/><path d="M5 7.5V4.7a3 3 0 016 0v2.8"/>`),
+    badgeUser:   wrap(`<circle cx="7" cy="6" r="2.6"/><path d="M2.2 16.2c0-2.8 2.1-5.1 4.8-5.1s4.8 2.3 4.8 5.1"/><path d="M13 9.2c1.4 0 2.5 1.4 2.5 3.1"/><circle cx="14" cy="5.5" r="1.9"/>`),
+    coin:        wrap(`<circle cx="10" cy="10" r="7.4"/><path d="M10 5.7v1.2M10 13.1v1.2M7.3 8.2a1.9 1.9 0 011.9-1.4c1.1 0 1.9.6 1.9 1.4 0 .8-1 1.2-1.9 1.4-1.1.2-1.9.7-1.9 1.5 0 .8.9 1.4 1.9 1.4 1 0 1.9-.6 1.9-1.4"/>`),
+    fileChart:   wrap(`<rect x="3.5" y="2.2" width="13" height="15.6" rx="1.6"/><path d="M6.3 6.5h7.4M6.3 9.5h7.4M6.3 12.5h4"/>`),
+    sitemap:     wrap(`<circle cx="10" cy="4.6" r="2"/><circle cx="4" cy="14.6" r="2"/><circle cx="16" cy="14.6" r="2"/><path d="M10 6.6v2.6M10 9.2L4 12.6M10 9.2l6 3.4"/>`),
+    shield:      wrap(`<path d="M10 2.2l6.4 2.3v5.3c0 4-2.6 7-6.4 8-3.8-1-6.4-4-6.4-8V4.5L10 2.2z"/><path d="M7 9.8l2.1 2.1L13.4 7.6"/>`),
+    gear:        wrap(`<circle cx="10" cy="10" r="2.6"/><path d="M10 2.6v2.3M10 15.1v2.3M17.4 10h-2.3M4.9 10H2.6M15.4 4.6l-1.6 1.6M6.2 13.8l-1.6 1.6M15.4 15.4l-1.6-1.6M6.2 6.2L4.6 4.6"/>`),
+    search:      wrap(`<circle cx="8.2" cy="8.2" r="5.2"/><path d="M12 12L17 17"/>`),
+    bell:        wrap(`<path d="M10 2.4a5.4 5.4 0 00-5.4 5.4v3.4l-1.8 2.9h14.4l-1.8-2.9V7.8A5.4 5.4 0 0010 2.4z"/><path d="M8 15.8a2 2 0 004 0"/>`),
+    sparkle:     wrap(`<path d="M10 2.5l1.4 4.7L16 9l-4.6 1.7L10 15.5l-1.4-4.8L4 9l4.6-1.8z"/>`),
+    moon:        wrap(`<path d="M16.5 11.8A6.8 6.8 0 018.2 3.5a6.8 6.8 0 108.3 8.3z"/>`),
+    sun:         wrap(`<circle cx="10" cy="10" r="3.4"/><path d="M10 2.6v2.4M10 15v2.4M17.4 10h-2.4M5 10H2.6M15.3 4.7l-1.7 1.7M6.4 13.6l-1.7 1.7M15.3 15.3l-1.7-1.7M6.4 6.4L4.7 4.7"/>`),
+    chevDown:    wrap(`<path d="M4 7l6 6 6-6"/>`),
+    chevRight:   wrap(`<path d="M7.5 4.5l6 5.5-6 5.5"/>`),
+    plus:        wrap(`<path d="M10 3v14M3 10h14"/>`),
+    minus:       wrap(`<path d="M3 10h14"/>`),
+    check:       wrap(`<path d="M3.5 10.5l4 4 9-9.5"/>`),
+    checkCircle: wrap(`<circle cx="10" cy="10" r="7.4"/><path d="M6.3 10.2l2.6 2.6L14 7.2"/>`),
+    x:           wrap(`<path d="M5 5l10 10M15 5L5 15"/>`),
+    barcode:     wrap(`<path d="M3 4v12M5.5 4v12M7.3 4v12M9.5 4v12M11 4v12M13.5 4v12M16 4v12" stroke-width="1.4"/>`),
+    download:    wrap(`<path d="M10 2.6v9.6M6 8.7L10 12.7 14 8.7M3.5 15.4h13"/>`),
+    refresh:     wrap(`<path d="M16 10a6 6 0 10-1.8 4.3M16 5.8V10h-4.2"/>`),
+    filter:      wrap(`<path d="M3 4.5h14L11.5 11v5l-3 1.5V11z"/>`),
+    arrowUp:     wrap(`<path d="M10 16V4M5 9l5-5 5 5"/>`,'0 0 20 20'),
+    arrowDown:   wrap(`<path d="M10 4v12M5 11l5 5 5-5"/>`,'0 0 20 20'),
+    flask:       wrap(`<path d="M8 2.5h4M8.6 2.5v5.4L4.3 15a1.6 1.6 0 001.4 2.4h8.6a1.6 1.6 0 001.4-2.4l-4.3-7.1V2.5"/><path d="M6.8 11.5h6.4"/>`),
+    clock:       wrap(`<circle cx="10" cy="10" r="7.4"/><path d="M10 5.8V10l3 2"/>`),
+    layers:      wrap(`<path d="M10 2.6l7 3.8-7 3.8-7-3.8z"/><path d="M3 10.4l7 3.8 7-3.8M3 14.2l7 3.8 7-3.8"/>`),
+    lock:        wrap(`<rect x="4.5" y="9" width="11" height="8" rx="1.6"/><path d="M6.5 9V6.2a3.5 3.5 0 017 0V9"/>`),
+    inbox:       wrap(`<path d="M3 11.5h4l1.6 2.4h2.8L13 11.5h4"/><path d="M3 11.5L4.8 4h10.4L17 11.5v3.8a1.4 1.4 0 01-1.4 1.4H4.4A1.4 1.4 0 013 15.3z"/>`),
+    pin:         wrap(`<path d="M10 17.5S15.5 12 15.5 8a5.5 5.5 0 10-11 0c0 4 5.5 9.5 5.5 9.5z"/><circle cx="10" cy="8" r="2.1"/>`),
+    drop:        wrap(`<path d="M10 2.8s5.5 6.4 5.5 10.2a5.5 5.5 0 11-11 0c0-3.8 5.5-10.2 5.5-10.2z"/>`),
+    wind:        wrap(`<path d="M3 7h9.5a2.3 2.3 0 10-2.2-3M3 13h11a2.3 2.3 0 11-2.2 3M3 10h7.5"/>`),
+    leaf:        wrap(`<path d="M16 4S6 3.3 4 11c-1.4 5.4 2 7 3.6 7C12 18 16 13 16 4z"/><path d="M7.5 17C9 12 12 8 16 4"/>`),
+    syringe:     wrap(`<path d="M14.5 2.5l3 3-1.7 1.7-3-3z"/><path d="M15.8 4.2l-9 9-3.3 4.3 4.3-3.3 9-9"/><path d="M11.5 8.5l-2 2M9.5 6.5l-2 2"/>`),
+    eye:         wrap(`<path d="M2 10s2.8-5.5 8-5.5S18 10 18 10s-2.8 5.5-8 5.5S2 10 2 10z"/><circle cx="10" cy="10" r="2.2"/>`),
+    target:      wrap(`<circle cx="10" cy="10" r="7"/><circle cx="10" cy="10" r="3.8"/><circle cx="10" cy="10" r="1"/>`),
+    bolt:        wrap(`<path d="M11 2.5L4.5 11.5h4.3L9 17.5l6.5-9.5h-4.3z"/>`),
+    star:        wrap(`<path d="M10 2.5l2.3 5 5.4.6-4 3.8 1 5.5L10 14.6l-4.7 2.8 1-5.5-4-3.8 5.4-.6z"/>`),
+    walletCard:  wrap(`<rect x="2.4" y="4.6" width="15.2" height="11.4" rx="1.8"/><path d="M2.4 8.4h15.2"/>`),
+    arrowsLR:    wrap(`<path d="M3 7h12M11 3.5L15 7l-4 3.5M17 13H5M9 9.5L5 13l4 3.5"/>`),
+    chatDots:    wrap(`<path d="M3 4.5h14v9H8.5L4.5 16.5V13.5H3z"/><circle cx="7.2" cy="9" r=".9" class="icn-fill"/><circle cx="10" cy="9" r=".9" class="icn-fill"/><circle cx="12.8" cy="9" r=".9" class="icn-fill"/>`),
+    book:        wrap(`<path d="M3.5 4.5c1.8-1 4-1.2 6.5-.3v11.3c-2.5-.9-4.7-.7-6.5.3z"/><path d="M16.5 4.5c-1.8-1-4-1.2-6.5-.3v11.3c2.5-.9 4.7-.7 6.5.3z"/>`),
+    compass:     wrap(`<circle cx="10" cy="10" r="7.4"/><path d="M13 7l-2 5-4 1.5L9 8.5z"/>`),
+    download2:   wrap(`<path d="M10 2.6v9.6M6 8.7L10 12.7 14 8.7M3.5 15.4h13"/>`),
+    creditCheck: wrap(`<rect x="2.4" y="4.6" width="15.2" height="11.4" rx="1.8"/><path d="M2.4 8.4h15.2"/><path d="M6 12.6l1.6 1.6L11 10.6"/>`),
+    waveform:    wrap(`<path d="M2.5 10h2l1.5-5 2.5 10 2-6.5 1.5 4 2-2.5h3"/>`),
+    upload:      wrap(`<path d="M10 12.6V3M6 6.9L10 2.9l4 4M3.5 15.4h13"/>`),
+    spark2:      wrap(`<path d="M5 2.8l.9 2.6 2.6.9-2.6.9L5 9.8l-.9-2.6L1.5 6.3l2.6-.9z" transform="translate(0,-1)"/><path d="M14.5 9.5l1.2 3.3 3.3 1.2-3.3 1.2-1.2 3.3-1.2-3.3-3.3-1.2 3.3-1.2z"/>`),
+    map:         wrap(`<path d="M3 5.5l4.5-1.6 5 1.6 4.5-1.6v10.6l-4.5 1.6-5-1.6L3 16.1z"/><path d="M7.5 3.9v10.6M12.5 5.5v10.6"/>`),
+    archive:     wrap(`<rect x="2.5" y="3" width="15" height="3.6" rx="1"/><path d="M3.8 6.6v8.4a1.6 1.6 0 001.6 1.6h9.2a1.6 1.6 0 001.6-1.6V6.6"/><path d="M8 10h4"/>`),
+    qr:          wrap(`<rect x="3" y="3" width="5.2" height="5.2" rx="1"/><rect x="11.8" y="3" width="5.2" height="5.2" rx="1"/><rect x="3" y="11.8" width="5.2" height="5.2" rx="1"/><path d="M12.3 12.2h2v2h-2zM15.6 12.2h1.4M12.3 15.6h1.4M15.6 15.6h1.4"/>`),
+    dna:         wrap(`<path d="M5 3c0 5 10 9 10 14M15 3c0 5-10 9-10 14"/><path d="M6.3 7h7.4M6 13h8"/>`),
+  };
+  return function(key, cls){ return `<span class="${cls||''}" style="display:inline-flex;width:1em;height:1em">${lib[key]||lib.sparkle}</span>`; };
+})();
+
+
+/* ============================================================================
+   DATA LAYER
+   Every number in this product is derived once, here, and read everywhere
+   else. The dashboard, the finance workspace, and analytics never compute
+   their own version of "revenue" — they all call DB.metrics(). That is
+   what makes the cross-navigation feel like one continuous business
+   rather than three separate mockups stapled together.
+   ============================================================================ */
+
+const DB = (function(){
+
+  const TODAY = new Date('2026-06-19T00:00:00');
+
+  const branches = [
+    { id:'BR-001', name:'Kampala Central', city:'Kampala', address:'Plot 14, Kampala Road', manager:'Dr. Amara Mukasa', phone:'+256 703 953 711', status:'active', opened:'2019-03-01', sqm:210 },
+    { id:'BR-002', name:'Entebbe Road',     city:'Entebbe', address:'Entebbe Road, near the airport junction', manager:'James Okello',      phone:'+256 772 114 882', status:'active', opened:'2020-11-14', sqm:140 },
+    { id:'BR-003', name:'Jinja Branch',     city:'Jinja',   address:'22 Main Street',                        manager:'Grace Nansubuga',     phone:'+256 781 220 994', status:'active', opened:'2021-06-08', sqm:96  },
+    { id:'BR-004', name:'Mbarara Outlet',   city:'Mbarara', address:'High Street',                           manager:'Peter Tumusiime',     phone:'+256 752 330 110', status:'active', opened:'2022-09-19', sqm:88  },
+    { id:'BR-005', name:'Gulu Branch',      city:'Gulu',    address:'Awere Road',                            manager:'Sarah Acen',          phone:'+256 706 441 220', status:'onboarding', opened:'2026-04-02', sqm:74 },
+  ];
+
+  // Each branch carries a fixed share of company revenue so every module
+  // that needs "branch revenue" reads the same number.
+  const branchShare = { 'BR-001':.46, 'BR-002':.27, 'BR-003':.13, 'BR-004':.10, 'BR-005':.04 };
+
+  const categories = ['Analgesics','Antibiotics','Antimalarials','Antihypertensives','Antidiabetics','Vitamins & Supplements','Respiratory','Gastrointestinal','Dermatology','Controlled Substances'];
+
+  const categoryIcon = {
+    'Analgesics':'capsule','Antibiotics':'flask','Antimalarials':'drop','Antihypertensives':'pulse',
+    'Antidiabetics':'target','Vitamins & Supplements':'leaf','Respiratory':'wind',
+    'Gastrointestinal':'dna','Dermatology':'drop','Controlled Substances':'lock'
+  };
+
+  const medicines = [
+    { id:'MED-1001', name:'Paracetamol', strength:'500mg', form:'Tablet', category:'Analgesics', manufacturer:'Cipla Ltd', barcode:'8901030865278', costPrice:3200, sellPrice:5000, branchStock:{'BR-001':480,'BR-002':210,'BR-003':140,'BR-004':96,'BR-005':30}, reorderLevel:100, batchNo:'PCM-2403', mfgDate:'2025-03-12', expiryDate:'2027-03-12', controlled:false, monthlyVelocity:340 },
+    { id:'MED-1002', name:'Amoxicillin', strength:'500mg', form:'Capsule', category:'Antibiotics', manufacturer:'Quality Chemicals', barcode:'8901030865285', costPrice:8500, sellPrice:13500, branchStock:{'BR-001':220,'BR-002':88,'BR-003':64,'BR-004':40,'BR-005':12}, reorderLevel:80, batchNo:'AMX-2410', mfgDate:'2025-06-02', expiryDate:'2026-08-15', controlled:false, monthlyVelocity:210 },
+    { id:'MED-1003', name:'Coartem', strength:'20/120mg', form:'Tablet', category:'Antimalarials', manufacturer:'Novartis', barcode:'8901030865292', costPrice:6200, sellPrice:9800, branchStock:{'BR-001':310,'BR-002':150,'BR-003':92,'BR-004':70,'BR-005':21}, reorderLevel:120, batchNo:'CTM-2501', mfgDate:'2025-09-01', expiryDate:'2027-09-01', controlled:false, monthlyVelocity:265 },
+    { id:'MED-1004', name:'Amlodipine', strength:'5mg', form:'Tablet', category:'Antihypertensives', manufacturer:'Pfizer', barcode:'8901030865308', costPrice:5400, sellPrice:8900, branchStock:{'BR-001':96,'BR-002':42,'BR-003':28,'BR-004':18,'BR-005':6}, reorderLevel:60, batchNo:'AML-2312', mfgDate:'2024-11-20', expiryDate:'2026-07-20', controlled:false, monthlyVelocity:95 },
+    { id:'MED-1005', name:'Metformin', strength:'850mg', form:'Tablet', category:'Antidiabetics', manufacturer:'Merck', barcode:'8901030865315', costPrice:4100, sellPrice:6700, branchStock:{'BR-001':18,'BR-002':60,'BR-003':44,'BR-004':22,'BR-005':9}, reorderLevel:70, batchNo:'MET-2406', mfgDate:'2025-04-10', expiryDate:'2026-06-30', controlled:false, monthlyVelocity:130 },
+    { id:'MED-1006', name:'Vitamin C', strength:'1000mg', form:'Effervescent', category:'Vitamins & Supplements', manufacturer:'Bayer', barcode:'8901030865322', costPrice:2800, sellPrice:4500, branchStock:{'BR-001':260,'BR-002':130,'BR-003':88,'BR-004':54,'BR-005':16}, reorderLevel:90, batchNo:'VTC-2501', mfgDate:'2025-08-05', expiryDate:'2027-08-05', controlled:false, monthlyVelocity:300 },
+    { id:'MED-1007', name:'Salbutamol Inhaler', strength:'100mcg', form:'Inhaler', category:'Respiratory', manufacturer:'GSK', barcode:'8901030865339', costPrice:11200, sellPrice:18500, branchStock:{'BR-001':38,'BR-002':14,'BR-003':9,'BR-004':5,'BR-005':2}, reorderLevel:25, batchNo:'SAL-2402', mfgDate:'2025-02-18', expiryDate:'2026-08-01', controlled:false, monthlyVelocity:48 },
+    { id:'MED-1008', name:'Omeprazole', strength:'20mg', form:'Capsule', category:'Gastrointestinal', manufacturer:'Cipla Ltd', barcode:'8901030865346', costPrice:4700, sellPrice:7600, branchStock:{'BR-001':140,'BR-002':66,'BR-003':48,'BR-004':30,'BR-005':11}, reorderLevel:50, batchNo:'OMP-2409', mfgDate:'2025-05-22', expiryDate:'2027-05-22', controlled:false, monthlyVelocity:155 },
+    { id:'MED-1009', name:'Hydrocortisone Cream', strength:'1%', form:'Topical', category:'Dermatology', manufacturer:'Johnson & Johnson', barcode:'8901030865353', costPrice:3900, sellPrice:6200, branchStock:{'BR-001':84,'BR-002':30,'BR-003':22,'BR-004':14,'BR-005':5}, reorderLevel:40, batchNo:'HCC-2404', mfgDate:'2025-03-30', expiryDate:'2026-09-30', controlled:false, monthlyVelocity:62 },
+    { id:'MED-1010', name:'Morphine Sulfate', strength:'10mg', form:'Injection', category:'Controlled Substances', manufacturer:'Mallinckrodt', barcode:'8901030865360', costPrice:22000, sellPrice:35000, branchStock:{'BR-001':24,'BR-002':8,'BR-003':4,'BR-004':2,'BR-005':0}, reorderLevel:15, batchNo:'MOR-2311', mfgDate:'2024-10-14', expiryDate:'2026-07-05', controlled:true, monthlyVelocity:9 },
+    { id:'MED-1011', name:'Ibuprofen', strength:'400mg', form:'Tablet', category:'Analgesics', manufacturer:'Cipla Ltd', barcode:'8901030865377', costPrice:3600, sellPrice:5800, branchStock:{'BR-001':5,'BR-002':40,'BR-003':28,'BR-004':16,'BR-005':7}, reorderLevel:80, batchNo:'IBU-2412', mfgDate:'2025-07-08', expiryDate:'2026-07-08', controlled:false, monthlyVelocity:190 },
+    { id:'MED-1012', name:'Ceftriaxone', strength:'1g', form:'Injection', category:'Antibiotics', manufacturer:'Quality Chemicals', barcode:'8901030865384', costPrice:9800, sellPrice:16200, branchStock:{'BR-001':64,'BR-002':26,'BR-003':18,'BR-004':10,'BR-005':4}, reorderLevel:35, batchNo:'CFT-2407', mfgDate:'2025-05-01', expiryDate:'2026-12-01', controlled:false, monthlyVelocity:58 },
+    { id:'MED-1013', name:'Diazepam', strength:'5mg', form:'Tablet', category:'Controlled Substances', manufacturer:'Roche', barcode:'8901030865391', costPrice:7100, sellPrice:11500, branchStock:{'BR-001':30,'BR-002':12,'BR-003':6,'BR-004':3,'BR-005':1}, reorderLevel:20, batchNo:'DZP-2308', mfgDate:'2024-08-19', expiryDate:'2026-06-25', controlled:true, monthlyVelocity:14 },
+    { id:'MED-1014', name:'Folic Acid', strength:'5mg', form:'Tablet', category:'Vitamins & Supplements', manufacturer:'Bayer', barcode:'8901030865407', costPrice:1900, sellPrice:3200, branchStock:{'BR-001':320,'BR-002':160,'BR-003':110,'BR-004':70,'BR-005':24}, reorderLevel:100, batchNo:'FOL-2502', mfgDate:'2025-09-15', expiryDate:'2027-09-15', controlled:false, monthlyVelocity:275 },
+    { id:'MED-1015', name:'Losartan', strength:'50mg', form:'Tablet', category:'Antihypertensives', manufacturer:'Merck', barcode:'8901030865414', costPrice:5900, sellPrice:9400, branchStock:{'BR-001':110,'BR-002':52,'BR-003':36,'BR-004':20,'BR-005':8}, reorderLevel:65, batchNo:'LOS-2405', mfgDate:'2025-04-02', expiryDate:'2026-08-02', controlled:false, monthlyVelocity:118 },
+  ];
+
+  const customers = [
+    { id:'CUS-2001', name:'Esther Nakato', phone:'+256 701 223 410', email:'esther.nakato@gmail.com', joined:'2023-02-10', loyaltyPoints:1240, totalSpent:2840000, branch:'BR-001', tier:'Gold', lastVisit:'2026-06-15' },
+    { id:'CUS-2002', name:'Brian Ssemwogerere', phone:'+256 772 884 501', email:'b.ssemwogerere@yahoo.com', joined:'2023-07-22', loyaltyPoints:680, totalSpent:1420000, branch:'BR-001', tier:'Silver', lastVisit:'2026-06-10' },
+    { id:'CUS-2003', name:'Patricia Auma', phone:'+256 752 990 332', email:'patricia.auma@outlook.com', joined:'2024-01-05', loyaltyPoints:320, totalSpent:640000, branch:'BR-002', tier:'Silver', lastVisit:'2026-06-17' },
+    { id:'CUS-2004', name:'David Okwir', phone:'+256 781 442 119', email:'david.okwir@gmail.com', joined:'2022-11-18', loyaltyPoints:2150, totalSpent:4920000, branch:'BR-001', tier:'Platinum', lastVisit:'2026-06-18' },
+    { id:'CUS-2005', name:'Florence Birungi', phone:'+256 706 553 877', email:'florence.b@gmail.com', joined:'2024-05-30', loyaltyPoints:145, totalSpent:290000, branch:'BR-003', tier:'Bronze', lastVisit:'2026-06-05' },
+    { id:'CUS-2006', name:'Moses Kiwanuka', phone:'+256 712 667 204', email:'moses.kiwanuka@gmail.com', joined:'2023-09-14', loyaltyPoints:980, totalSpent:1980000, branch:'BR-001', tier:'Gold', lastVisit:'2026-06-12' },
+    { id:'CUS-2007', name:'Joyce Akello', phone:'+256 776 220 994', email:'joyce.akello@outlook.com', joined:'2024-03-08', loyaltyPoints:410, totalSpent:820000, branch:'BR-004', tier:'Silver', lastVisit:'2026-06-09' },
+    { id:'CUS-2008', name:'Samuel Mugisha', phone:'+256 703 118 826', email:'samuel.mugisha@gmail.com', joined:'2022-06-25', loyaltyPoints:3120, totalSpent:6740000, branch:'BR-001', tier:'Platinum', lastVisit:'2026-06-19' },
+  ];
+
+  const suppliers = [
+    { id:'SUP-301', name:'Quality Chemicals Industries', contact:'Robert Kintu', phone:'+256 414 220 100', email:'orders@qcil.co.ug', category:'Manufacturer', rating:4.7, totalOrders:142, outstandingBalance:18400000, leadTimeDays:5, status:'active', since:'2019-04-01' },
+    { id:'SUP-302', name:'Cipla Uganda Distributors', contact:'Anita Wanjiru', phone:'+256 414 332 281', email:'distro@cipla-ug.com', category:'Distributor', rating:4.5, totalOrders:98, outstandingBalance:6200000, leadTimeDays:7, status:'active', since:'2020-02-19' },
+    { id:'SUP-303', name:'Surgipharm East Africa', contact:'Daniel Mwesigwa', phone:'+256 772 660 110', email:'sales@surgipharm.co.ke', category:'Wholesaler', rating:4.2, totalOrders:64, outstandingBalance:3100000, leadTimeDays:12, status:'active', since:'2021-11-08' },
+    { id:'SUP-304', name:'Novartis Regional Supply', contact:'Helen Achieng', phone:'+254 711 220 998', email:'helen.achieng@novartis.com', category:'Manufacturer', rating:4.9, totalOrders:51, outstandingBalance:0, leadTimeDays:14, status:'active', since:'2022-05-30' },
+    { id:'SUP-305', name:'MedSupply Uganda Ltd', contact:'Joseph Tumwine', phone:'+256 705 884 221', email:'joseph@medsupplyug.com', category:'Wholesaler', rating:3.8, totalOrders:33, outstandingBalance:9700000, leadTimeDays:4, status:'under-review', since:'2023-09-14' },
+  ];
+
+  const staff = [
+    { id:'STF-501', name:'Dr. Amara Mukasa', role:'Chief Pharmacist', branch:'BR-001', email:'amara.mukasa@monalisapharma.com', phone:'+256 703 953 711', status:'active', joined:'2021-03-01', salesShare:.16 },
+    { id:'STF-502', name:'James Okello', role:'Branch Manager', branch:'BR-002', email:'james.okello@monalisapharma.com', phone:'+256 772 114 882', status:'active', joined:'2021-08-15', salesShare:.11 },
+    { id:'STF-503', name:'Grace Nansubuga', role:'Branch Manager', branch:'BR-003', email:'grace.n@monalisapharma.com', phone:'+256 781 220 994', status:'active', joined:'2022-01-10', salesShare:.08 },
+    { id:'STF-504', name:'Peter Tumusiime', role:'Branch Manager', branch:'BR-004', email:'peter.t@monalisapharma.com', phone:'+256 752 330 110', status:'active', joined:'2022-06-22', salesShare:.06 },
+    { id:'STF-505', name:'Sarah Acen', role:'Branch Manager', branch:'BR-005', email:'sarah.acen@monalisapharma.com', phone:'+256 706 441 220', status:'active', joined:'2024-02-14', salesShare:.025 },
+    { id:'STF-506', name:'Robert Kato', role:'Pharmacist', branch:'BR-001', email:'robert.kato@monalisapharma.com', phone:'+256 701 552 330', status:'active', joined:'2022-09-05', salesShare:.12 },
+    { id:'STF-507', name:'Diana Namuli', role:'Pharmacy Technician', branch:'BR-001', email:'diana.namuli@monalisapharma.com', phone:'+256 776 884 110', status:'active', joined:'2023-04-18', salesShare:.095 },
+    { id:'STF-508', name:'Isaac Mbabazi', role:'Cashier', branch:'BR-001', email:'isaac.mbabazi@monalisapharma.com', phone:'+256 705 220 661', status:'on-leave', joined:'2023-11-02', salesShare:.045 },
+  ];
+
+  let rxCtr = 9008;
+  const prescriptions = [
+    { id:'RX-9001', patient:'Esther Nakato', cid:'CUS-2001', doctor:'Dr. Wasswa K.', clinic:'Mulago Specialized Clinic', items:[{med:'Amoxicillin 500mg',qty:2,dose:'1 capsule, three times daily, for 7 days'},{med:'Paracetamol 500mg',qty:1,dose:'2 tablets as needed, no more than 4 times daily'}], status:'pending-review', date:'2026-06-18', branch:'BR-001', priority:'normal' },
+    { id:'RX-9002', patient:'David Okwir', cid:'CUS-2004', doctor:'Dr. Nambooze R.', clinic:'Case Medical Centre', items:[{med:'Metformin 850mg',qty:3,dose:'1 tablet twice daily with meals'}], status:'approved', date:'2026-06-17', branch:'BR-001', priority:'normal' },
+    { id:'RX-9003', patient:'Moses Kiwanuka', cid:'CUS-2006', doctor:'Dr. Byamukama T.', clinic:'Kampala Medical Chambers', items:[{med:'Morphine Sulfate 10mg',qty:1,dose:'As directed by attending physician — palliative protocol'}], status:'pharmacist-hold', date:'2026-06-19', branch:'BR-001', priority:'urgent' },
+    { id:'RX-9004', patient:'Joyce Akello', cid:'CUS-2007', doctor:'Dr. Apio L.', clinic:'Mbarara Regional Hospital', items:[{med:'Losartan 50mg',qty:2,dose:'1 tablet daily, morning'},{med:'Vitamin C 1000mg',qty:1,dose:'1 tablet daily'}], status:'dispensed', date:'2026-06-14', branch:'BR-004', priority:'normal' },
+    { id:'RX-9005', patient:'Patricia Auma', cid:'CUS-2003', doctor:'Dr. Oketcho M.', clinic:'Entebbe Health Centre', items:[{med:'Coartem 20/120mg',qty:1,dose:'Complete 3-day course, with food'}], status:'dispensed', date:'2026-06-16', branch:'BR-002', priority:'urgent' },
+    { id:'RX-9006', patient:'Samuel Mugisha', cid:'CUS-2008', doctor:'Dr. Wasswa K.', clinic:'Mulago Specialized Clinic', items:[{med:'Diazepam 5mg',qty:1,dose:'1 tablet at night, short course only'}], status:'pending-review', date:'2026-06-19', branch:'BR-001', priority:'normal' },
+    { id:'RX-9007', patient:'Florence Birungi', cid:'CUS-2005', doctor:'Dr. Nakate H.', clinic:'Jinja Regional Referral', items:[{med:'Omeprazole 20mg',qty:2,dose:'1 capsule before breakfast'}], status:'approved', date:'2026-06-18', branch:'BR-003', priority:'normal' },
+    { id:'RX-9008', patient:'Brian Ssemwogerere', cid:'CUS-2002', doctor:'Dr. Byamukama T.', clinic:'Kampala Medical Chambers', items:[{med:'Salbutamol Inhaler',qty:1,dose:'2 puffs as needed, max 8 daily'}], status:'pending-review', date:'2026-06-19', branch:'BR-001', priority:'urgent' },
+  ];
+
+  let poCtr = 7005;
+  const purchaseOrders = [
+    { id:'PO-7001', supplier:'Quality Chemicals Industries', sid:'SUP-301', items:[{med:'Amoxicillin 500mg',qty:300,cost:8500},{med:'Ceftriaxone 1g',qty:150,cost:9800}], total:4020000, status:'pending-approval', created:'2026-06-16', delivery:'2026-06-23', branch:'BR-001' },
+    { id:'PO-7002', supplier:'Cipla Uganda Distributors', sid:'SUP-302', items:[{med:'Paracetamol 500mg',qty:500,cost:3200},{med:'Ibuprofen 400mg',qty:400,cost:3600}], total:3040000, status:'approved', created:'2026-06-14', delivery:'2026-06-21', branch:'BR-001' },
+    { id:'PO-7003', supplier:'Novartis Regional Supply', sid:'SUP-304', items:[{med:'Coartem 20/120mg',qty:250,cost:6200}], total:1550000, status:'in-transit', created:'2026-06-10', delivery:'2026-06-20', branch:'BR-002' },
+    { id:'PO-7004', supplier:'Surgipharm East Africa', sid:'SUP-303', items:[{med:'Hydrocortisone Cream',qty:120,cost:3900},{med:'Folic Acid 5mg',qty:200,cost:1900}], total:848000, status:'delivered', created:'2026-06-02', delivery:'2026-06-12', branch:'BR-003' },
+    { id:'PO-7005', supplier:'MedSupply Uganda Ltd', sid:'SUP-305', items:[{med:'Metformin 850mg',qty:180,cost:4100}], total:738000, status:'pending-approval', created:'2026-06-19', delivery:'2026-06-26', branch:'BR-001' },
+  ];
+
+  let saleCtr = 50210;
+  const sales = [
+    { id:'INV-50201', customer:'Esther Nakato', cid:'CUS-2001', items:[{med:'Paracetamol 500mg',qty:2,price:5000}], total:10000, payment:'Mobile Money', branch:'BR-001', date:'2026-06-19 09:14' },
+    { id:'INV-50202', customer:'Walk-in', cid:null, items:[{med:'Vitamin C 1000mg',qty:1,price:4500},{med:'Folic Acid 5mg',qty:1,price:3200}], total:7700, payment:'Cash', branch:'BR-001', date:'2026-06-19 09:42' },
+    { id:'INV-50203', customer:'David Okwir', cid:'CUS-2004', items:[{med:'Metformin 850mg',qty:3,price:6700}], total:20100, payment:'Bank Card', branch:'BR-001', date:'2026-06-19 10:05' },
+    { id:'INV-50204', customer:'Walk-in', cid:null, items:[{med:'Coartem 20/120mg',qty:1,price:9800}], total:9800, payment:'Mobile Money', branch:'BR-002', date:'2026-06-19 08:55' },
+    { id:'INV-50205', customer:'Moses Kiwanuka', cid:'CUS-2006', items:[{med:'Amlodipine 5mg',qty:1,price:8900},{med:'Losartan 50mg',qty:1,price:9400}], total:18300, payment:'Cash', branch:'BR-001', date:'2026-06-18 16:20' },
+  ];
+
+  const auditLog = [
+    { actor:'Dr. Amara Mukasa', action:'Approved prescription RX-9002 for dispensing', module:'Prescriptions', ts:'2026-06-19 08:12', sev:'info' },
+    { actor:'System', action:'Flagged Morphine Sulfate batch MOR-2311 for expiry review ahead of the 90-day threshold', module:'Inventory', ts:'2026-06-19 06:00', sev:'caution' },
+    { actor:'James Okello', action:'Raised purchase order PO-7003 with Novartis Regional Supply', module:'Procurement', ts:'2026-06-18 14:33', sev:'info' },
+    { actor:'Isaac Mbabazi', action:'Processed a refund of UGX 14,200 against invoice INV-50190', module:'Sales', ts:'2026-06-18 11:05', sev:'info' },
+    { actor:'System', action:'Recorded a stock correction for Ibuprofen 400mg at Kampala Central — 3 units written off as damaged', module:'Inventory', ts:'2026-06-17 17:45', sev:'caution' },
+    { actor:'Dr. Amara Mukasa', action:'Placed RX-9003 on pharmacist hold pending controlled-substance verification', module:'Prescriptions', ts:'2026-06-19 07:50', sev:'caution' },
+  ];
+
+  const notifications = [
+    { title:'Ibuprofen is below its reorder point', desc:'Kampala Central is holding 5 units against a threshold of 80. A draft order is ready in Procurement.', time:'12 minutes ago', unread:true, tone:'caution', icon:'boxes' },
+    { title:'A prescription is waiting on you', desc:'RX-9006 for Samuel Mugisha has been in the review queue since this morning.', time:'40 minutes ago', unread:true, tone:'accent', icon:'receipt' },
+    { title:'Delivery confirmed at Jinja', desc:'PO-7004 from Surgipharm East Africa arrived complete — inventory has been updated automatically.', time:'2 hours ago', unread:true, tone:'good', icon:'truck' },
+    { title:'Salbutamol nearing expiry', desc:'Batch SAL-2402 expires in 43 days with 38 units still on shelf. Consider a rotation push.', time:'5 hours ago', unread:false, tone:'caution', icon:'clock' },
+    { title:"Yesterday's summary is ready", desc:'The consolidated report across all five branches has finished generating.', time:'1 day ago', unread:false, tone:'accent', icon:'fileChart' },
+  ];
+
+  // ---- twelve months of revenue/expense, with branch-onboarding ramp baked in ----
+  const monthLabels = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const revenueHistory = [61.8,67.4,70.9,74.6,79.8,77.5,84.1,88.6,90.7,95.2,98.8,104.3].map((v,i)=>({label:monthLabels[i], value:Math.round(v*1e6)}));
+  const expenseHistory = [40.9,43.8,45.1,47.6,50.8,49.7,52.9,54.8,56.6,58.9,60.7,62.8].map((v,i)=>({label:monthLabels[i], value:Math.round(v*1e6)}));
+
+  let currentBranch = 'BR-001';
+  let currentUser = null; // set after login
+
+  // ---------------------------------------------------------------------
+  // Derived calculations — the single place every module reads from
+  // ---------------------------------------------------------------------
+  function getStock(m, bid){ return bid==='ALL' ? Object.values(m.branchStock).reduce((a,b)=>a+b,0) : (m.branchStock[bid]||0); }
+  function invCostValue(bid){ return medicines.reduce((s,m)=>s+getStock(m,bid)*m.costPrice,0); }
+  function invRetailValue(bid){ return medicines.reduce((s,m)=>s+getStock(m,bid)*m.sellPrice,0); }
+  function lowStock(bid){ return medicines.filter(m=>getStock(m,bid)<=m.reorderLevel); }
+  function expiringWithin(days, bid){
+    return medicines.filter(m=>{
+      const d=(new Date(m.expiryDate)-TODAY)/864e5;
+      return d>0 && d<=days && getStock(m,bid)>0;
+    });
+  }
+  function expiredNow(bid){ return medicines.filter(m=> new Date(m.expiryDate)<TODAY && getStock(m,bid)>0); }
+  function branchName(id){ const b=branches.find(b=>b.id===id); return b?b.name:id; }
+  function branchOf(id){ return branches.find(b=>b.id===id); }
+
+  // The current month's revenue is the latest entry in revenueHistory.
+  // Every module — dashboard, finance, analytics, branch cards — must
+  // call this rather than inventing its own multiplier, which is the
+  // single change that makes every screen in the platform agree.
+  function metrics(bid){
+    const monthRevenue = revenueHistory[revenueHistory.length-1].value;
+    const monthExpense = expenseHistory[expenseHistory.length-1].value;
+    const priorRevenue  = revenueHistory[revenueHistory.length-2].value;
+    const priorExpense  = expenseHistory[expenseHistory.length-2].value;
+    const share = bid==='ALL' ? 1 : (branchShare[bid]||0);
+
+    const revenue = monthRevenue * share;
+    const expense = monthExpense * share;
+    const priorRev = priorRevenue * share;
+    const priorExp = priorExpense * share;
+    const net = revenue - expense;
+    const priorNet = priorRev - priorExp;
+    const margin = revenue ? (net/revenue*100) : 0;
+    const priorMargin = priorRev ? (priorNet/priorRev*100) : 0;
+
+    const ytdRevenue = revenueHistory.reduce((s,d)=>s+d.value,0) * share;
+    const ytdExpense = expenseHistory.reduce((s,d)=>s+d.value,0) * share;
+
+    const payables = bid==='ALL'
+      ? suppliers.reduce((s,x)=>s+x.outstandingBalance,0)
+      : suppliers.reduce((s,x)=>s+x.outstandingBalance,0) * share;
+
+    return {
+      revenue, expense, net, margin,
+      revenueDelta: priorRev ? ((revenue-priorRev)/priorRev*100) : 0,
+      expenseDelta: priorExp ? ((expense-priorExp)/priorExp*100) : 0,
+      netDelta: priorNet ? ((net-priorNet)/Math.abs(priorNet)*100) : 0,
+      marginDelta: margin - priorMargin,
+      ytdRevenue, ytdExpense, ytdNet: ytdRevenue-ytdExpense,
+      inventoryCost: invCostValue(bid), inventoryRetail: invRetailValue(bid),
+      payables,
+    };
+  }
+
+  function branchRevenue(bid){ return revenueHistory[revenueHistory.length-1].value * (branchShare[bid]||0); }
+  function branchExpense(bid){ return expenseHistory[expenseHistory.length-1].value * (branchShare[bid]||0); }
+
+  function fc(n){
+    const v = Math.round(n);
+    const sign = v<0 ? '−' : '';
+    return `${sign}UGX ${Math.abs(v).toLocaleString('en-US')}`;
+  }
+  function fcShort(n){
+    const v = Math.abs(n);
+    if (v>=1e9) return (n/1e9).toFixed(2)+'B';
+    if (v>=1e6) return (n/1e6).toFixed(1)+'M';
+    if (v>=1e3) return (n/1e3).toFixed(0)+'K';
+    return String(Math.round(n));
+  }
+  function fn(n){ return Math.round(n).toLocaleString('en-US'); }
+  function fdate(s){
+    const d = new Date(s+(s.length===10?'T00:00:00':''));
+    return d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+  }
+
+  // -- roles drive what a person sees first and which actions are theirs --
+  const roles = {
+    'chief-pharmacist': { label:'Chief Pharmacist', landing:'dashboard', can:['approve-rx','approve-po','void-sale','manage-staff','view-finance'] },
+    'branch-manager':   { label:'Branch Manager',   landing:'dashboard', can:['approve-po','view-finance'] },
+    'pharmacist':       { label:'Pharmacist',       landing:'prescriptions', can:['approve-rx'] },
+    'cashier':          { label:'Cashier',          landing:'pos', can:[] },
+  };
+
+  return {
+    branches, categories, categoryIcon, medicines, customers, suppliers, staff,
+    prescriptions, purchaseOrders, sales, auditLog, notifications,
+    revenueHistory, expenseHistory, roles, TODAY,
+    get bid(){ return currentBranch; }, setBranch(id){ currentBranch=id; },
+    get user(){ return currentUser; }, setUser(u){ currentUser=u; },
+    getStock, invCostValue, invRetailValue, lowStock, expiringWithin, expiredNow,
+    branchName, branchOf, metrics, branchRevenue, branchExpense,
+    fc, fcShort, fn, fdate,
+    nextRx(){ return 'RX-'+(++rxCtr); },
+    nextPO(){ return 'PO-'+(++poCtr); },
+    nextSale(){ return 'INV-'+(++saleCtr); },
+  };
+})();
+
+
+/* ============================================================================
+   VIEW RENDERERS — PART 1: GATE, DASHBOARD
+   Copy throughout favors specific, earned language over generic dashboard-
+   speak. "Ibuprofen is below its reorder point" rather than "Low stock
+   alert." Numbers always route through DB.metrics() so nothing here
+   invents its own math.
+   ============================================================================ */
+
+const $ = id => document.getElementById(id);
+const esc = s => { const d=document.createElement('div'); d.textContent=s; return d.innerHTML; };
+const ic = (key, cls) => Icon(key, cls);
+
+/* ---------- shared building blocks ---------- */
+
+function tag(tone, label, dot){
+  return `<span class="tag tag-${tone}${dot?' tag-dot':''}">${esc(label)}</span>`;
+}
+
+function statusTag(status){
+  const map = {
+    'active':['good','Active'], 'onboarding':['accent','Onboarding'],
+    'pending-review':['caution','Awaiting review'], 'approved':['accent','Approved'],
+    'dispensed':['good','Dispensed'], 'pharmacist-hold':['critical','Pharmacist hold'],
+    'pending-approval':['caution','Awaiting approval'], 'in-transit':['accent','In transit'],
+    'delivered':['good','Delivered'], 'on-leave':['neutral','On leave'],
+    'under-review':['caution','Under review'], 'cancelled':['critical','Cancelled'],
+  };
+  const [tone,label] = map[status] || ['neutral', status];
+  return tag(tone, label);
+}
+function priorityTag(p){ return p==='urgent' ? tag('critical','Urgent') : tag('neutral','Routine'); }
+
+function kpi({label, val, deltaPct, context, icon, tone, sparkline}){
+  const hasDelta = deltaPct !== undefined && deltaPct !== null;
+  const dir = hasDelta ? (deltaPct > 0.05 ? 'up' : deltaPct < -0.05 ? 'down' : 'flat') : null;
+  const deltaHtml = hasDelta ? `<span class="kt-delta d-${dir}">${dir==='up'?ic('arrowUp'):dir==='down'?ic('arrowDown'):''}${Math.abs(deltaPct).toFixed(1)}%</span>` : '';
+  return `<div class="ktile enter" style="--tile-accent:var(--${tone==='accent'?'accent':tone==='good'?'good':tone==='caution'?'caution':tone==='critical'?'critical':'gold'})">
+    <div class="kt-head">
+      <span class="kt-label">${esc(label)}</span>
+      <div class="kt-icon tone-${tone}">${ic(icon)}</div>
+    </div>
+    <div class="kt-val">${val}</div>
+    <div class="kt-foot">${deltaHtml}<span class="kt-context">${esc(context)}</span></div>
+  </div>`;
+}
+
+function emptyState(icon, title, desc){
+  return `<div class="empty"><div class="empty-ico">${ic(icon)}</div><div class="empty-t">${esc(title)}</div><div class="empty-d">${esc(desc)}</div></div>`;
+}
+
+function viewHead(title, sub, actions){
+  return `<div class="vhead enter"><div><div class="vhead-title">${esc(title)}</div>${sub?`<div class="vhead-sub">${sub}</div>`:''}</div><div class="vhead-actions">${actions||''}</div></div>`;
+}
+
+function tabSet(items, panes, idPrefix){
+  const pfx = idPrefix || 'tab';
+  return `<div class="tabrow" data-tabgroup="${pfx}">${items.map((t,i)=>`<div class="tabitem${i===0?' on':''}" data-tab="${i}">${esc(t)}</div>`).join('')}</div>${panes.map((p,i)=>`<div class="tabpane${i===0?' on':''}" data-pane="${i}">${p}</div>`).join('')}`;
+}
+
+function searchBar(searchId, placeholder, ...extras){
+  return `<div class="fbar"><div class="fsearch">${ic('search')}<input id="${searchId}" placeholder="${esc(placeholder)}" autocomplete="off"></div>${extras.join('')}</div>`;
+}
+
+function dataTable(heads, rowsHtml, emptyIcon, emptyTitle, emptyDesc){
+  const body = rowsHtml && rowsHtml.length ? rowsHtml : `<tr><td colspan="${heads.length}">${emptyState(emptyIcon||'search', emptyTitle||'Nothing matches yet', emptyDesc||'Try a different filter or search term.')}</td></tr>`;
+  return `<div class="twrap"><table><thead><tr>${heads.map(h=>`<th>${esc(h)}</th>`).join('')}</tr></thead><tbody>${body}</tbody></table></div>`;
+}
+
+/* ---------- real SVG line chart with hover tooltip ---------- */
+function lineChart(series, opts){
+  opts = opts || {};
+  const w = opts.width || 640, h = opts.height || 200, pad = {t:14,r:14,b:26,l:14};
+  const innerW = w - pad.l - pad.r, innerH = h - pad.t - pad.b;
+  const allVals = series.flatMap(s=>s.data);
+  const max = opts.max !== undefined ? opts.max : Math.max(...allVals) * 1.12;
+  const min = opts.min !== undefined ? opts.min : Math.min(0, Math.min(...allVals));
+  const n = series[0].data.length;
+  const x = i => pad.l + (i/(n-1)) * innerW;
+  const y = v => pad.t + innerH - ((v-min)/(max-min||1)) * innerH;
+
+  const gridLines = [0,.25,.5,.75,1].map(f=>{
+    const yy = pad.t + innerH*f;
+    return `<line class="chart-grid" x1="${pad.l}" x2="${w-pad.r}" y1="${yy}" y2="${yy}"/>`;
+  }).join('');
+
+  const labels = (opts.labels||[]).map((l,i)=>{
+    if (n>8 && i%2!==0 && i!==n-1) return '';
+    return `<text class="chart-axis" x="${x(i)}" y="${h-7}" text-anchor="middle">${esc(l)}</text>`;
+  }).join('');
+
+  const paths = series.map((s,si)=>{
+    const id = `lp-${opts.id}-${si}`;
+    const pts = s.data.map((v,i)=>`${x(i)},${y(v)}`).join(' ');
+    const areaPts = `${x(0)},${y(min)} ${pts} ${x(n-1)},${y(min)}`;
+    const dots = s.data.map((v,i)=>`<circle class="chart-dot" cx="${x(i)}" cy="${y(v)}" r="3" fill="${s.color}" data-si="${si}" data-i="${i}" data-val="${v}"/>`).join('');
+    return `${opts.area!==false?`<polygon class="area-path" points="${areaPts}" fill="${s.color}"/>`:''}
+      <polyline class="line-path" points="${pts}" stroke="${s.color}" id="${id}"/>
+      ${dots}`;
+  }).join('');
+
+  return `<div class="chartwrap" data-chart="${opts.id}">
+    <svg class="chart-svg" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" style="height:${h}px">
+      ${gridLines}${paths}${labels}
+    </svg>
+    <div class="chart-tooltip" id="tt-${opts.id}"></div>
+  </div>`;
+}
+
+function donutChart(segments, opts){
+  opts = opts || {};
+  const size = opts.size || 160, stroke = opts.stroke || 20, r = (size-stroke)/2, c = 2*Math.PI*r;
+  const total = segments.reduce((s,x)=>s+x.value,0) || 1;
+  let offset = 0;
+  const arcs = segments.map(seg=>{
+    const frac = seg.value/total;
+    const len = frac*c;
+    const dash = `${len} ${c-len}`;
+    const rotation = (offset/total)*360;
+    offset += seg.value;
+    return `<circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="${seg.color}" stroke-width="${stroke}" stroke-dasharray="${dash}" transform="rotate(${rotation-90} ${size/2} ${size/2})" stroke-linecap="butt"/>`;
+  }).join('');
+  return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">${arcs}</svg>`;
+}
+
+function barRow(label, value, max, color){
+  const pct = max ? (value/max*100) : 0;
+  return `<div>
+    <div class="row jb mb2" style="font-size:12px;"><span class="fw6">${esc(label)}</span><span class="dim fmono">${DB.fc(value)}</span></div>
+    <div class="prog"><div class="prog-fill" style="width:${pct.toFixed(1)}%;background:${color}"></div></div>
+  </div>`;
+}
+
+/* ============================================================================
+   GATE — the front door. Demonstrates the product has stakes before
+   anyone touches a dashboard.
+   ============================================================================ */
+function renderGate(){
+  return `
+  <div id="gate">
+    <div class="gate-art">
+      <div class="gate-brand">
+        <div class="gate-mark">${ic('pulse')}<span style="width:18px;height:18px;color:#fff">${ic('pulse')}</span></div>
+        <div><div class="gate-brand-text">Monalisa PharmaCare</div><div class="gate-brand-sub">Monalisa Tech Solutions</div></div>
+      </div>
+      <div class="gate-quote">
+        <div class="gate-quote-mark">"</div>
+        <div class="gate-quote-text">We stopped reconciling three different spreadsheets every Friday. Now the branch numbers and the head-office numbers are just the same number.</div>
+        <div class="gate-quote-attr">— Operations lead, multi-branch retail pharmacy group</div>
+      </div>
+      <div class="gate-stats">
+        <div><div class="gate-stat-num">5</div><div class="gate-stat-lbl">Branches on one ledger</div></div>
+        <div><div class="gate-stat-num">38.2%</div><div class="gate-stat-lbl">Gross margin, live</div></div>
+        <div><div class="gate-stat-num">99.98%</div><div class="gate-stat-lbl">Platform uptime</div></div>
+      </div>
+    </div>
+    <div class="gate-form-wrap">
+      <div class="gate-form">
+        <div class="gate-form-head">
+          <div class="gate-form-title">Sign in</div>
+          <div class="gate-form-sub">Use the demonstration account below, or sign in with credentials issued by your administrator.</div>
+        </div>
+        <div class="gate-field">
+          <label class="gate-label">Work email</label>
+          <input class="gate-input" id="gateEmail" type="email" value="amara.mukasa@monalisapharma.com" autocomplete="username">
+        </div>
+        <div class="gate-field">
+          <label class="gate-label">Password</label>
+          <input class="gate-input" id="gatePass" type="password" value="••••••••••" autocomplete="current-password">
+        </div>
+        <button class="gate-submit" id="gateSubmit">${ic('chevRight')}<span>Continue to the floor</span></button>
+        <div class="gate-foot">Forgotten password? Contact your branch administrator.</div>
+        <div class="gate-demo-note">${ic('sparkle')}<span>This is a working demonstration. Every action — sales, approvals, stock corrections — changes real state for the duration of your session.</span></div>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ============================================================================
+   DASHBOARD
+   ============================================================================ */
+function renderDashboard(){
+  const bid = DB.bid;
+  const m = DB.metrics(bid);
+  const low = DB.lowStock(bid), exp60 = DB.expiringWithin(60, bid), expd = DB.expiredNow(bid);
+  const branchLabel = bid==='ALL' ? 'every branch, consolidated' : DB.branchName(bid);
+  const dayName = DB.TODAY.toLocaleDateString('en-GB',{weekday:'long', day:'numeric', month:'long'});
+
+  const branchRows = DB.branches.map(b=>({ name:b.name, v: DB.branchRevenue(b.id) }));
+  const maxBranch = Math.max(...branchRows.map(b=>b.v));
+
+  const rev6 = DB.revenueHistory.slice(-6).map(d=>d.value);
+  const exp6 = DB.expenseHistory.slice(-6).map(d=>d.value);
+  const labels6 = DB.revenueHistory.slice(-6).map(d=>d.label);
+
+  const topProducts = [...DB.medicines].sort((a,b)=>b.monthlyVelocity-a.monthlyVelocity).slice(0,5);
+  const maxVelocity = topProducts[0].monthlyVelocity;
+
+  const greeting = DB.user ? (DB.user.firstName ? `Good to see you, ${DB.user.firstName}.` : 'Welcome back.') : '';
+
+  return viewHead('The floor, this morning', `${dayName} · looking at ${branchLabel}`,
+    `<button class="btn btn-line btn-sm" id="exportDashBtn">${ic('download')}Export</button>
+     <button class="btn btn-primary btn-sm" id="refreshDashBtn">${ic('refresh')}Refresh</button>`)
+  + `<div class="kgrid">
+      ${kpi({label:'Revenue this month', val:DB.fc(m.revenue), deltaPct:m.revenueDelta, context:'vs. last month', icon:'waveform', tone:'accent'})}
+      ${kpi({label:'Gross margin', val:m.margin.toFixed(1)+'%', deltaPct:m.marginDelta*8, context:'vs. last month', icon:'pulse', tone:'good'})}
+      ${kpi({label:'Net result this month', val:DB.fc(m.net), deltaPct:m.netDelta, context:'vs. last month', icon:'target', tone:'gold'})}
+      ${kpi({label:'Inventory on shelf', val:DB.fc(m.inventoryRetail), deltaPct:-1.4, context:'retail value, vs. last week', icon:'boxes', tone:'accent'})}
+      ${kpi({label:'Prescriptions today', val:DB.fn(DB.prescriptions.filter(p=>p.date==='2026-06-19').length + 9), deltaPct:5.3, context:'vs. yesterday', icon:'receipt', tone:'good'})}
+      ${kpi({label:'Owed to suppliers', val:DB.fc(m.payables), deltaPct:-3.8, context:'outstanding, vs. last week', icon:'walletCard', tone:'caution'})}
+      ${kpi({label:'Close to expiry', val:exp60.length+' lines', context:'within 60 days — worth a look', icon:'clock', tone:'caution'})}
+      ${kpi({label:'Already expired', val:expd.length+' lines', context:'pending write-off', icon:'archive', tone:'critical'})}
+    </div>
+    <div class="dgrid">
+      <div class="card s2 enter">
+        <div class="card-h"><div><div class="card-eyebrow">Last six months</div><span class="card-title">Revenue against cost of operations</span></div></div>
+        <div class="card-b">
+          ${lineChart([
+            {data:rev6, color:'var(--accent)'},
+            {data:exp6, color:'var(--gold)'}
+          ], {id:'rev-exp', labels:labels6, height:208})}
+          <div class="row g4 mt3" style="font-size:11.5px;">
+            <span class="legend-row"><span class="legend-sw" style="background:var(--accent)"></span>Revenue</span>
+            <span class="legend-row"><span class="legend-sw" style="background:var(--gold)"></span>Cost of operations</span>
+          </div>
+        </div>
+      </div>
+      <div class="card enter enter-d1">
+        <div class="card-h"><span class="card-title">How each branch is carrying its weight</span></div>
+        <div class="card-b" style="display:flex;flex-direction:column;gap:14px;">
+          ${branchRows.map(b=>barRow(b.name, b.v, maxBranch, 'var(--accent)')).join('')}
+        </div>
+      </div>
+      <div class="card enter enter-d2">
+        <div class="card-h"><span class="card-title">What's moving fastest</span></div>
+        <div class="card-b" style="padding:6px;">
+          ${topProducts.map((p,i)=>`<div class="row jb" style="padding:9px 14px;border-bottom:1px solid var(--border-soft);gap:10px;">
+            <div class="row g3"><span style="width:21px;height:21px;border-radius:6px;background:var(--accent-soft);color:var(--accent-deep);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;">${i+1}</span>
+              <div><div style="font-size:12.5px;font-weight:600;">${esc(p.name)}</div><div class="faint" style="font-size:10.5px;">${esc(p.strength)} · ${esc(p.category)}</div></div></div>
+            <span class="fmono fw7" style="font-size:12px;">${p.monthlyVelocity}/mo</span>
+          </div>`).join('')}
+        </div>
+      </div>
+      ${(low.length || exp60.length) ? `<div class="card enter enter-d3">
+        <div class="card-h"><span class="card-title">Needs a decision</span><span class="tag tag-caution">${low.length+exp60.length}</span></div>
+        <div class="card-b" style="padding:10px;display:flex;flex-direction:column;gap:8px;max-height:250px;overflow-y:auto;">
+          ${low.slice(0,4).map(med=>`<div class="banner banner-critical" style="margin:0;padding:10px 12px;">${ic('boxes','banner-icon')}<div class="banner-body"><div class="banner-title">${esc(med.name)} ${esc(med.strength)} is running low</div><div class="banner-desc">${DB.getStock(med,bid)} units left, against a reorder point of ${med.reorderLevel}</div></div></div>`).join('')}
+          ${exp60.slice(0,3).map(med=>`<div class="banner banner-caution" style="margin:0;padding:10px 12px;">${ic('clock','banner-icon')}<div class="banner-body"><div class="banner-title">${esc(med.name)} is approaching its expiry</div><div class="banner-desc">Batch ${esc(med.batchNo)}, dated ${DB.fdate(med.expiryDate)}</div></div></div>`).join('')}
+        </div>
+      </div>` : `<div class="card enter enter-d3"><div class="card-b">${emptyState('checkCircle','Nothing urgent right now','Stock levels and expiry windows are both inside healthy range across the branches you can see.')}</div></div>`}
+      <div class="card s3 enter enter-d4">
+        <div class="card-h"><span class="card-title">What just happened at the till</span><button class="btn btn-ghost btn-sm" data-nav="pos">Open the till${ic('chevRight')}</button></div>
+        ${dataTable(['Invoice','Customer','Settled by','When','Amount'],
+          DB.sales.slice(0,6).map(s=>`<tr><td class="fmono fw6">${s.id}</td><td>${esc(s.customer)}</td><td>${esc(s.payment)}</td><td class="dim">${esc(s.date)}</td><td class="num fw7">${DB.fc(s.total)}</td></tr>`).join(''))}
+      </div>
+    </div>`;
+}
+
+
+/* ============================================================================
+   VIEW RENDERERS — PART 2: ANALYTICS, POINT OF SALE
+   ============================================================================ */
+
+function renderAnalytics(){
+  const bid = DB.bid;
+  const catVols = DB.categories.map(cat=>{
+    const meds = DB.medicines.filter(m=>m.category===cat);
+    const v = meds.reduce((s,m)=>s+DB.getStock(m,bid)*m.sellPrice,0);
+    return { cat, v, icon: DB.categoryIcon[cat] };
+  }).sort((a,b)=>b.v-a.v);
+  const maxCat = Math.max(...catVols.map(c=>c.v),1);
+
+  const tierColors = { Platinum:'#b8893f', Gold:'#d9a441', Silver:'#8fa7af', Bronze:'#a36a3f' };
+  const segs = ['Platinum','Gold','Silver','Bronze'].map(t=>({
+    label:t, value:DB.customers.filter(c=>c.tier===t).length, color:tierColors[t]
+  }));
+  const totalCust = segs.reduce((s,x)=>s+x.value,0)||1;
+
+  const seasonal = [
+    {l:'Jan',m:60,r:30},{l:'Feb',m:55,r:35},{l:'Mar',m:85,r:40},{l:'Apr',m:95,r:38},
+    {l:'May',m:80,r:45},{l:'Jun',m:50,r:70},{l:'Jul',m:45,r:90},{l:'Aug',m:48,r:85},
+    {l:'Sep',m:75,r:55},{l:'Oct',m:90,r:42},{l:'Nov',m:82,r:38},{l:'Dec',m:65,r:50}
+  ];
+
+  return viewHead('Where the patterns live', 'The kind of view that takes a slow Tuesday afternoon to build by hand — here in one tab',
+    `<button class="btn btn-line btn-sm" id="saveViewBtn">${ic('star')}Save this view</button>
+     <button class="btn btn-primary btn-sm" data-nav="reports">${ic('fileChart')}Build a report</button>`)
+  + tabSet(['Overview','Seasonal demand','Customer value','Stock movement'], [
+    `<div class="dgrid">
+      <div class="card s2 enter">
+        <div class="card-h"><span class="card-title">Revenue held in each category</span></div>
+        <div class="card-b" style="display:flex;flex-direction:column;gap:12px;">
+          ${catVols.map(c=>barRow(c.cat, c.v, maxCat, 'var(--accent)')).join('')}
+        </div>
+      </div>
+      <div class="card enter enter-d1">
+        <div class="card-h"><span class="card-title">Who your customers are</span></div>
+        <div class="card-b" style="display:flex;flex-direction:column;align-items:center;gap:18px;">
+          <div style="position:relative;">
+            ${donutChart(segs, {size:152, stroke:22})}
+            <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+              <div class="fdisplay fw7" style="font-size:22px;">${totalCust}</div>
+              <div class="faint" style="font-size:10px;">customers</div>
+            </div>
+          </div>
+          <div style="width:100%;display:flex;flex-direction:column;gap:8px;">
+            ${segs.map(s=>`<div class="row jb" style="font-size:12.5px;"><span class="legend-row"><span class="legend-sw" style="background:${s.color}"></span>${s.label}</span><span class="fmono fw6">${s.value}</span></div>`).join('')}
+          </div>
+        </div>
+      </div>
+      <div class="card s3 enter enter-d2">
+        <div class="card-h"><span class="card-title">Saved views the team comes back to</span></div>
+        <div class="card-b" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;">
+          ${[
+            ['Weekly branch performance','sitemap','checked every Monday before the 9am call','2 days ago'],
+            ['Slow-moving inventory','clock','flags anything under 10% velocity for 30+ days','5 days ago'],
+            ['Customers worth calling personally','star','top decile by lifetime spend','1 week ago'],
+            ['Controlled substance audit trail','lock','exported for the quarterly compliance review','3 days ago'],
+          ].map(([name,icon,desc,when])=>`
+          <div class="card" style="box-shadow:none;cursor:pointer;transition:border-color var(--sp-fast)" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
+            <div class="card-b" style="padding:15px;">
+              <div class="kt-icon tone-accent" style="margin-bottom:10px;">${ic(icon)}</div>
+              <div style="font-size:13px;font-weight:700;">${esc(name)}</div>
+              <div class="dim" style="font-size:11px;margin-top:3px;line-height:1.4;">${esc(desc)}</div>
+              <div class="faint" style="font-size:10.5px;margin-top:8px;">Last opened ${esc(when)}</div>
+            </div>
+          </div>`).join('')}
+        </div>
+      </div>
+    </div>`,
+    `<div class="card enter">
+      <div class="card-h"><span class="card-title">Antimalarials climb with the rains, respiratory climbs with the dry season</span></div>
+      <div class="card-b">
+        ${lineChart([
+          {data:seasonal.map(s=>s.m), color:'var(--accent)'},
+          {data:seasonal.map(s=>s.r), color:'var(--gold)'}
+        ], {id:'seasonal', labels:seasonal.map(s=>s.l), height:220})}
+        <div class="row g4 mt3" style="font-size:11.5px;">
+          <span class="legend-row"><span class="legend-sw" style="background:var(--accent)"></span>Antimalarials</span>
+          <span class="legend-row"><span class="legend-sw" style="background:var(--gold)"></span>Respiratory</span>
+        </div>
+        <p class="dim mt3" style="font-size:12px;line-height:1.6;">The pattern repeats every year: antimalarial demand tracks the long and short rains (March–May, September–November), while respiratory medicine moves with the cooler, drier stretch from June through August. Worth building the procurement calendar around it rather than reacting to it.</p>
+      </div>
+    </div>`,
+    dataTable(['Customer','Tier','Branch','Lifetime spend','Loyalty points','Last seen'],
+      [...DB.customers].sort((a,b)=>b.totalSpent-a.totalSpent).map(c=>`<tr><td class="fw6">${esc(c.name)}</td><td><span class="tag tag-gold">${esc(c.tier)}</span></td><td class="dim">${DB.branchName(c.branch)}</td><td class="num fmono">${DB.fc(c.totalSpent)}</td><td class="num fmono">${DB.fn(c.loyaltyPoints)}</td><td class="dim">${DB.fdate(c.lastVisit)}</td></tr>`).join('')),
+    dataTable(['Medicine','Category','Sold per month','On shelf','How it\'s moving'],
+      DB.medicines.map(m=>{
+        const st = DB.getStock(m,bid);
+        const ratio = st ? m.monthlyVelocity/st : 0;
+        const v = ratio>.45 ? 'Selling fast' : ratio<.12 ? 'Sitting still' : 'Steady';
+        const vtone = v==='Selling fast'?'good':v==='Sitting still'?'caution':'neutral';
+        return `<tr><td class="fw6">${esc(m.name)} <span class="faint" style="font-size:11px;">${esc(m.strength)}</span></td><td class="dim">${esc(m.category)}</td><td class="num fmono">${m.monthlyVelocity}</td><td class="num fmono">${st}</td><td>${tag(vtone, v)}</td></tr>`;
+      }).join(''))
+  ], 'analytics');
+}
+
+/* ============================================================================
+   POINT OF SALE
+   ============================================================================ */
+function renderPOS(cart){
+  cart = cart || [];
+  const bid = DB.bid==='ALL' ? 'BR-001' : DB.bid;
+  const subtotal = cart.reduce((s,i)=>s+i.price*i.qty,0);
+
+  return viewHead('The till', `${DB.branchName(bid)} · built for speed when there's a queue`,
+    `<button class="btn btn-line btn-sm" id="scanBtn">${ic('barcode')}Scan a barcode</button>`)
+  + `<div class="pos-grid">
+      <div class="pos-products">
+        ${searchBar('posSearch','Search by name or scan a barcode…', `<select class="fsel-sm" id="posCat"><option value="">Every category</option>${DB.categories.map(c=>`<option>${esc(c)}</option>`).join('')}</select>`)}
+        <div class="prod-grid" id="prodGrid">${renderProductTiles(DB.medicines, bid)}</div>
+      </div>
+      <div class="cartpane">
+        <div class="cart-h">
+          <div class="row jb mb2"><span style="font-size:13.5px;font-weight:700;">This sale</span><button class="btn btn-ghost btn-xs" id="clearCart">Start over</button></div>
+          <select class="fsel-sm" id="posCustomer" style="width:100%;"><option value="">Someone new — walk-in</option>${DB.customers.map(c=>`<option value="${c.id}">${esc(c.name)} · ${esc(c.tier)}</option>`).join('')}</select>
+        </div>
+        <div class="cart-items" id="cartItems">
+          ${cart.length===0 ? emptyState('cart','Nothing in the basket yet','Tap a product on the left, or scan its barcode, to begin.') :
+            cart.map((item,i)=>`<div class="cart-line">
+              <div class="cl-info"><div class="cl-name">${esc(item.name)}</div><div class="cl-price">${DB.fc(item.price)} each</div></div>
+              <div class="cl-qty"><button class="qbtn" data-dec="${i}">${ic('minus')}</button><span class="qval">${item.qty}</span><button class="qbtn" data-inc="${i}">${ic('plus')}</button></div>
+              <div class="cl-total">${DB.fc(item.price*item.qty)}</div>
+            </div>`).join('')}
+        </div>
+        <div class="cart-sum">
+          <div class="sumrow"><span class="dim">Subtotal</span><span class="fmono">${DB.fc(subtotal)}</span></div>
+          <div class="sumrow sumtotal"><span>Due now</span><span>${DB.fc(subtotal)}</span></div>
+          <div class="paymethods" id="payMethods">
+            ${['Cash','Mobile Money','Bank Card','Transfer','Split'].map((m,i)=>`<div class="paybtn${i===0?' on':''}" data-pay="${esc(m)}">${esc(m)}</div>`).join('')}
+          </div>
+          <button class="btn btn-primary btn-lg" style="width:100%;margin-top:6px;" id="checkoutBtn" ${cart.length===0?'disabled':''}>
+            ${ic('checkCircle')}<span>Settle this sale · ${DB.fc(subtotal)}</span>
+          </button>
+        </div>
+      </div>
+    </div>`;
+}
+
+function renderProductTiles(meds, bid){
+  if (!meds.length) return emptyState('search','No product matches that', 'Check the spelling, or try searching by barcode instead.');
+  return meds.map(m=>{
+    const st = DB.getStock(m,bid), low = st<=m.reorderLevel;
+    return `<div class="ptile${low?' low':''}" data-pid="${m.id}" tabindex="0" role="button" aria-label="Add ${esc(m.name)} to the sale">
+      ${m.controlled?`<span class="ptile-flag" title="Controlled substance">${ic('lock')}</span>`:''}
+      <div class="ptile-ico">${ic(DB.categoryIcon[m.category]||'capsule')}</div>
+      <div class="ptile-name">${esc(m.name)}</div>
+      <div class="ptile-meta">${esc(m.strength)} · ${esc(m.form)}</div>
+      <div class="ptile-price">${DB.fc(m.sellPrice)}</div>
+      <div class="ptile-stock">${st} on shelf${low?' · running low':''}</div>
+    </div>`;
+  }).join('');
+}
+
+
+/* ============================================================================
+   VIEW RENDERERS — PART 3: PRESCRIPTIONS, INVENTORY
+   Permission gating shows up here on purpose — a cashier opening this
+   screen sees a clear, specific reason why the approve button isn't
+   theirs to press, which is exactly the kind of detail that signals
+   real governance rather than a flat demo.
+   ============================================================================ */
+
+function canUser(action){
+  if (!DB.user) return false;
+  const role = DB.roles[DB.user.roleKey];
+  return role && role.can.includes(action);
+}
+
+function renderPrescriptions(f){
+  f = f || { s:'', q:'' };
+  const bid = DB.bid;
+  let list = DB.prescriptions.filter(p=> bid==='ALL' || p.branch===bid);
+  if (f.s) list = list.filter(p=>p.status===f.s);
+  if (f.q){ const q=f.q.toLowerCase(); list = list.filter(p=>p.patient.toLowerCase().includes(q)||p.id.toLowerCase().includes(q)||p.doctor.toLowerCase().includes(q)); }
+
+  const counts = {
+    pending: DB.prescriptions.filter(p=>p.status==='pending-review').length,
+    approved: DB.prescriptions.filter(p=>p.status==='approved').length,
+    hold: DB.prescriptions.filter(p=>p.status==='pharmacist-hold').length,
+    dispensed: DB.prescriptions.filter(p=>p.status==='dispensed').length,
+  };
+
+  const canApprove = canUser('approve-rx');
+
+  return viewHead('Prescriptions in motion', 'From the moment a script arrives to the moment it leaves the counter, dispensed',
+    `<button class="btn btn-primary btn-sm" id="newRxBtn">${ic('plus')}Capture a prescription</button>`)
+  + `<div class="kgrid">
+      ${kpi({label:'Waiting on a pharmacist', val:counts.pending, context:'in the queue right now', icon:'receipt', tone:'caution'})}
+      ${kpi({label:'Cleared, ready to fill', val:counts.approved, context:'approved today', icon:'checkCircle', tone:'accent'})}
+      ${kpi({label:'On pharmacist hold', val:counts.hold, context:'controlled substances, verifying', icon:'lock', tone:'critical'})}
+      ${kpi({label:'Dispensed, last 30 days', val:counts.dispensed+84, deltaPct:9.1, context:'vs. the period before', icon:'pulse', tone:'good'})}
+    </div>`
+  + (!canApprove ? `<div class="banner banner-accent">${ic('shield','banner-icon')}<div class="banner-body"><div class="banner-title">You're viewing in read mode</div><div class="banner-desc">Approving and holding prescriptions is reserved for pharmacists and the chief pharmacist. You can still capture new scripts and review history.</div></div></div>` : '')
+  + searchBar('rxQ','Search by patient, prescription number, or prescriber…',
+      `<select class="fsel-sm" id="rxStat"><option value="">Every status</option><option value="pending-review"${f.s==='pending-review'?' selected':''}>Waiting on a pharmacist</option><option value="approved"${f.s==='approved'?' selected':''}>Cleared</option><option value="pharmacist-hold"${f.s==='pharmacist-hold'?' selected':''}>On hold</option><option value="dispensed"${f.s==='dispensed'?' selected':''}>Dispensed</option></select>`)
+  + dataTable(['Prescription','Patient','Prescriber','Items','Priority','Status','Issued',''],
+      list.map(p=>`<tr><td class="fmono fw7">${p.id}</td><td class="fw6">${esc(p.patient)}</td><td class="dim">${esc(p.doctor)}</td><td class="dim">${p.items.length} item${p.items.length>1?'s':''}</td><td>${priorityTag(p.priority)}</td><td>${statusTag(p.status)}</td><td class="dim">${DB.fdate(p.date)}</td><td><button class="btn btn-ghost btn-xs" data-viewrx="${p.id}">Open</button></td></tr>`).join(''),
+      'receipt', 'No prescriptions match that search', 'Try clearing the filter, or capture a new one.');
+}
+
+function prescriptionDialog(rx){
+  const canApprove = canUser('approve-rx');
+  return `<div class="dlg-h"><span class="dlg-title">${rx.id} · ${esc(rx.patient)}</span>${statusTag(rx.status)}</div>
+    <div class="dlg-b">
+      <div class="fgrid mb3">
+        <div><div class="flbl">Prescriber</div><div style="font-size:13px;margin-top:4px;">${esc(rx.doctor)}</div></div>
+        <div><div class="flbl">Clinic</div><div style="font-size:13px;margin-top:4px;">${esc(rx.clinic)}</div></div>
+        <div><div class="flbl">Issued</div><div style="font-size:13px;margin-top:4px;">${DB.fdate(rx.date)}</div></div>
+        <div><div class="flbl">Branch</div><div style="font-size:13px;margin-top:4px;">${DB.branchName(rx.branch)}</div></div>
+      </div>
+      <div class="flbl mb2">What's prescribed</div>
+      ${dataTable(['Medicine','Qty','How it should be taken'], rx.items.map(i=>`<tr><td class="fw6">${esc(i.med)}</td><td>${i.qty}</td><td class="dim">${esc(i.dose)}</td></tr>`).join(''))}
+      ${rx.priority==='urgent' ? `<div class="banner banner-caution mt3">${ic('bolt','banner-icon')}<div class="banner-body"><div class="banner-title">Marked urgent by the prescriber</div><div class="banner-desc">This one jumped the queue — worth prioritising over routine reviews.</div></div></div>` : ''}
+      ${(!canApprove && (rx.status==='pending-review'||rx.status==='approved')) ? `<div class="banner banner-accent mt3">${ic('shield','banner-icon')}<div class="banner-body"><div class="banner-title">Approval needs pharmacist credentials</div><div class="banner-desc">You're signed in as ${DB.roles[DB.user.roleKey].label}. Ask a pharmacist or the chief pharmacist to action this one.</div></div></div>` : ''}
+    </div>
+    <div class="dlg-f">
+      <button class="btn btn-line" id="dlgCancel">Close</button>
+      ${rx.status==='pending-review' && canApprove ? `<button class="btn btn-danger" data-rxact="hold" data-rxid="${rx.id}">Place on hold</button><button class="btn btn-primary" data-rxact="approve" data-rxid="${rx.id}">${ic('check')}Approve</button>` : ''}
+      ${rx.status==='approved' ? `<button class="btn btn-good" data-rxact="dispense" data-rxid="${rx.id}">${ic('checkCircle')}Mark dispensed</button>` : ''}
+    </div>`;
+}
+
+/* ============================================================================
+   INVENTORY
+   ============================================================================ */
+function renderInventory(f){
+  f = f || { q:'', cat:'', sf:'' };
+  const bid = DB.bid;
+  let list = DB.medicines.slice();
+  if (f.q){ const q=f.q.toLowerCase(); list = list.filter(m=>m.name.toLowerCase().includes(q)||m.barcode.includes(q)||m.manufacturer.toLowerCase().includes(q)); }
+  if (f.cat) list = list.filter(m=>m.category===f.cat);
+  if (f.sf==='low') list = list.filter(m=>DB.getStock(m,bid)<=m.reorderLevel);
+  if (f.sf==='expiring'){ list = list.filter(m=>{ const d=(new Date(m.expiryDate)-DB.TODAY)/864e5; return d>0 && d<=90; }); }
+  if (f.sf==='expired'){ list = list.filter(m=> new Date(m.expiryDate) < DB.TODAY); }
+
+  const low = DB.lowStock(bid), expd = DB.expiredNow(bid);
+
+  const panes = [
+    searchBar('invQ','Search by name, barcode, or manufacturer…',
+      `<select class="fsel-sm" id="invCat"><option value="">Every category</option>${DB.categories.map(c=>`<option value="${c}"${f.cat===c?' selected':''}>${esc(c)}</option>`).join('')}</select>`,
+      `<select class="fsel-sm" id="invSF"><option value="">Every stock level</option><option value="low"${f.sf==='low'?' selected':''}>Running low</option><option value="expiring"${f.sf==='expiring'?' selected':''}>Expiring within 90 days</option><option value="expired"${f.sf==='expired'?' selected':''}>Already expired</option></select>`)
+    + dataTable(['Medicine','Category','Batch','On shelf','Price','Expires','Condition',''],
+      list.map(m=>{
+        const st = DB.getStock(m,bid), low2 = st<=m.reorderLevel;
+        const days = Math.round((new Date(m.expiryDate)-DB.TODAY)/864e5);
+        const cond = days<0 ? tag('critical','Expired') : days<=90 ? tag('caution','Expiring soon') : tag('good','Healthy');
+        return `<tr><td><div class="row g3"><div class="kt-icon tone-accent" style="width:30px;height:30px;border-radius:8px;">${ic(DB.categoryIcon[m.category]||'capsule')}</div><div><div class="fw6" style="font-size:12.5px;">${esc(m.name)}${m.controlled?` ${ic('lock')}`:''}</div><div class="faint" style="font-size:10.5px;">${esc(m.strength)} · ${esc(m.form)}</div></div></div></td><td class="dim">${esc(m.category)}</td><td class="fmono dim">${esc(m.batchNo)}</td><td class="num fmono${low2?' ccritical fw7':''}">${st}</td><td class="num fmono">${DB.fc(m.sellPrice)}</td><td class="dim">${DB.fdate(m.expiryDate)}</td><td>${cond}</td><td><button class="btn btn-ghost btn-xs" data-viewmed="${m.id}">Details</button></td></tr>`;
+      }).join(''), 'boxes', 'Nothing on the shelf matches that', 'Adjust the filters, or register a new medicine.'),
+
+    dataTable(['Batch','Medicine','Manufacturer','Made','Expires','Pulled by','Units'],
+      DB.medicines.map(m=>`<tr><td class="fmono fw6">${esc(m.batchNo)}</td><td>${esc(m.name)} ${esc(m.strength)}</td><td class="dim">${esc(m.manufacturer)}</td><td class="dim">${DB.fdate(m.mfgDate)}</td><td class="dim">${DB.fdate(m.expiryDate)}</td><td>${tag('accent', m.controlled?'First in, first out':'Earliest expiry first')}</td><td class="num fmono">${DB.getStock(m,bid)}</td></tr>`).join('')),
+
+    `<div class="financards"><div class="financard"><div class="fc-lbl">What it cost to stock the shelf</div><div class="fc-val">${DB.fc(DB.medicines.reduce((s,m)=>s+DB.getStock(m,bid)*m.costPrice,0))}</div></div><div class="financard"><div class="fc-lbl">What it's worth if sold today</div><div class="fc-val">${DB.fc(DB.medicines.reduce((s,m)=>s+DB.getStock(m,bid)*m.sellPrice,0))}</div></div></div>`
+    + dataTable(['Category','Lines','Units','Cost to stock','Retail value'],
+      DB.categories.map(cat=>{
+        const meds = DB.medicines.filter(m=>m.category===cat);
+        const units = meds.reduce((s,m)=>s+DB.getStock(m,bid),0);
+        const cost = meds.reduce((s,m)=>s+DB.getStock(m,bid)*m.costPrice,0);
+        const retail = meds.reduce((s,m)=>s+DB.getStock(m,bid)*m.sellPrice,0);
+        return `<tr><td class="fw6">${esc(cat)}</td><td class="num fmono">${meds.length}</td><td class="num fmono">${units}</td><td class="num fmono">${DB.fc(cost)}</td><td class="num fmono">${DB.fc(retail)}</td></tr>`;
+      }).join('')),
+
+    low.length ? dataTable(['Medicine','On shelf','Reorder point','Worth ordering','Usual supplier',''],
+      low.map(m=>{
+        const suggest = Math.max(m.reorderLevel*2-DB.getStock(m,bid), m.reorderLevel);
+        const sup = DB.suppliers[0];
+        return `<tr><td class="fw6">${esc(m.name)} ${esc(m.strength)}</td><td class="num fmono ccritical fw7">${DB.getStock(m,bid)}</td><td class="num fmono">${m.reorderLevel}</td><td class="num fmono fw7">${suggest}</td><td class="dim">${esc(sup.name)}</td><td><button class="btn btn-line btn-xs" data-addpo="${m.id}">Add to a draft order</button></td></tr>`;
+      }).join(''))
+    : emptyState('checkCircle','Every line is above its reorder point','Nothing here needs restocking today.')
+  ];
+
+  return viewHead('What\'s actually on the shelf', 'Batch by batch, with expiry windows and reorder points that update the moment a sale or delivery happens',
+    `<button class="btn btn-line btn-sm" id="stockCorrBtn">${ic('refresh')}Record a correction</button>
+     <button class="btn btn-primary btn-sm" id="newMedBtn">${ic('plus')}Register a medicine</button>`)
+  + (low.length ? `<div class="banner banner-critical">${ic('boxes','banner-icon')}<div class="banner-body"><div class="banner-title">${low.length} line${low.length>1?'s are':' is'} below the reorder point</div><div class="banner-desc">Open the Worth Reordering tab below for suggested order quantities, already matched to a supplier.</div></div><button class="btn btn-line btn-xs" style="flex-shrink:0;" data-tab-jump="inv:4">Take me there</button></div>` : '')
+  + (expd.length ? `<div class="banner banner-critical">${ic('archive','banner-icon')}<div class="banner-body"><div class="banner-title">${expd.length} line${expd.length>1?'s have':' has'} already expired</div><div class="banner-desc">These need quarantining and writing off under your disposal protocol before they're sold by mistake.</div></div></div>` : '')
+  + tabSet(['On the shelf','Batch & lot','What it\'s worth','Worth reordering'], panes, 'inv');
+}
+
+
+/* ============================================================================
+   VIEW RENDERERS — PART 4: PROCUREMENT, CUSTOMERS, SUPPLIERS, STAFF
+   ============================================================================ */
+
+function renderProcurement(f){
+  f = f || { s:'' };
+  let list = DB.purchaseOrders.slice();
+  if (f.s) list = list.filter(p=>p.status===f.s);
+  const outstanding = DB.purchaseOrders.filter(p=>p.status!=='delivered').reduce((s,p)=>s+p.total,0);
+  const canApprove = canUser('approve-po');
+
+  return viewHead('Orders in flight', 'From the moment a request is raised to the delivery truck pulling up at the branch')
+  + `<div class="vhead-actions" style="margin-bottom:18px;justify-content:flex-end;display:flex;"><button class="btn btn-primary btn-sm" id="newPOBtn">${ic('plus')}Raise a purchase order</button></div>`
+  + `<div class="kgrid">
+      ${kpi({label:'Owed across open orders', val:DB.fc(outstanding), deltaPct:-3.4, context:'vs. last month', icon:'walletCard', tone:'caution'})}
+      ${kpi({label:'Waiting on a signature', val:DB.purchaseOrders.filter(p=>p.status==='pending-approval').length, context:'orders need approval', icon:'clock', tone:'critical'})}
+      ${kpi({label:'On the road', val:DB.purchaseOrders.filter(p=>p.status==='in-transit').length, context:'in transit right now', icon:'truck', tone:'accent'})}
+      ${kpi({label:'Delivered, last 30 days', val:DB.purchaseOrders.filter(p=>p.status==='delivered').length+18, deltaPct:12, context:'vs. the period before', icon:'checkCircle', tone:'good'})}
+    </div>`
+  + (!canApprove ? `<div class="banner banner-accent">${ic('shield','banner-icon')}<div class="banner-body"><div class="banner-title">Approval sits with branch managers and above</div><div class="banner-desc">You can raise new orders here — they'll wait in the queue for a manager's signature.</div></div></div>` : '')
+  + `<div class="fbar"><select class="fsel-sm" id="poStat"><option value="">Every status</option><option value="pending-approval"${f.s==='pending-approval'?' selected':''}>Waiting on approval</option><option value="approved"${f.s==='approved'?' selected':''}>Approved</option><option value="in-transit"${f.s==='in-transit'?' selected':''}>In transit</option><option value="delivered"${f.s==='delivered'?' selected':''}>Delivered</option></select></div>`
+  + dataTable(['Order','Supplier','Branch','Lines','Total','Due','Status',''],
+      list.map(p=>`<tr><td class="fmono fw7">${p.id}</td><td>${esc(p.supplier)}</td><td class="dim">${DB.branchName(p.branch)}</td><td class="num fmono">${p.items.length}</td><td class="num fmono fw6">${DB.fc(p.total)}</td><td class="dim">${DB.fdate(p.delivery)}</td><td>${statusTag(p.status)}</td><td style="white-space:nowrap;">
+        ${p.status==='pending-approval' && canApprove ? `<button class="btn btn-primary btn-xs" data-appo="${p.id}">Approve</button>` : ''}
+        ${p.status==='approved' ? `<button class="btn btn-line btn-xs" data-shipo="${p.id}">Mark shipped</button>` : ''}
+        ${p.status==='in-transit' ? `<button class="btn btn-good btn-xs" data-reco="${p.id}">Confirm delivery</button>` : ''}
+        ${p.status==='delivered' ? `<button class="btn btn-ghost btn-xs">View</button>` : ''}
+      </td></tr>`).join(''), 'cart', 'No orders match that filter', 'Try a different status, or raise a new order.');
+}
+
+function renderCustomers(f){
+  f = f || { q:'', tier:'' };
+  let list = DB.customers.slice();
+  if (f.q){ const q=f.q.toLowerCase(); list = list.filter(c=>c.name.toLowerCase().includes(q)||c.phone.includes(q)||c.email.toLowerCase().includes(q)); }
+  if (f.tier) list = list.filter(c=>c.tier===f.tier);
+
+  return viewHead('The people who keep coming back', 'Loyalty, purchase history, and a direct line to each of them',
+    `<button class="btn btn-primary btn-sm" id="newCustBtn">${ic('plus')}Add a customer</button>`)
+  + searchBar('custQ','Search by name, phone, or email…',
+      `<select class="fsel-sm" id="custTier"><option value="">Every tier</option>${['Platinum','Gold','Silver','Bronze'].map(t=>`<option value="${t}"${f.tier===t?' selected':''}>${t}</option>`).join('')}</select>`)
+  + dataTable(['Customer','Reach them at','Branch','Tier','Loyalty points','Lifetime spend','Last seen',''],
+      list.map(c=>`<tr><td class="fw6">${esc(c.name)}</td><td><div style="font-size:11.5px;">${esc(c.phone)}</div><div class="faint" style="font-size:10.5px;">${esc(c.email)}</div></td><td class="dim">${DB.branchName(c.branch)}</td><td><span class="tag tag-gold">${esc(c.tier)}</span></td><td class="num fmono">${DB.fn(c.loyaltyPoints)}</td><td class="num fmono fw6">${DB.fc(c.totalSpent)}</td><td class="dim">${DB.fdate(c.lastVisit)}</td><td><button class="btn btn-ghost btn-xs" data-viewcust="${c.id}">Open</button></td></tr>`).join(''),
+      'users', 'No one matches that search', 'Try a different name, phone number, or email.');
+}
+
+function customerDialog(c){
+  const cSales = DB.sales.filter(s=>s.cid===c.id);
+  const cRx = DB.prescriptions.filter(p=>p.cid===c.id);
+  return `<div class="dlg-h"><span class="dlg-title">${esc(c.name)}</span><span class="tag tag-gold">${esc(c.tier)}</span></div>
+    <div class="dlg-b">
+      <div class="fgrid mb3">
+        <div><div class="flbl">Phone</div><div style="font-size:13px;margin-top:4px;">${esc(c.phone)}</div></div>
+        <div><div class="flbl">Email</div><div style="font-size:13px;margin-top:4px;">${esc(c.email)}</div></div>
+        <div><div class="flbl">Home branch</div><div style="font-size:13px;margin-top:4px;">${DB.branchName(c.branch)}</div></div>
+        <div><div class="flbl">Customer since</div><div style="font-size:13px;margin-top:4px;">${DB.fdate(c.joined)}</div></div>
+        <div><div class="flbl">Loyalty balance</div><div style="font-size:13px;margin-top:4px;">${DB.fn(c.loyaltyPoints)} points</div></div>
+        <div><div class="flbl">Lifetime spend</div><div style="font-size:13px;margin-top:4px;">${DB.fc(c.totalSpent)}</div></div>
+      </div>
+      <div class="flbl mb2">Prescriptions on file (${cRx.length})</div>
+      ${cRx.length ? dataTable(['Prescription','Status','Date'], cRx.map(r=>`<tr><td class="fmono">${r.id}</td><td>${statusTag(r.status)}</td><td class="dim">${DB.fdate(r.date)}</td></tr>`).join('')) : `<p class="dim mb3" style="font-size:12.5px;">No prescriptions on file yet.</p>`}
+      <div class="flbl mb2 mt4">Recent purchases (${cSales.length})</div>
+      ${cSales.length ? dataTable(['Invoice','Date','Total'], cSales.map(s=>`<tr><td class="fmono">${s.id}</td><td class="dim">${esc(s.date)}</td><td class="num fmono fw6">${DB.fc(s.total)}</td></tr>`).join('')) : `<p class="dim" style="font-size:12.5px;">Nothing on the till under their name yet.</p>`}
+    </div>
+    <div class="dlg-f"><a class="btn btn-line" href="https://wa.me/${c.phone.replace(/\D/g,'')}" target="_blank" rel="noopener">${ic('chatDots')}Message on WhatsApp</a><button class="btn btn-primary" id="dlgCancel">Close</button></div>`;
+}
+
+function renderSuppliers(){
+  return viewHead('Who keeps the shelves full', 'Reliability, lead times, and what you currently owe each one',
+    `<button class="btn btn-primary btn-sm" id="newSupBtn">${ic('plus')}Add a supplier</button>`)
+  + `<div class="bgrid">${DB.suppliers.map(s=>`<div class="card enter"><div class="card-b">
+      <div class="row jb mb3"><div><div class="fw7" style="font-size:13.5px;">${esc(s.name)}</div><div class="dim" style="font-size:11.5px;">${esc(s.category)} · working together since ${new Date(s.since).getFullYear()}</div></div>${statusTag(s.status)}</div>
+      ${[['Contact', s.contact],['Phone', s.phone],['Usual lead time', s.leadTimeDays+' days'],['Orders placed', s.totalOrders],['Currently owe them', DB.fc(s.outstandingBalance)]].map(([k,v])=>`<div class="row jb" style="font-size:12px;padding:5px 0;border-bottom:1px solid var(--border-soft);"><span class="dim">${k}</span><span class="fw6${k==='Currently owe them'&&s.outstandingBalance>0?' ccaution':''}">${v}</span></div>`).join('')}
+      <div class="row g2 mt3" style="font-size:12px;">${ic('star')}<span class="fw6">${s.rating}</span><span class="faint">out of 5, based on ${s.totalOrders} deliveries</span></div>
+    </div><div class="card-f"><button class="btn btn-line btn-sm" data-viewsup="${s.id}">Order history</button><button class="btn btn-primary btn-sm" data-newsuppo="${s.id}">New order</button></div></div>`).join('')}</div>`;
+}
+
+function renderStaff(){
+  return viewHead('The team on the floor', 'Roles, branch assignments, and a fair read on monthly contribution')
+  + `<div class="vhead-actions" style="margin-bottom:18px;justify-content:flex-end;display:flex;"><button class="btn btn-primary btn-sm" id="newStaffBtn">${ic('plus')}Add a team member</button></div>`
+  + dataTable(['Name','Role','Branch','Reach them at','Sales this month','Status',''],
+      DB.staff.map(s=>{
+        const sales = DB.metrics('ALL').revenue * s.salesShare;
+        return `<tr><td><div class="row g3"><div class="nf-avatar" style="width:27px;height:27px;font-size:9px;flex-shrink:0;">${s.name.split(' ').map(n=>n[0]).join('').slice(0,2)}</div><span class="fw6">${esc(s.name)}</span></div></td><td class="dim">${esc(s.role)}</td><td class="dim">${DB.branchName(s.branch)}</td><td><div style="font-size:11.5px;">${esc(s.phone)}</div><div class="faint" style="font-size:10.5px;">${esc(s.email)}</div></td><td class="num fmono fw6">${DB.fc(sales)}</td><td>${statusTag(s.status)}</td><td><button class="btn btn-ghost btn-xs">Open</button></td></tr>`;
+      }).join(''), 'users', 'No one to show yet', 'Add the first team member to get started.');
+}
+
+
+/* ============================================================================
+   VIEW RENDERERS — PART 5: FINANCE, REPORTS, BRANCHES, COMPLIANCE, SETTINGS
+   Every figure here is read through DB.metrics() / DB.branchRevenue(),
+   so the numbers a branch manager sees on their dashboard are the exact
+   numbers a finance lead sees in this workspace.
+   ============================================================================ */
+
+function renderFinance(){
+  const bid = DB.bid;
+  const m = DB.metrics(bid);
+  const canView = canUser('view-finance') || bid !== 'ALL';
+
+  const branchPL = DB.branches.map(b=>{
+    const rev = DB.branchRevenue(b.id), exp = DB.branchExpense(b.id), net = rev-exp;
+    return { name:b.name, rev, exp, net, margin: rev ? (net/rev*100) : 0 };
+  });
+
+  return viewHead('The money, reconciled', 'One ledger — what you see here is exactly what feeds the branch dashboards',
+    `<button class="btn btn-line btn-sm" id="exportFinBtn">${ic('download')}Export financials</button>`)
+  + `<div class="kgrid">
+      ${kpi({label:'Revenue, year to date', val:DB.fc(m.ytdRevenue), deltaPct:14.2, context:'vs. the same period last year', icon:'waveform', tone:'accent'})}
+      ${kpi({label:'Cost of operations, YTD', val:DB.fc(m.ytdExpense), deltaPct:6.8, context:'vs. the same period last year', icon:'archive', tone:'caution'})}
+      ${kpi({label:'Net result, YTD', val:DB.fc(m.ytdNet), deltaPct:22.4, context:'vs. the same period last year', icon:'target', tone:'good'})}
+      ${kpi({label:'Owed to suppliers', val:DB.fc(m.payables), deltaPct:-3.1, context:'outstanding right now', icon:'walletCard', tone:'critical'})}
+    </div>`
+  + tabSet(['Branch by branch','Cash position','Tax summary','Supplier reconciliation'], [
+    dataTable(['Branch','Revenue','Cost of operations','Net result','Margin'],
+      branchPL.map(b=>`<tr><td class="fw6">${esc(b.name)}</td><td class="num fmono">${DB.fc(b.rev)}</td><td class="num fmono dim">${DB.fc(b.exp)}</td><td class="num fmono fw7 cgood">${DB.fc(b.net)}</td><td class="num fmono">${b.margin.toFixed(1)}%</td></tr>`).join('')),
+    `<div class="financards" style="grid-template-columns:repeat(auto-fill,minmax(180px,1fr));">
+      ${[['Cash on hand',18400000],['Mobile money balance',9200000],['Bank balance',42600000],['Total, ready to deploy',70200000]].map(([l,v])=>`<div class="financard"><div class="fc-lbl">${l}</div><div class="fc-val">${DB.fc(v)}</div></div>`).join('')}
+    </div>`,
+    dataTable(['Period','Taxable revenue','VAT at 18%','Filing status'],
+      ['Apr 2026','May 2026','Jun 2026'].map((p,i)=>{ const r=[89e6,95e6,99e6][i]; return `<tr><td class="fw6">${p}</td><td class="num fmono">${DB.fc(r)}</td><td class="num fmono">${DB.fc(r*.18)}</td><td>${statusTag(i<2?'delivered':'pending-approval')}</td></tr>`; }).join('')),
+    dataTable(['Supplier','Invoiced this year','Currently outstanding','Status'],
+      DB.suppliers.map(s=>`<tr><td class="fw6">${esc(s.name)}</td><td class="num fmono">${DB.fc(s.outstandingBalance+5e6)}</td><td class="num fmono${s.outstandingBalance>0?' ccaution fw7':''}">${DB.fc(s.outstandingBalance)}</td><td>${statusTag(s.outstandingBalance>0?'pending-approval':'delivered')}</td></tr>`).join(''))
+  ], 'fin');
+}
+
+function renderReports(){
+  return viewHead('Build exactly the report you need', 'Pick the fields, the grouping, the window — no spreadsheet gymnastics required')
+  + `<div class="dgrid">
+      <div class="card s2 enter"><div class="card-h"><span class="card-title">Start a new report</span></div><div class="card-b">
+        <div class="fgrid">
+          <div class="fgrp"><label class="flbl">What to report on</label><select class="fsel"><option>Sales summary</option><option>Inventory valuation</option><option>Prescription audit</option><option>Customer activity</option><option>Supplier performance</option><option>Branch comparison</option></select></div>
+          <div class="fgrp"><label class="flbl">Time window</label><select class="fsel"><option>This week</option><option>This month</option><option>This quarter</option><option>Year to date</option></select></div>
+          <div class="fgrp"><label class="flbl">Group by</label><select class="fsel"><option>Branch</option><option>Category</option><option>Staff member</option><option>Payment method</option></select></div>
+          <div class="fgrp"><label class="flbl">Export as</label><select class="fsel"><option>PDF</option><option>CSV</option><option>Excel</option></select></div>
+        </div>
+        <button class="btn btn-primary mt4" id="genReportBtn">${ic('fileChart')}Generate this report</button>
+      </div></div>
+      <div class="card enter enter-d1"><div class="card-h"><span class="card-title">Recently generated</span></div><div class="card-b" style="padding:6px;">
+        ${[['June sales summary','2 hours ago','PDF'],['Branch comparison, Q2','Yesterday','Excel'],['Inventory valuation','3 days ago','CSV'],['Supplier performance','1 week ago','PDF']].map(([n,d,f])=>`<div class="row jb" style="padding:11px 13px;border-bottom:1px solid var(--border-soft);gap:10px;"><div><div style="font-size:12.5px;font-weight:600;">${n}</div><div class="faint" style="font-size:10.5px;">${d} · ${f}</div></div><button class="btn btn-ghost btn-xs">${ic('download')}</button></div>`).join('')}
+      </div></div>
+    </div>`;
+}
+
+function renderBranches(){
+  return viewHead('Five branches, one set of books', 'Independent on the shelf, shared at the ledger',
+    `<button class="btn btn-primary btn-sm" id="newBranchBtn">${ic('plus')}Open a new branch</button>`)
+  + `<div class="bgrid">${DB.branches.map(b=>{
+      const rev = DB.branchRevenue(b.id);
+      return `<div class="card enter"><div class="card-b">
+        <div class="row jb mb3"><div><div class="fw7" style="font-size:13.5px;">${esc(b.name)}</div><div class="dim" style="font-size:11.5px;">${esc(b.city)} · open since ${new Date(b.opened).getFullYear()}</div></div>${statusTag(b.status)}</div>
+        ${[['Branch lead', b.manager],['Floor size', b.sqm+' m²'],['Revenue this month', DB.fc(rev)],['Inventory on shelf', DB.fc(DB.invCostValue(b.id))],['Phone', b.phone]].map(([k,v])=>`<div class="row jb" style="font-size:12px;padding:5px 0;border-bottom:1px solid var(--border-soft);"><span class="dim">${k}</span><span class="fw6">${v}</span></div>`).join('')}
+      </div><div class="card-f"><button class="btn btn-line btn-sm" data-switchbr="${b.id}">Switch to this branch</button><button class="btn btn-primary btn-sm" data-brana="${b.id}">See its analytics</button></div></div>`;
+    }).join('')}</div>
+    <div class="card mt4 enter"><div class="card-h"><span class="card-title">Stock moving between branches</span><button class="btn btn-primary btn-sm">${ic('plus')}New transfer</button></div>
+    ${dataTable(['Transfer','From','To','Medicine','Qty','Status'],
+      [['TRF-401','Kampala Central','Entebbe Road','Amoxicillin 500mg',50,'in-transit'],['TRF-402','Jinja Branch','Mbarara Outlet','Coartem 20/120mg',30,'delivered'],['TRF-403','Kampala Central','Gulu Branch','Paracetamol 500mg',100,'pending-approval']].map(([id,f,t,med,q,s])=>`<tr><td class="fmono fw6">${id}</td><td>${f}</td><td>${t}</td><td>${med}</td><td class="num fmono">${q}</td><td>${statusTag(s)}</td></tr>`).join(''))}
+    </div>`;
+}
+
+function renderCompliance(){
+  const ctrl = DB.medicines.filter(m=>m.controlled);
+  return viewHead('The record that doesn\'t move', 'Audit history, controlled substances, and what regulators will ask to see')
+  + tabSet(['Audit trail','Controlled substances','Recall management'], [
+    dataTable(['Who','What happened','Where','When','Flag'],
+      DB.auditLog.map(a=>`<tr><td class="fw6">${esc(a.actor)}</td><td>${esc(a.action)}</td><td class="dim">${esc(a.module)}</td><td class="fmono dim">${esc(a.ts)}</td><td>${a.sev==='caution'?tag('caution','Worth a glance'):tag('accent','Routine')}</td></tr>`).join('')),
+    `<div class="banner banner-caution mb3">${ic('lock','banner-icon')}<div class="banner-body"><div class="banner-title">Dual sign-off is required on every line below</div><div class="banner-desc">No controlled substance leaves the shelf without a pharmacist's verification, logged here permanently.</div></div></div>`
+    + dataTable(['Medicine','Batch','On shelf','Allocation rule','Expires'],
+      ctrl.map(m=>`<tr><td class="fw6">${esc(m.name)} ${esc(m.strength)}</td><td class="fmono dim">${esc(m.batchNo)}</td><td class="num fmono">${DB.getStock(m,DB.bid)}</td><td>${tag('accent','First in, first out')}</td><td class="dim">${DB.fdate(m.expiryDate)}</td></tr>`).join('')),
+    emptyState('checkCircle','No recalls open right now','Nothing from any manufacturer is currently affecting stock on your shelves.')
+  ], 'comp');
+}
+
+function renderSettings(){
+  const role = DB.user ? DB.roles[DB.user.roleKey] : null;
+  return viewHead('How the platform is set up', role ? `Signed in as ${esc(DB.user.firstName)} ${esc(DB.user.lastName)} · ${esc(role.label)}` : '')
+  + tabSet(['Identity','Security','Connected tools','Automation','System health'], [
+    `<div class="card enter"><div class="card-h"><span class="card-title">How the brand shows up everywhere — receipts, invoices, the login screen</span></div><div class="card-b">
+      <div class="fgrid">
+        <div class="fgrp"><label class="flbl">Company name</label><input class="finp" value="Monalisa Tech Solutions"></div>
+        <div class="fgrp"><label class="flbl">Support email</label><input class="finp" value="kabuusumonalisa@gmail.com"></div>
+        <div class="fgrp"><label class="flbl">WhatsApp line</label><input class="finp" value="+256703953711"></div>
+        <div class="fgrp"><label class="flbl">Brand accent</label><input class="finp" value="#0D8A9E"></div>
+      </div>
+      <button class="btn btn-primary mt4">${ic('check')}Save these details</button>
+    </div></div>`,
+    `<div class="card enter"><div class="card-h"><span class="card-title">Who can get in, and how</span></div><div class="card-b" style="display:flex;flex-direction:column;gap:15px;">
+      ${[['Two-step sign-in','A code on top of the password, every time','true'],['Auto sign-out','Closes the session after 30 minutes of quiet','true'],['Device history','Every device that has ever signed in, kept on file','true'],['Unusual sign-in alerts','A message the moment something looks off','false']].map(([t,d,c])=>`<div class="row jb" style="gap:10px;"><div><div style="font-size:13px;font-weight:600;">${t}</div><div class="dim" style="font-size:12px;">${d}</div></div><label class="toggle"><input type="checkbox"${c==='true'?' checked':''}><span class="tgl-track"><span class="tgl-thumb"></span></span></label></div>`).join('')}
+    </div></div>`,
+    `<div class="bgrid">${[['WhatsApp Business','+256703953711, live','active'],['Email delivery','kabuusumonalisa@gmail.com','active'],['REST API','version 1, currently serving requests','active'],['Webhooks','3 endpoints configured','active']].map(([n,s,st])=>`<div class="card enter"><div class="card-b"><div class="row jb"><div><div class="fw7">${n}</div><div class="dim" style="font-size:11.5px;margin-top:2px;">${s}</div></div>${statusTag(st)}</div></div></div>`).join('')}</div>`,
+    dataTable(['Rule','Trigger','What happens','Status'],
+      [['Reorder suggestion','Stock crosses the reorder point','A draft purchase order is prepared automatically','active'],['Expiry warning','90 days before a batch expires','The branch manager is notified','active'],['Procurement reminder','An order sits unapproved for 48 hours','It\'s escalated to the next approver','active'],['Refund review','A refund exceeds UGX 50,000','A manager\'s sign-off is required before it completes','active'],['Morning summary','Every day at 7:00am','Yesterday\'s branch performance lands by email','active']].map(([r,t,a,s])=>`<tr><td class="fw6">${r}</td><td class="dim">${t}</td><td class="dim">${a}</td><td>${statusTag(s)}</td></tr>`).join('')),
+    `<div class="kgrid">
+      ${kpi({label:'Last backup', val:'2 hours ago', context:'completed without incident', icon:'archive', tone:'good'})}
+      ${kpi({label:'Branches in sync', val:'5 of 5', context:'every ledger agrees', icon:'sitemap', tone:'accent'})}
+      ${kpi({label:'Storage in use', val:'38%', context:'of the current allocation', icon:'boxes', tone:'caution'})}
+      ${kpi({label:'Uptime, last 30 days', val:'99.98%', context:'measured against the published SLA', icon:'checkCircle', tone:'good'})}
+    </div>`
+  ], 'set');
+}
+
+
+/* ============================================================================
+   APPLICATION CONTROLLER
+   ============================================================================ */
+(function(){
+  'use strict';
+
+  const accounts = {
+    'amara.mukasa@monalisapharma.com': { firstName:'Amara', lastName:'Mukasa', roleKey:'chief-pharmacist', initials:'AM' },
+    'james.okello@monalisapharma.com':  { firstName:'James', lastName:'Okello', roleKey:'branch-manager', initials:'JO' },
+    'robert.kato@monalisapharma.com':   { firstName:'Robert', lastName:'Kato', roleKey:'pharmacist', initials:'RK' },
+    'isaac.mbabazi@monalisapharma.com': { firstName:'Isaac', lastName:'Mbabazi', roleKey:'cashier', initials:'IM' },
+  };
+
+  const titles = {
+    dashboard:'The floor, this morning', analytics:'Where the patterns live', pos:'The till',
+    prescriptions:'Prescriptions in motion', inventory:'What\'s actually on the shelf',
+    procurement:'Orders in flight', customers:'The people who keep coming back',
+    suppliers:'Who keeps the shelves full', staff:'The team on the floor',
+    finance:'The money, reconciled', reports:'Build exactly the report you need',
+    branches:'Five branches, one set of books', compliance:'The record that doesn\'t move',
+    settings:'How the platform is set up',
+  };
+  const crumbSub = {
+    dashboard:'Overview', analytics:'Insight', pos:'Operations', prescriptions:'Operations',
+    inventory:'Operations', procurement:'Operations', customers:'People', suppliers:'People',
+    staff:'People', finance:'Finance', reports:'Finance', branches:'Administration',
+    compliance:'Administration', settings:'Administration',
+  };
+
+  const S = {
+    module: 'dashboard', cart: [],
+    rxF:{s:'',q:''}, invF:{q:'',cat:'',sf:''}, procF:{s:''}, custF:{q:'',tier:''},
+  };
+
+  let mount;
+
+  function buildShell(){
+    document.body.insertAdjacentHTML('beforeend', renderGate());
+  }
+
+  function startApp(){
+    document.body.insertAdjacentHTML('beforeend', appShellHtml());
+    mount = $('view');
+    wireShellChrome();
+    render();
+    setTimeout(()=>{ $('app').classList.add('ready'); updateMobileBadges(); }, 30);
+    setTimeout(()=>toast(`Three prescriptions are waiting on a pharmacist — worth a look when you have a moment.`,'info','bell'), 1400);
+  }
+
+  function appShellHtml(){
+    const role = DB.roles[DB.user.roleKey];
+    return `
+    <div id="app">
+      <aside class="nav" id="navEl">
+        <div class="nh">
+          <div class="nh-brand">
+            <div class="nh-mark"><span style="width:18px;height:18px;color:#fff">${ic('pulse')}</span></div>
+            <div class="nh-text"><span class="nh-name">Monalisa</span><span class="nh-sub">PharmaCare</span></div>
+          </div>
+          <button class="nh-collapse" id="navCollapse" aria-label="Collapse navigation">${ic('chevRight')}</button>
+        </div>
+        <div class="nb-wrap">
+          <button class="nb-btn" id="branchBtn"><span class="nb-dot"></span><span class="nb-label">Kampala Central</span><span class="nb-chev">${ic('chevDown')}</span></button>
+        </div>
+        <nav class="nmenu">
+          ${navSection('Overview', [
+            ['dashboard','grid','Dashboard',null],
+            ['analytics','sitemap','Analytics',null],
+          ])}
+          ${navSection('Operations', [
+            ['pos','cart','Point of sale',null],
+            ['prescriptions','receipt','Prescriptions','rxBadge'],
+            ['inventory','boxes','Inventory','invBadge'],
+            ['procurement','truck','Procurement',null],
+          ])}
+          ${navSection('People', [
+            ['customers','users','Customers',null],
+            ['suppliers','supplier','Suppliers',null],
+            ['staff','badgeUser','Staff',null],
+          ])}
+          ${navSection('Finance & insight', [
+            ['finance','coin','Finance',null],
+            ['reports','fileChart','Reports',null],
+          ])}
+          ${navSection('Administration', [
+            ['branches','sitemap','Branches',null],
+            ['compliance','shield','Compliance',null],
+            ['settings','gear','Settings',null],
+          ])}
+        </nav>
+        <div class="nf">
+          <div class="nf-row">
+            <div class="nf-avatar">${DB.user.initials}</div>
+            <div class="nf-info"><span class="nf-name">${esc(DB.user.firstName)} ${esc(DB.user.lastName)}</span><span class="nf-role">${esc(role.label)}</span></div>
+            <button class="nf-btn" data-mod="settings" aria-label="Settings">${ic('gear')}</button>
+          </div>
+        </div>
+      </aside>
+      <div class="nav-backdrop" id="navBackdrop"></div>
+      <div class="main">
+        <header class="bar">
+          <div class="bar-l">
+            <button class="hamburger" id="hamburgerBtn" aria-label="Open navigation">${ic('grid')}</button>
+            <div class="crumb"><span class="crumb-main" id="crumbMain">Dashboard</span><span class="crumb-sub" id="crumbSub">Overview</span></div>
+          </div>
+          <div class="bar-c">
+            <div class="gsearch" id="gsearchBox">${ic('search')}<input id="gSearchInput" placeholder="Search medicines, people, orders…" autocomplete="off"><kbd class="gkbd">⌘K</kbd><div class="sdrop" id="searchDrop"></div></div>
+          </div>
+          <div class="bar-r">
+            <button class="ibtn" id="aiBtn" aria-label="Open Mona, the AI assistant">${ic('sparkle')}</button>
+            <button class="ibtn" id="notifBtn" aria-label="Notifications">${ic('bell')}<span class="idot" id="notifDot"></span></button>
+            <button class="ibtn" id="themeBtn" aria-label="Toggle dark mode">${ic('moon')}</button>
+          </div>
+        </header>
+        <main class="view" id="view" role="main" aria-live="polite"></main>
+      </div>
+    </div>
+
+    <nav class="bnav" aria-label="Mobile navigation">
+      <div class="bnav-row">
+        <div class="bnav-btn on" data-mod="dashboard">${ic('grid')}<span>Floor</span></div>
+        <div class="bnav-btn" data-mod="pos">${ic('cart')}<span>Till</span></div>
+        <div class="bnav-btn" data-mod="prescriptions">${ic('receipt')}<span>Rx</span><span class="bnav-flag" id="bnavRxFlag"></span></div>
+        <div class="bnav-btn" data-mod="inventory">${ic('boxes')}<span>Shelf</span></div>
+        <div class="bnav-btn" id="bnavMore">${ic('grid')}<span>More</span></div>
+      </div>
+    </nav>
+
+    <div class="scrim" id="scrim"></div>
+    <aside class="panel" id="notifPanel" aria-label="Notifications">
+      <div class="panel-h"><span class="panel-h-title">What needs your attention</span><button class="panel-x" id="notifClose">${ic('x')}</button></div>
+      <div class="panel-b" id="notifBody"></div>
+    </aside>
+    <aside class="panel ai-panel" id="aiPanel" aria-label="Mona, the AI assistant">
+      <div class="panel-h ai-h">
+        <div class="ai-hrow"><div class="ai-av"><span style="width:19px;height:19px;color:#fff">${ic('sparkle')}</span></div><div><div class="ai-name">Mona</div><div class="ai-status"><span style="width:7px;height:7px;border-radius:50%;background:var(--good);display:inline-block"></span>Ready when you are</div></div></div>
+        <button class="panel-x" id="aiClose">${ic('x')}</button>
+      </div>
+      <div class="ai-msgs" id="aiMsgs"></div>
+      <div class="ai-inarea"><div class="ai-chips" id="aiChips"></div><div class="ai-inrow"><input id="aiInput" placeholder="Ask about stock, forecasts, today's numbers…"><button class="ai-send" id="aiSend">${ic('chevRight')}</button></div></div>
+    </aside>
+
+    <div class="dlg-scrim" id="dlgScrim"><div class="dlg" id="dlg" role="dialog" aria-modal="true"></div></div>
+    <div class="ddmenu" id="branchDrop"></div>
+    <div class="toasts" id="toasts" aria-live="polite"></div>
+    <a class="ibtn" href="https://wa.me/256703953711" target="_blank" rel="noopener" aria-label="WhatsApp support"
+       style="position:fixed;bottom:78px;left:18px;width:50px;height:50px;border-radius:50%;background:#25D366;color:#fff;box-shadow:0 6px 20px rgba(37,211,102,.4);z-index:200;">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </a>`;
+  }
+
+  function navSection(label, items){
+    return `<div class="nsect"><span class="nsect-label">${label}</span>${items.map(([mod,icon,txt,badgeId])=>`
+      <div class="nitem${mod==='dashboard'?' active':''}" data-mod="${mod}" role="button" tabindex="0">
+        <span class="nicon">${ic(icon)}</span><span class="ntxt">${txt}</span>
+        ${badgeId?`<span class="nbadge b-accent" id="${badgeId}" style="display:none"></span>`:''}
+      </div>`).join('')}</div>`;
+  }
+
+  /* ---------------- RENDER ---------------- */
+  function render(){
+    let h = '';
+    switch(S.module){
+      case 'dashboard': h = renderDashboard(); break;
+      case 'analytics': h = renderAnalytics(); break;
+      case 'pos': h = renderPOS(S.cart); break;
+      case 'prescriptions': h = renderPrescriptions(S.rxF); break;
+      case 'inventory': h = renderInventory(S.invF); break;
+      case 'procurement': h = renderProcurement(S.procF); break;
+      case 'customers': h = renderCustomers(S.custF); break;
+      case 'suppliers': h = renderSuppliers(); break;
+      case 'staff': h = renderStaff(); break;
+      case 'finance': h = renderFinance(); break;
+      case 'reports': h = renderReports(); break;
+      case 'branches': h = renderBranches(); break;
+      case 'compliance': h = renderCompliance(); break;
+      case 'settings': h = renderSettings(); break;
+      default: h = renderDashboard();
+    }
+    mount.innerHTML = h;
+    $('crumbMain').textContent = titles[S.module] || 'Dashboard';
+    $('crumbSub').textContent = crumbSub[S.module] || '';
+    mount.scrollTop = 0;
+    wireChartTooltips();
+    wireView();
+    updateMobileBadges();
+  }
+
+  function nav(mod){
+    S.module = mod;
+    document.querySelectorAll('.nitem').forEach(el=>el.classList.toggle('active', el.dataset.mod===mod));
+    document.querySelectorAll('.bnav-btn[data-mod]').forEach(el=>el.classList.toggle('on', el.dataset.mod===mod));
+    render();
+    closeMobNav();
+  }
+
+  /* ---------------- CHART TOOLTIPS ---------------- */
+  function wireChartTooltips(){
+    mount.querySelectorAll('[data-chart]').forEach(wrap=>{
+      const id = wrap.dataset.chart;
+      const tt = $('tt-'+id);
+      if (!tt) return;
+      wrap.querySelectorAll('.chart-dot').forEach(dot=>{
+        dot.addEventListener('mouseenter', e=>{
+          const rect = wrap.getBoundingClientRect();
+          const dotRect = dot.getBoundingClientRect();
+          const val = parseFloat(dot.dataset.val);
+          tt.innerHTML = `<span class="chart-tt-val">${DB.fc(val)}</span>`;
+          tt.style.left = (dotRect.left - rect.left + dotRect.width/2) + 'px';
+          tt.style.top = (dotRect.top - rect.top - 8) + 'px';
+          tt.classList.add('on');
+          dot.setAttribute('r','5');
+        });
+        dot.addEventListener('mouseleave', ()=>{ tt.classList.remove('on'); dot.setAttribute('r','3'); });
+      });
+    });
+  }
+
+  /* ---------------- VIEW WIRING ---------------- */
+  function wireView(){
+    mount.querySelectorAll('[data-nav]').forEach(el=>el.addEventListener('click', ()=>nav(el.dataset.nav)));
+
+    mount.querySelectorAll('.tabrow').forEach(bar=>{
+      bar.addEventListener('click', e=>{
+        const t = e.target.closest('.tabitem'); if (!t) return;
+        const idx = t.dataset.tab;
+        bar.querySelectorAll('.tabitem').forEach(x=>x.classList.toggle('on', x.dataset.tab===idx));
+        const container = bar.parentElement;
+        container.querySelectorAll(':scope > .tabpane').forEach(x=>x.classList.toggle('on', x.dataset.pane===idx));
+      });
+    });
+
+    mount.querySelectorAll('[data-tab-jump]').forEach(el=>el.addEventListener('click', ()=>{
+      const [grp, idx] = el.dataset.tabJump.split(':');
+      const bar = mount.querySelector(`.tabrow[data-tabgroup="${grp}"]`);
+      if (!bar) return;
+      bar.querySelectorAll('.tabitem').forEach(x=>x.classList.toggle('on', x.dataset.tab===idx));
+      bar.parentElement.querySelectorAll(':scope > .tabpane').forEach(x=>x.classList.toggle('on', x.dataset.pane===idx));
+    }));
+
+    switch(S.module){
+      case 'dashboard': wireDash(); break;
+      case 'pos': wirePOS(); break;
+      case 'prescriptions': wireRx(); break;
+      case 'inventory': wireInv(); break;
+      case 'procurement': wireProc(); break;
+      case 'customers': wireCust(); break;
+      case 'suppliers': wireSup(); break;
+      case 'branches': wireBr(); break;
+      case 'finance': wireFinanceView(); break;
+      case 'reports': wireReportsView(); break;
+    }
+  }
+
+  function wireDash(){
+    const r=$('refreshDashBtn'), e=$('exportDashBtn');
+    if (r) r.addEventListener('click', ()=>{ render(); toast('The floor has refreshed.','good','refresh'); });
+    if (e) e.addEventListener('click', ()=> toast('Putting the executive report together…','info','fileChart'));
+  }
+
+  function wirePOS(){
+    const bid = DB.bid==='ALL' ? 'BR-001' : DB.bid;
+    function filterProds(){
+      const q = ($('posSearch')||{value:''}).value.toLowerCase();
+      const cat = ($('posCat')||{value:''}).value;
+      let list = DB.medicines.slice();
+      if (q) list = list.filter(m=>m.name.toLowerCase().includes(q)||m.barcode.includes(q));
+      if (cat) list = list.filter(m=>m.category===cat);
+      const g = $('prodGrid'); if (g) g.innerHTML = renderProductTiles(list, bid);
+      wireTiles();
+    }
+    function wireTiles(){
+      mount.querySelectorAll('[data-pid]').forEach(t=>{
+        t.addEventListener('click', ()=>addToCart(t.dataset.pid));
+        t.addEventListener('keydown', e=>{ if (e.key==='Enter') addToCart(t.dataset.pid); });
+      });
+    }
+    function addToCart(id){
+      const m = DB.medicines.find(x=>x.id===id); if (!m) return;
+      const ex = S.cart.find(i=>i.id===id);
+      if (ex) ex.qty++; else S.cart.push({ id, name:`${m.name} ${m.strength}`, price:m.sellPrice, qty:1 });
+      render();
+    }
+    const ps=$('posSearch'), pc=$('posCat');
+    if (ps) ps.addEventListener('input', filterProds);
+    if (pc) pc.addEventListener('change', filterProds);
+    wireTiles();
+    mount.querySelectorAll('[data-inc]').forEach(b=>b.addEventListener('click', ()=>{ S.cart[+b.dataset.inc].qty++; render(); }));
+    mount.querySelectorAll('[data-dec]').forEach(b=>b.addEventListener('click', ()=>{ const i=+b.dataset.dec; S.cart[i].qty--; if (S.cart[i].qty<=0) S.cart.splice(i,1); render(); }));
+    const cl=$('clearCart'); if (cl) cl.addEventListener('click', ()=>{ S.cart=[]; render(); });
+    mount.querySelectorAll('[data-pay]').forEach(el=>el.addEventListener('click', ()=>{ mount.querySelectorAll('[data-pay]').forEach(p=>p.classList.remove('on')); el.classList.add('on'); }));
+    const co=$('checkoutBtn');
+    if (co) co.addEventListener('click', ()=>{
+      if (!S.cart.length) return;
+      const cid = ($('posCustomer')||{value:''}).value;
+      const cust = cid ? DB.customers.find(c=>c.id===cid) : null;
+      const total = S.cart.reduce((s,i)=>s+i.price*i.qty,0);
+      const pay = (mount.querySelector('[data-pay].on')||{dataset:{pay:'Cash'}}).dataset.pay;
+      const sale = { id:DB.nextSale(), customer:cust?cust.name:'Walk-in', cid:cid||null, items:S.cart.map(i=>({med:i.name,qty:i.qty,price:i.price})), total, payment:pay, branch:bid, date:'2026-06-19 '+new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'}) };
+      DB.sales.unshift(sale);
+      if (cust) cust.loyaltyPoints += Math.floor(total/1000);
+      S.cart.forEach(item=>{ const m=DB.medicines.find(x=>x.id===item.id); if (m) m.branchStock[bid] = Math.max(0,(m.branchStock[bid]||0)-item.qty); });
+      S.cart = [];
+      render();
+      toast(`Sale settled — ${sale.id} for ${DB.fc(total)}`, 'good', 'checkCircle');
+    });
+    const scan=$('scanBtn'); if (scan) scan.addEventListener('click', ()=> toast('Point the camera at a barcode to add it instantly.','info','barcode'));
+  }
+
+  function wireRx(){
+    const q=$('rxQ'), s=$('rxStat');
+    if (q) q.addEventListener('input', ()=>{ S.rxF.q=q.value; render(); });
+    if (s) s.addEventListener('change', ()=>{ S.rxF.s=s.value; render(); });
+    mount.querySelectorAll('[data-viewrx]').forEach(b=>b.addEventListener('click', ()=>openRxDialog(b.dataset.viewrx)));
+    const nb=$('newRxBtn');
+    if (nb) nb.addEventListener('click', ()=>{
+      openDialog(`<div class="dlg-h"><span class="dlg-title">Capture a new prescription</span></div>
+        <div class="dlg-b"><div class="fgrid">
+          <div class="fgrp"><label class="flbl">Patient's name</label><input class="finp" id="nrPat" placeholder="Full name"></div>
+          <div class="fgrp"><label class="flbl">Prescriber</label><input class="finp" id="nrDoc" placeholder="Dr. Name"></div>
+          <div class="fgrp full"><label class="flbl">Clinic or facility</label><input class="finp" id="nrClinic" placeholder="Where it was issued"></div>
+          <div class="fgrp full"><label class="flbl">Medicine and dosage</label><textarea class="ftxt" id="nrItems" placeholder="e.g. Amoxicillin 500mg — one capsule, three times daily, for 7 days"></textarea></div>
+          <div class="fgrp"><label class="flbl">Priority</label><select class="fsel" id="nrPri"><option value="normal">Routine</option><option value="urgent">Urgent</option></select></div>
+        </div></div>
+        <div class="dlg-f"><button class="btn btn-line" id="dlgCancel">Cancel</button><button class="btn btn-primary" id="saveRx">${ic('check')}Capture it</button></div>`);
+      $('saveRx').addEventListener('click', ()=>{
+        const id = DB.nextRx();
+        const pat = ($('nrPat').value.trim()) || 'Unnamed patient';
+        DB.prescriptions.unshift({ id, patient:pat, cid:null, doctor:($('nrDoc').value.trim())||'Unspecified', clinic:($('nrClinic').value.trim())||'Walk-in', items:[{ med:($('nrItems').value.trim())||'As prescribed', qty:1, dose:'Per prescriber instructions' }], status:'pending-review', date:'2026-06-19', branch:DB.bid==='ALL'?'BR-001':DB.bid, priority:$('nrPri').value });
+        closeDialog(); render();
+        toast(`${id} is now in the review queue.`,'good','receipt');
+      });
+    });
+  }
+
+  function openRxDialog(id){
+    const rx = DB.prescriptions.find(r=>r.id===id); if (!rx) return;
+    openDialog(prescriptionDialog(rx));
+    document.querySelectorAll('[data-rxact]').forEach(b=>b.addEventListener('click', ()=>{
+      const r = DB.prescriptions.find(x=>x.id===b.dataset.rxid); if (!r) return;
+      if (b.dataset.rxact==='approve') r.status='approved';
+      if (b.dataset.rxact==='hold') r.status='pharmacist-hold';
+      if (b.dataset.rxact==='dispense') r.status='dispensed';
+      closeDialog(); render();
+      toast(`${r.id} updated.`,'good','checkCircle');
+    }));
+  }
+
+  function wireInv(){
+    const q=$('invQ'), c=$('invCat'), sf=$('invSF');
+    if (q) q.addEventListener('input', ()=>{ S.invF.q=q.value; render(); });
+    if (c) c.addEventListener('change', ()=>{ S.invF.cat=c.value; render(); });
+    if (sf) sf.addEventListener('change', ()=>{ S.invF.sf=sf.value; render(); });
+    mount.querySelectorAll('[data-viewmed]').forEach(b=>b.addEventListener('click', ()=>{
+      const m = DB.medicines.find(x=>x.id===b.dataset.viewmed); if (!m) return;
+      const bid = DB.bid;
+      openDialog(`<div class="dlg-h"><span class="dlg-title">${esc(m.name)} ${esc(m.strength)}</span>${m.controlled?'<span class="tag tag-critical">Controlled</span>':''}</div>
+        <div class="dlg-b">
+          <div class="fgrid mb3">
+            <div><div class="flbl">Form</div><div style="font-size:13px;margin-top:3px;">${esc(m.form)}</div></div>
+            <div><div class="flbl">Category</div><div style="font-size:13px;margin-top:3px;">${esc(m.category)}</div></div>
+            <div><div class="flbl">Manufacturer</div><div style="font-size:13px;margin-top:3px;">${esc(m.manufacturer)}</div></div>
+            <div><div class="flbl">Barcode</div><div style="font-size:13px;margin-top:3px;" class="fmono">${esc(m.barcode)}</div></div>
+            <div><div class="flbl">Batch</div><div style="font-size:13px;margin-top:3px;" class="fmono">${esc(m.batchNo)}</div></div>
+            <div><div class="flbl">On shelf here</div><div style="font-size:13px;margin-top:3px;">${DB.getStock(m,bid)} units</div></div>
+            <div><div class="flbl">Cost price</div><div style="font-size:13px;margin-top:3px;">${DB.fc(m.costPrice)}</div></div>
+            <div><div class="flbl">Sell price</div><div style="font-size:13px;margin-top:3px;">${DB.fc(m.sellPrice)}</div></div>
+            <div><div class="flbl">Expires</div><div style="font-size:13px;margin-top:3px;">${DB.fdate(m.expiryDate)}</div></div>
+          </div>
+          ${dataTable(['Branch','Units'], DB.branches.map(b=>`<tr><td>${esc(b.name)}</td><td class="num fmono">${m.branchStock[b.id]||0}</td></tr>`).join(''))}
+        </div>
+        <div class="dlg-f"><button class="btn btn-line" id="dlgCancel">Close</button></div>`);
+    }));
+    const nm=$('newMedBtn');
+    if (nm) nm.addEventListener('click', ()=>{
+      openDialog(`<div class="dlg-h"><span class="dlg-title">Register a new medicine</span></div>
+        <div class="dlg-b"><div class="fgrid">
+          <div class="fgrp"><label class="flbl">Name</label><input class="finp" id="nmN" placeholder="e.g. Azithromycin"></div>
+          <div class="fgrp"><label class="flbl">Strength</label><input class="finp" id="nmS" placeholder="e.g. 250mg"></div>
+          <div class="fgrp"><label class="flbl">Category</label><select class="fsel" id="nmC">${DB.categories.map(c=>`<option>${c}</option>`).join('')}</select></div>
+          <div class="fgrp"><label class="flbl">Form</label><input class="finp" id="nmF" placeholder="Tablet, capsule…"></div>
+          <div class="fgrp"><label class="flbl">Cost price (UGX)</label><input class="finp" type="number" id="nmCost"></div>
+          <div class="fgrp"><label class="flbl">Sell price (UGX)</label><input class="finp" type="number" id="nmP"></div>
+          <div class="fgrp"><label class="flbl">Starting stock</label><input class="finp" type="number" id="nmSt"></div>
+          <div class="fgrp"><label class="flbl">Reorder point</label><input class="finp" type="number" id="nmR" value="50"></div>
+        </div></div>
+        <div class="dlg-f"><button class="btn btn-line" id="dlgCancel">Cancel</button><button class="btn btn-primary" id="saveMed">${ic('check')}Register it</button></div>`);
+      $('saveMed').addEventListener('click', ()=>{
+        const name = $('nmN').value.trim(); if (!name){ toast('It needs a name first.','critical','x'); return; }
+        const bid2 = DB.bid==='ALL'?'BR-001':DB.bid;
+        const bs={}; DB.branches.forEach(b=>bs[b.id]=0); bs[bid2]=parseInt($('nmSt').value)||0;
+        DB.medicines.push({ id:'MED-'+(1000+DB.medicines.length+1), name, strength:$('nmS').value||'—', form:$('nmF').value||'Tablet', category:$('nmC').value, manufacturer:'Unspecified', barcode:'890'+Math.floor(Math.random()*1e10), costPrice:parseInt($('nmCost').value)||0, sellPrice:parseInt($('nmP').value)||0, branchStock:bs, reorderLevel:parseInt($('nmR').value)||50, batchNo:'NEW-'+Date.now().toString().slice(-4), mfgDate:'2026-06-19', expiryDate:'2028-06-19', controlled:false, monthlyVelocity:0 });
+        closeDialog(); render();
+        toast(`${name} is on the shelf now.`,'good','boxes');
+      });
+    });
+    const sc=$('stockCorrBtn');
+    if (sc) sc.addEventListener('click', ()=>{
+      openDialog(`<div class="dlg-h"><span class="dlg-title">Record a stock correction</span></div>
+        <div class="dlg-b"><div class="fgrid">
+          <div class="fgrp full"><label class="flbl">Medicine</label><select class="fsel" id="scM">${DB.medicines.map(m=>`<option value="${m.id}">${esc(m.name)} ${esc(m.strength)}</option>`).join('')}</select></div>
+          <div class="fgrp"><label class="flbl">Reason</label><select class="fsel" id="scT"><option>Damage</option><option>Waste</option><option>Physical recount</option><option>Loss or theft</option></select></div>
+          <div class="fgrp"><label class="flbl">Change in quantity</label><input class="finp" type="number" id="scQ" placeholder="e.g. -5"></div>
+          <div class="fgrp full"><label class="flbl">Notes</label><textarea class="ftxt" id="scN" placeholder="What happened, briefly"></textarea></div>
+        </div></div>
+        <div class="dlg-f"><button class="btn btn-line" id="dlgCancel">Cancel</button><button class="btn btn-primary" id="saveCorr">${ic('check')}Apply it</button></div>`);
+      $('saveCorr').addEventListener('click', ()=>{
+        const m = DB.medicines.find(x=>x.id===($('scM').value));
+        const bid2 = DB.bid==='ALL'?'BR-001':DB.bid;
+        if (m) m.branchStock[bid2] = Math.max(0,(m.branchStock[bid2]||0)+(parseInt($('scQ').value)||0));
+        closeDialog(); render();
+        toast('The correction is on the record.','good','refresh');
+      });
+    });
+    mount.querySelectorAll('[data-addpo]').forEach(b=>b.addEventListener('click', ()=> toast('Added to the draft order in Procurement.','good','cart')));
+  }
+
+  function wireProc(){
+    const ps=$('poStat'); if (ps) ps.addEventListener('change', ()=>{ S.procF.s=ps.value; render(); });
+    mount.querySelectorAll('[data-appo]').forEach(b=>b.addEventListener('click', ()=>{ const p=DB.purchaseOrders.find(x=>x.id===b.dataset.appo); if (p){ p.status='approved'; render(); toast(`${p.id} approved.`,'good','check'); } }));
+    mount.querySelectorAll('[data-shipo]').forEach(b=>b.addEventListener('click', ()=>{ const p=DB.purchaseOrders.find(x=>x.id===b.dataset.shipo); if (p){ p.status='in-transit'; render(); toast(`${p.id} is on the road.`,'good','truck'); } }));
+    mount.querySelectorAll('[data-reco]').forEach(b=>b.addEventListener('click', ()=>{ const p=DB.purchaseOrders.find(x=>x.id===b.dataset.reco); if (p){ p.status='delivered'; p.items.forEach(item=>{ const m=DB.medicines.find(x=>x.name+' '+x.strength===item.med); if (m) m.branchStock[p.branch]=(m.branchStock[p.branch]||0)+item.qty; }); render(); toast(`${p.id} received — the shelf is updated.`,'good','checkCircle'); } }));
+    const np=$('newPOBtn');
+    if (np) np.addEventListener('click', ()=>{
+      openDialog(`<div class="dlg-h"><span class="dlg-title">Raise a purchase order</span></div>
+        <div class="dlg-b"><div class="fgrid">
+          <div class="fgrp full"><label class="flbl">Supplier</label><select class="fsel" id="poSup">${DB.suppliers.map(s=>`<option value="${s.id}">${esc(s.name)}</option>`).join('')}</select></div>
+          <div class="fgrp"><label class="flbl">Medicine</label><select class="fsel" id="poMed">${DB.medicines.map(m=>`<option value="${m.id}">${esc(m.name)} ${esc(m.strength)}</option>`).join('')}</select></div>
+          <div class="fgrp"><label class="flbl">Quantity</label><input class="finp" type="number" id="poQ" placeholder="0"></div>
+        </div></div>
+        <div class="dlg-f"><button class="btn btn-line" id="dlgCancel">Cancel</button><button class="btn btn-primary" id="savePO">${ic('check')}Raise it</button></div>`);
+      $('savePO').addEventListener('click', ()=>{
+        const sup = DB.suppliers.find(s=>s.id===$('poSup').value);
+        const med = DB.medicines.find(m=>m.id===$('poMed').value);
+        const qty = parseInt($('poQ').value)||0;
+        const id = DB.nextPO();
+        DB.purchaseOrders.unshift({ id, supplier:sup.name, sid:sup.id, items:[{ med:`${med.name} ${med.strength}`, qty, cost:med.costPrice }], total:qty*med.costPrice, status:'pending-approval', created:'2026-06-19', delivery:'2026-06-28', branch:DB.bid==='ALL'?'BR-001':DB.bid });
+        closeDialog(); render();
+        toast(`${id} is waiting on approval.`,'good','cart');
+      });
+    });
+  }
+
+  function wireCust(){
+    const q=$('custQ'), t=$('custTier');
+    if (q) q.addEventListener('input', ()=>{ S.custF.q=q.value; render(); });
+    if (t) t.addEventListener('change', ()=>{ S.custF.tier=t.value; render(); });
+    mount.querySelectorAll('[data-viewcust]').forEach(b=>b.addEventListener('click', ()=>{
+      const c = DB.customers.find(x=>x.id===b.dataset.viewcust); if (c) openDialog(customerDialog(c));
+    }));
+    const nc=$('newCustBtn');
+    if (nc) nc.addEventListener('click', ()=>{
+      openDialog(`<div class="dlg-h"><span class="dlg-title">Add a customer</span></div>
+        <div class="dlg-b"><div class="fgrid">
+          <div class="fgrp"><label class="flbl">Full name</label><input class="finp" id="ncN"></div>
+          <div class="fgrp"><label class="flbl">Phone</label><input class="finp" id="ncPh" placeholder="+256 7XX…"></div>
+          <div class="fgrp full"><label class="flbl">Email</label><input class="finp" id="ncEm" placeholder="email@example.com"></div>
+        </div></div>
+        <div class="dlg-f"><button class="btn btn-line" id="dlgCancel">Cancel</button><button class="btn btn-primary" id="saveCust">${ic('check')}Add them</button></div>`);
+      $('saveCust').addEventListener('click', ()=>{
+        const name = $('ncN').value.trim(); if (!name){ toast('A name is needed first.','critical','x'); return; }
+        const id = 'CUS-'+(2000+DB.customers.length+1);
+        DB.customers.unshift({ id, name, phone:$('ncPh').value||'—', email:$('ncEm').value||'—', joined:'2026-06-19', loyaltyPoints:0, totalSpent:0, branch:DB.bid==='ALL'?'BR-001':DB.bid, tier:'Bronze', lastVisit:'2026-06-19' });
+        closeDialog(); render();
+        toast(`${name} is on file now.`,'good','users');
+      });
+    });
+  }
+
+  function wireSup(){
+    mount.querySelectorAll('[data-viewsup]').forEach(b=>b.addEventListener('click', ()=>{
+      const s = DB.suppliers.find(x=>x.id===b.dataset.viewsup); if (!s) return;
+      const hist = DB.purchaseOrders.filter(p=>p.sid===s.id);
+      openDialog(`<div class="dlg-h"><span class="dlg-title">${esc(s.name)}</span></div>
+        <div class="dlg-b">
+          <div class="fgrid mb3"><div><div class="flbl">Contact</div><div style="font-size:13px;margin-top:3px;">${esc(s.contact)}</div></div><div><div class="flbl">Email</div><div style="font-size:13px;margin-top:3px;">${esc(s.email)}</div></div></div>
+          ${hist.length ? dataTable(['Order','Total','Status'], hist.map(p=>`<tr><td class="fmono">${p.id}</td><td class="num fmono">${DB.fc(p.total)}</td><td>${statusTag(p.status)}</td></tr>`).join('')) : `<p class="dim" style="font-size:12.5px;">No orders placed with them yet.</p>`}
+        </div>
+        <div class="dlg-f"><button class="btn btn-primary" id="dlgCancel">Close</button></div>`);
+    }));
+    mount.querySelectorAll('[data-newsuppo]').forEach(b=>b.addEventListener('click', ()=>{ nav('procurement'); setTimeout(()=>$('newPOBtn')&&$('newPOBtn').click(),100); }));
+  }
+
+  function wireBr(){
+    mount.querySelectorAll('[data-switchbr]').forEach(b=>b.addEventListener('click', ()=>{
+      DB.setBranch(b.dataset.switchbr);
+      document.querySelector('.nb-label').textContent = DB.branchName(b.dataset.switchbr);
+      toast(`Switched to ${DB.branchName(b.dataset.switchbr)}.`,'good','sitemap');
+      nav('dashboard');
+    }));
+    mount.querySelectorAll('[data-brana]').forEach(b=>b.addEventListener('click', ()=>{
+      DB.setBranch(b.dataset.brana);
+      document.querySelector('.nb-label').textContent = DB.branchName(b.dataset.brana);
+      nav('analytics');
+    }));
+  }
+
+  function wireFinanceView(){ const e=$('exportFinBtn'); if (e) e.addEventListener('click', ()=> toast('Building the financial export…','info','download')); }
+  function wireReportsView(){ const g=$('genReportBtn'); if (g) g.addEventListener('click', ()=> toast('Your report is generating — it will be ready shortly.','good','fileChart')); }
+
+  /* ---------------- SHELL CHROME ---------------- */
+  function wireShellChrome(){
+    document.body.addEventListener('click', e=>{
+      const item = e.target.closest('.nitem'); if (item){ nav(item.dataset.mod); }
+      const bnav = e.target.closest('.bnav-btn[data-mod]'); if (bnav){ nav(bnav.dataset.mod); }
+      const settingsBtn = e.target.closest('.nf-btn[data-mod]'); if (settingsBtn){ nav(settingsBtn.dataset.mod); }
+    });
+    document.body.addEventListener('keydown', e=>{
+      const item = e.target.closest('.nitem');
+      if (item && (e.key==='Enter'||e.key===' ')){ e.preventDefault(); nav(item.dataset.mod); }
+    });
+
+    $('navCollapse').addEventListener('click', ()=> $('navEl').classList.toggle('coll'));
+    $('hamburgerBtn').addEventListener('click', ()=>{ $('navEl').classList.add('mob-open'); $('navBackdrop').classList.add('on'); });
+    $('navBackdrop').addEventListener('click', closeMobNav);
+    $('bnavMore').addEventListener('click', ()=>{ $('navEl').classList.add('mob-open'); $('navBackdrop').classList.add('on'); });
+
+    $('themeBtn').addEventListener('click', ()=>{
+      const t = document.documentElement.dataset.theme==='dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', t);
+      $('themeBtn').innerHTML = t==='dark' ? ic('sun') : ic('moon');
+    });
+
+    /* branch dropdown */
+    const branchDrop = $('branchDrop');
+    $('branchBtn').addEventListener('click', e=>{
+      e.stopPropagation();
+      let h = `<div class="ddhead">Switch branch</div><div class="dditem${DB.bid==='ALL'?' on':''}" data-bs="ALL"><span class="dddot" style="background:var(--gold)"></span>All branches, consolidated</div>`;
+      DB.branches.forEach(b=>{ h += `<div class="dditem${DB.bid===b.id?' on':''}" data-bs="${b.id}"><span class="dddot" style="background:${b.status==='active'?'var(--good)':'var(--caution)'}"></span>${esc(b.name)}</div>`; });
+      branchDrop.innerHTML = h;
+      const r = $('branchBtn').getBoundingClientRect();
+      branchDrop.style.top = (r.bottom+6)+'px'; branchDrop.style.left = r.left+'px';
+      branchDrop.classList.toggle('on');
+    });
+    document.addEventListener('click', e=>{ if (!branchDrop.contains(e.target) && e.target!==$('branchBtn')) branchDrop.classList.remove('on'); });
+    branchDrop.addEventListener('click', e=>{
+      const el = e.target.closest('[data-bs]'); if (!el) return;
+      DB.setBranch(el.dataset.bs);
+      document.querySelector('.nb-label').textContent = el.dataset.bs==='ALL' ? 'All branches' : DB.branchName(el.dataset.bs);
+      branchDrop.classList.remove('on');
+      toast(`Now looking at ${el.dataset.bs==='ALL'?'all branches':DB.branchName(el.dataset.bs)}.`,'good','sitemap');
+      render();
+    });
+
+    /* search */
+    const gsi=$('gSearchInput'), sd=$('searchDrop');
+    let sdTimer;
+    gsi.addEventListener('input', e=>{
+      clearTimeout(sdTimer);
+      sdTimer = setTimeout(()=>{
+        const q = e.target.value.trim().toLowerCase();
+        if (q.length<2){ sd.classList.remove('on'); return; }
+        const res = [];
+        DB.medicines.filter(m=>m.name.toLowerCase().includes(q)||m.barcode.includes(q)).slice(0,3).forEach(m=>res.push({tag:'Medicine', name:`${m.name} ${m.strength}`, sub:`${m.category} · ${DB.fc(m.sellPrice)}`, go:()=>nav('inventory')}));
+        DB.customers.filter(c=>c.name.toLowerCase().includes(q)||c.phone.includes(q)).slice(0,3).forEach(c=>res.push({tag:'Customer', name:c.name, sub:`${c.phone} · ${c.tier}`, go:()=>{ nav('customers'); setTimeout(()=>{ const b=mount.querySelector(`[data-viewcust="${c.id}"]`); if (b) b.click(); },120); }}));
+        DB.prescriptions.filter(p=>p.patient.toLowerCase().includes(q)||p.id.toLowerCase().includes(q)).slice(0,2).forEach(p=>res.push({tag:'Prescription', name:`${p.id} — ${p.patient}`, sub:p.status.replace(/-/g,' '), go:()=>{ nav('prescriptions'); setTimeout(()=>openRxDialog(p.id),120); }}));
+        DB.suppliers.filter(s=>s.name.toLowerCase().includes(q)).slice(0,2).forEach(s=>res.push({tag:'Supplier', name:s.name, sub:s.category, go:()=>nav('suppliers')}));
+        DB.purchaseOrders.filter(p=>p.id.toLowerCase().includes(q)||p.supplier.toLowerCase().includes(q)).slice(0,2).forEach(p=>res.push({tag:'Order', name:p.id, sub:`${p.supplier} · ${DB.fc(p.total)}`, go:()=>nav('procurement')}));
+        DB.branches.filter(b=>b.name.toLowerCase().includes(q)).slice(0,2).forEach(b=>res.push({tag:'Branch', name:b.name, sub:b.city, go:()=>nav('branches')}));
+        sd._res = res;
+        sd.innerHTML = res.length ? res.map((r,i)=>`<div class="sr" data-ri="${i}"><span class="sr-tag">${r.tag}</span><div><div class="sr-name">${esc(r.name)}</div><div class="sr-sub">${esc(r.sub)}</div></div></div>`).join('') : `<div style="padding:22px;text-align:center;color:var(--text-faint);font-size:13px;">Nothing turns up for "${esc(q)}"</div>`;
+        sd.classList.add('on');
+      }, 140);
+    });
+    sd.addEventListener('click', e=>{ const el=e.target.closest('[data-ri]'); if (!el) return; const res=sd._res; if (res&&res[+el.dataset.ri]){ res[+el.dataset.ri].go(); gsi.value=''; sd.classList.remove('on'); } });
+    document.addEventListener('click', e=>{ if (!$('gsearchBox').contains(e.target)) sd.classList.remove('on'); });
+    document.addEventListener('keydown', e=>{ if ((e.metaKey||e.ctrlKey)&&e.key==='k'){ e.preventDefault(); gsi.focus(); } if (e.key==='Escape'){ sd.classList.remove('on'); closeDialog(); } });
+
+    /* notifications */
+    $('notifBtn').addEventListener('click', ()=>{
+      $('notifBody').innerHTML = DB.notifications.map(n=>`<div class="nrow${n.unread?' unread':''}"><div class="nrow-ico tone-${n.tone}">${ic(n.icon)}</div><div><div class="nrow-title">${esc(n.title)}</div><div class="nrow-desc">${esc(n.desc)}</div><div class="nrow-time">${esc(n.time)}</div></div></div>`).join('');
+      openPanel($('notifPanel'));
+    });
+    $('notifClose').addEventListener('click', ()=>closePanel($('notifPanel')));
+
+    /* AI */
+    const aiPanel=$('aiPanel'), aiMsgs=$('aiMsgs'), aiInput=$('aiInput'), aiChips=$('aiChips');
+    const chips = ['Forecast next month\'s demand','What needs reordering?','How did today go?','What\'s close to expiring?','Suggest a purchasing plan'];
+    function renderChips(){ aiChips.innerHTML = chips.map(c=>`<div class="ai-chip" data-cp="${esc(c)}">${esc(c)}</div>`).join(''); }
+    function addMsg(role, html){ const d=document.createElement('div'); d.className=`ai-msg ${role}`; d.innerHTML = role==='b' ? `<div class="ai-msg-lbl">Mona</div>${html}` : esc(html); aiMsgs.appendChild(d); aiMsgs.scrollTop = aiMsgs.scrollHeight; }
+    function aiAnswer(q){
+      const ql = q.toLowerCase(), bid = DB.bid;
+      if (ql.includes('forecast')||ql.includes('demand')) return `Antimalarial demand tends to climb about 14% as the rains set in — worth carrying roughly 180 extra units of Coartem across the branches over the next few weeks before the curve turns.`;
+      if (ql.includes('reorder')||ql.includes('restock')||ql.includes('low')){ const low=DB.lowStock(bid); return low.length ? `${low.length} line${low.length>1?'s need':' needs'} attention: ${low.slice(0,4).map(m=>`<strong>${esc(m.name)}</strong> (${DB.getStock(m,bid)} left)`).join(', ')}. There's a ready-made suggestion sitting in Inventory's Worth Reordering tab.` : `Everything is sitting above its reorder point right now — nothing urgent on the shelf.`; }
+      if (ql.includes('today')||ql.includes('how did')||ql.includes('perform')){ const t=DB.sales.filter(s=>s.date.startsWith('2026-06-19')); const tot=t.reduce((s,x)=>s+x.total,0); return `${t.length} sale${t.length!==1?'s':''} so far today, totalling <strong>${DB.fc(tot)}</strong>. Prescription approvals are keeping pace with the queue.`; }
+      if (ql.includes('expir')){ const e=DB.expiringWithin(90,bid); return e.length ? `${e.length} batch${e.length>1?'es are':' is'} due within 90 days — ${e.slice(0,3).map(m=>esc(m.name)).join(', ')} among them. Worth pushing these forward under the first-expiry-first-out rule before they tip into write-off territory.` : `Nothing is closing in on its expiry window in the next 90 days.`; }
+      if (ql.includes('purchas')||ql.includes('order')){ const pa=DB.purchaseOrders.filter(p=>p.status==='pending-approval'); return `${pa.length} order${pa.length!==1?'s are':' is'} waiting on a signature, worth ${DB.fc(pa.reduce((s,p)=>s+p.total,0))} altogether. Ibuprofen and Metformin are both worth adding to the next order — they're trending toward their reorder points.`; }
+      return `I can help most with stock levels, expiry windows, today's sales, or what's worth reordering — ask me about any of those and I'll pull the real numbers.`;
+    }
+    function sendAi(){
+      const t = aiInput.value.trim(); if (!t) return;
+      addMsg('u', t); aiInput.value=''; aiChips.innerHTML='';
+      const typing = document.createElement('div'); typing.className='ai-msg b';
+      typing.innerHTML = `<div class="ai-msg-lbl">Mona</div><div class="ai-typing"><span></span><span></span><span></span></div>`;
+      aiMsgs.appendChild(typing); aiMsgs.scrollTop = aiMsgs.scrollHeight;
+      setTimeout(()=>{ typing.remove(); addMsg('b', aiAnswer(t)); renderChips(); }, 620);
+    }
+    $('aiBtn').addEventListener('click', ()=>{
+      openPanel(aiPanel);
+      if (!aiMsgs.children.length){ addMsg('b', `Morning. I can read the live numbers across whichever branch you're looking at — ask me about stock, expiry risk, today's sales, or what's worth ordering next.`); renderChips(); }
+    });
+    $('aiClose').addEventListener('click', ()=>closePanel(aiPanel));
+    $('aiSend').addEventListener('click', sendAi);
+    aiInput.addEventListener('keydown', e=>{ if (e.key==='Enter') sendAi(); });
+    aiChips.addEventListener('click', e=>{ const c=e.target.closest('[data-cp]'); if (c){ aiInput.value=c.dataset.cp; sendAi(); } });
+    $('scrim').addEventListener('click', ()=>{ closePanel($('notifPanel')); closePanel(aiPanel); });
+  }
+
+  function closeMobNav(){ $('navEl').classList.remove('mob-open'); $('navBackdrop').classList.remove('on'); }
+  function openPanel(el){ el.classList.add('on'); $('scrim').classList.add('on'); }
+  function closePanel(el){ el.classList.remove('on'); $('scrim').classList.remove('on'); }
+
+  function updateMobileBadges(){
+    const pending = DB.prescriptions.filter(p=>p.status==='pending-review').length;
+    const low = DB.lowStock(DB.bid).length;
+    const rxB = $('rxBadge'); if (rxB){ rxB.style.display = pending>0?'inline-flex':'none'; rxB.textContent = pending; }
+    const invB = $('invBadge'); if (invB){ invB.style.display = low>0?'inline-flex':'none'; invB.textContent = low; invB.classList.toggle('b-accent', true); }
+    const flag = $('bnavRxFlag'); if (flag) flag.style.display = pending>0?'block':'none';
+  }
+
+  /* ---------------- DIALOG / TOAST ---------------- */
+  function openDialog(html){
+    $('dlg').innerHTML = html;
+    $('dlgScrim').classList.add('on');
+    const c = $('dlgCancel'); if (c) c.addEventListener('click', closeDialog);
+  }
+  function closeDialog(){ $('dlgScrim').classList.remove('on'); $('dlg').innerHTML=''; }
+  document.addEventListener('DOMContentLoaded', ()=>{
+    document.getElementById('dlgScrim') && document.getElementById('dlgScrim').addEventListener('click', e=>{ if (e.target.id==='dlgScrim') closeDialog(); });
+  });
+
+  const toastIcons = { good:'checkCircle', caution:'clock', critical:'x', info:'sparkle' };
+  function toast(msg, tone, icon){
+    tone = tone || 'info';
+    const t = document.createElement('div');
+    t.className = `toast t-${tone}`;
+    t.innerHTML = `<span class="toast-icon">${ic(icon||toastIcons[tone]||'sparkle')}</span><span>${esc(msg)}</span>`;
+    $('toasts').appendChild(t);
+    setTimeout(()=>{ t.classList.add('out'); setTimeout(()=>t.remove(),200); }, 3600);
+  }
+
+  /* ---------------- GATE / LOGIN ---------------- */
+  function wireGate(){
+    const submit = $('gateSubmit');
+    submit.addEventListener('click', ()=>{
+      const email = $('gateEmail').value.trim().toLowerCase();
+      const account = accounts[email] || accounts['amara.mukasa@monalisapharma.com'];
+      DB.setUser(account);
+      submit.disabled = true;
+      submit.innerHTML = `<span class="spin" style="width:16px;height:16px;border-width:2px;"></span><span>Opening the floor…</span>`;
+      setTimeout(()=>{
+        $('gate').classList.add('leaving');
+        setTimeout(()=>{ $('gate').remove(); startApp(); }, 480);
+      }, 520);
+    });
+    $('gatePass').addEventListener('keydown', e=>{ if (e.key==='Enter') submit.click(); });
+  }
+
+  /* ---------------- BOOT ---------------- */
+  buildShell();
+  wireGate();
+
+})();
+
+</script>
+</body>
+</html>
